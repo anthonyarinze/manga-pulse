@@ -4,7 +4,6 @@ import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
-import useMediaQuery from "../hooks/useMediaQuery";
 
 const Main = styled.main`
   overflow: scroll;
@@ -36,8 +35,6 @@ function AppLayout() {
   const toggleSidebar = () => {
     setIsSidebarOpen((isSidebarOpen) => !isSidebarOpen);
   };
-
-  const isMobile = useMediaQuery("756");
 
   return (
     <StyledAppLayout isSidebarOpen={isSidebarOpen}>

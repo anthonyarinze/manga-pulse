@@ -1,25 +1,25 @@
 import { createGlobalStyle } from "styled-components";
 
-/* ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: var(--color-grey-100);
-    border-radius: 8px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    border-radius: 20px;
-    background: var(--color-brand-600);
-  } */
-
 const GlobalStyles = createGlobalStyle`
 :root {
- 
-  height: 100dvh;
-  width: 100dvw;
+  
+  height: 100vh;
+  width: 100vw;
+  
+  ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+  
+    ::-webkit-scrollbar-track {
+      background: var(--color-grey-100);
+      border-radius: 8px;
+    }
+  
+    ::-webkit-scrollbar-thumb {
+      border-radius: 20px;
+      background: var(--color-brand-800);
+    }
 
  &, &.dark-mode{
     --color-grey-0: #18212f;
@@ -90,6 +90,7 @@ html {
 body {
   font-family: "Noto Sans", sans-serif;
   color: var(--color-grey-700);
+  /* color: #FFA364; */
   font-optical-sizing: auto;
   transition: color 0.3s, background-color 0.3s;
   min-height: 100vh;
