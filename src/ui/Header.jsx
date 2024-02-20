@@ -83,7 +83,6 @@ function Header({ toggleSidebar, isSidebarOpen }) {
   const handleSearchChange = (event) => {
     const query = event.target.value;
     setSearchQuery(query);
-
     setIsSearchOpen(query.length > 0);
   };
 

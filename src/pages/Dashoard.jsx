@@ -3,9 +3,6 @@ import Popular from "../ui/Popular";
 import Anime from "../ui/Anime";
 
 const StyledDashboard = styled.section`
-  width: 100vw;
-  height: 100vh;
-
   ::-webkit-scrollbar {
     display: none;
   }

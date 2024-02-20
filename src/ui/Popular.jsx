@@ -2,21 +2,23 @@ import styled from "styled-components";
 import { useGetPopularAnime } from "../api/useGetPopularAnime";
 import Spinner from "../ui/Spinner";
 import PopularTitles from "../ui/PopularTitles";
+import Loading from "./Loading";
 
 const StyledPopular = styled.div`
-  height: 38%;
+  height: 42%;
   width: 100%;
   display: flex;
   overflow: scroll;
   margin-top: 2rem;
   align-items: center;
-  justify-content: space-around;
 `;
 
 const StyledHeading = styled.h3`
-  font-size: 2.5rem;
+  display: flex;
   margin-top: 2rem;
+  font-size: 2.5rem;
   margin-left: 1.5rem;
+  justify-content: center;
 `;
 
 const Popular = () => {
@@ -29,15 +31,19 @@ const Popular = () => {
   return (
     <>
       <StyledHeading>Popular Titles</StyledHeading>
+
+      {isGettingPopular && <Loading label="Loading Popular Titles..." />}
+      {error && <p>Error: {error.message}</p>}
       <StyledPopular>
-        {data.map((anime) => (
-          <PopularTitles
-            image={anime.webp}
-            link={anime.url}
-            title={anime.title}
-            key={anime.mal_id}
-          />
-        ))}
+        {data &&
+          data.map((anime) => (
+            <PopularTitles
+              image={anime.webp}
+              link={anime.url}
+              title={anime.title}
+              key={anime.mal_id}
+            />
+          ))}
       </StyledPopular>
     </>
   );

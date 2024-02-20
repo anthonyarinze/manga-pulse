@@ -1,27 +1,26 @@
 import styled from "styled-components";
 
 const StyledRecommendedCard = styled.div`
-  position: relative;
   width: 200px;
   height: 240px;
   cursor: pointer;
+  overflow: hidden;
   max-height: 250px;
   border-radius: 8px;
-  background-color: red;
-  overflow: hidden;
+  position: relative;
   transition: transform 0.2s ease;
 
   &:hover {
     transform: scale(1.05);
 
     &::before {
-      content: "";
-      position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(0, 0, 0, 0.5); /* Adjust the opacity as needed */
+      content: "";
+      position: absolute;
+      background: rgba(0, 0, 0, 0.5);
     }
   }
 `;
@@ -31,12 +30,12 @@ const CardContent = styled.div`
   height: 100%;
   display: flex;
   padding: 20px;
-  color: white;
   overflow: hidden;
   position: relative;
   flex-direction: column;
   box-sizing: border-box;
   justify-content: flex-end;
+  color: var(--color-grey-800);
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
 `;
 

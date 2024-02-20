@@ -5,27 +5,30 @@ import Header from "./Header";
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
 
-const Main = styled.main`
-  overflow: scroll;
-  background-color: var(--color-grey-50);
-`;
-
 const StyledAppLayout = styled.div`
-  width: 100dvw;
+  width: 100vw;
+  height: 100vh;
   display: grid;
-  height: 100dvh;
-  overflow: auto;
   grid-template-rows: auto 1fr;
   transition: grid-template-columns 0.3s ease;
   grid-template-columns: ${({ isSidebarOpen }) =>
     isSidebarOpen ? "22rem 1fr" : ""};
 `;
 
-const Container = styled.div`
+const Main = styled.main`
   width: 100%;
   height: 100%;
+  overflow: scroll;
+  overflow-x: hidden;
+  align-items: center;
+  background-color: var(--color-grey-50);
+`;
+
+const Container = styled.section`
+  height: 100%;
+  width: 100%;
+  //removed height and width. potential issue
   display: flex;
-  max-width: 120rem;
   flex-direction: column;
 `;
 
