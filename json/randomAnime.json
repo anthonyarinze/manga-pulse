@@ -1,0 +1,123 @@
+{
+  "data": {
+    "mal_id": 35301,
+    "url": "https://myanimelist.net/anime/35301/Chiruran__Nibun_no_Ichi_Special",
+    "images": {
+      "jpg": {
+        "image_url": "https://cdn.myanimelist.net/images/anime/6/85023.jpg",
+        "small_image_url": "https://cdn.myanimelist.net/images/anime/6/85023t.jpg",
+        "large_image_url": "https://cdn.myanimelist.net/images/anime/6/85023l.jpg"
+      },
+      "webp": {
+        "image_url": "https://cdn.myanimelist.net/images/anime/6/85023.webp",
+        "small_image_url": "https://cdn.myanimelist.net/images/anime/6/85023t.webp",
+        "large_image_url": "https://cdn.myanimelist.net/images/anime/6/85023l.webp"
+      }
+    },
+    "trailer": {
+      "youtube_id": null,
+      "url": null,
+      "embed_url": null,
+      "images": {
+        "image_url": null,
+        "small_image_url": null,
+        "medium_image_url": null,
+        "large_image_url": null,
+        "maximum_image_url": null
+      }
+    },
+    "approved": true,
+    "titles": [
+      {
+        "type": "Default",
+        "title": "Chiruran: Nibun no Ichi Special"
+      },
+      {
+        "type": "Japanese",
+        "title": "ちるらん にぶんの壱"
+      },
+      {
+        "type": "English",
+        "title": "Chiruran 1/2"
+      }
+    ],
+    "title": "Chiruran: Nibun no Ichi Special",
+    "title_english": "Chiruran 1/2",
+    "title_japanese": "ちるらん にぶんの壱",
+    "title_synonyms": [],
+    "type": "Special",
+    "source": "Manga",
+    "episodes": 1,
+    "status": "Finished Airing",
+    "airing": false,
+    "aired": {
+      "from": "2017-05-26T00:00:00+00:00",
+      "to": null,
+      "prop": {
+        "from": {
+          "day": 26,
+          "month": 5,
+          "year": 2017
+        },
+        "to": {
+          "day": null,
+          "month": null,
+          "year": null
+        }
+      },
+      "string": "May 26, 2017"
+    },
+    "duration": "2 min",
+    "rating": "PG-13 - Teens 13 or older",
+    "score": 5.46,
+    "scored_by": 247,
+    "rank": 11440,
+    "popularity": 13045,
+    "members": 1055,
+    "favorites": 1,
+    "synopsis": "An unaired episode 13 released on the DVD of release of Chiruran: Nibun no Ichi.",
+    "background": null,
+    "season": null,
+    "year": null,
+    "broadcast": {
+      "day": null,
+      "time": null,
+      "timezone": null,
+      "string": null
+    },
+    "producers": [],
+    "licensors": [],
+    "studios": [
+      {
+        "mal_id": 563,
+        "type": "anime",
+        "name": "LandQ studios",
+        "url": "https://myanimelist.net/anime/producer/563/LandQ_studios"
+      }
+    ],
+    "genres": [
+      {
+        "mal_id": 1,
+        "type": "anime",
+        "name": "Action",
+        "url": "https://myanimelist.net/anime/genre/1/Action"
+      },
+      {
+        "mal_id": 4,
+        "type": "anime",
+        "name": "Comedy",
+        "url": "https://myanimelist.net/anime/genre/4/Comedy"
+      }
+    ],
+    "explicit_genres": [],
+    "themes": [
+      {
+        "mal_id": 13,
+        "type": "anime",
+        "name": "Historical",
+        "url": "https://myanimelist.net/anime/genre/13/Historical"
+      }
+    ],
+    "demographics": []
+  }
+}

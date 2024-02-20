@@ -101,17 +101,19 @@ function Header({ toggleSidebar, isSidebarOpen }) {
         />
         {isSearchOpen && searchResults && searchResults.length > 0 && (
           <StyledDropdown>
-            {searchResults.map((result, index) => (
-              <SearchResultItem
-                key={index}
-                url={result.url}
-                webp={result.webp}
-                rating={result.score}
-                status={result.status}
-                episodes={result.episodes}
-                name={result.englishTitle}
-              />
-            ))}
+            {searchResults
+              .filter((result) => result.englishTitle)
+              .map((result, index) => (
+                <SearchResultItem
+                  key={index}
+                  url={result.url}
+                  webp={result.webp}
+                  rating={result.score}
+                  status={result.status}
+                  episodes={result.episodes}
+                  name={result.englishTitle}
+                />
+              ))}
           </StyledDropdown>
         )}
       </StyledIcons>
@@ -120,3 +122,14 @@ function Header({ toggleSidebar, isSidebarOpen }) {
 }
 
 export default Header;
+
+// const recommendations = await getRecommendedAnime();
+// recommendations.forEach((recommendation) => {
+//   recommendation.entries.forEach((entry) => {
+//     console.log("Mal ID:", entry.mal_id);
+//     console.log("URL:", entry.url);
+//     console.log("WebP:", entry.webp);
+//     console.log("Title:", entry.title);
+//   });
+//   console.log("Content:", recommendation.content);
+// });

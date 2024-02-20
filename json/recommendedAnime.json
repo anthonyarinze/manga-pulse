@@ -1,0 +1,53 @@
+{
+  "pagination": {
+    "last_visible_page": 20,
+    "has_next_page": true
+  },
+  "data": [
+    {
+      "mal_id": "25731-41457",
+      "entry": [
+        {
+          "mal_id": 25731,
+          "url": "https://myanimelist.net/anime/25731/Cross_Ange__Tenshi_to_Ryuu_no_Rondo",
+          "images": {
+            "jpg": {
+              "image_url": "https://cdn.myanimelist.net/images/anime/2/67515.jpg",
+              "small_image_url": "https://cdn.myanimelist.net/images/anime/2/67515t.jpg",
+              "large_image_url": "https://cdn.myanimelist.net/images/anime/2/67515l.jpg"
+            },
+            "webp": {
+              "image_url": "https://cdn.myanimelist.net/images/anime/2/67515.webp",
+              "small_image_url": "https://cdn.myanimelist.net/images/anime/2/67515t.webp",
+              "large_image_url": "https://cdn.myanimelist.net/images/anime/2/67515l.webp"
+            }
+          },
+          "title": "Cross Ange: Tenshi to Ryuu no Rondo"
+        },
+        {
+          "mal_id": 41457,
+          "url": "https://myanimelist.net/anime/41457/86",
+          "images": {
+            "jpg": {
+              "image_url": "https://cdn.myanimelist.net/images/anime/1987/117507.jpg",
+              "small_image_url": "https://cdn.myanimelist.net/images/anime/1987/117507t.jpg",
+              "large_image_url": "https://cdn.myanimelist.net/images/anime/1987/117507l.jpg"
+            },
+            "webp": {
+              "image_url": "https://cdn.myanimelist.net/images/anime/1987/117507.webp",
+              "small_image_url": "https://cdn.myanimelist.net/images/anime/1987/117507t.webp",
+              "large_image_url": "https://cdn.myanimelist.net/images/anime/1987/117507l.webp"
+            }
+          },
+          "title": "86"
+        }
+      ],
+      "content": "- Totally oblivious princess who quickly learns the truth and turns into a badass? - Hidden truths of the world that need to be uncovered? - Racism that needs to be shattered? - Mechs? The themes are both incredibly similar. Cross Ange goes even harder on following the badass chick. I've seen most of the other shows that are recommended after watching 86, and none of them even come close to Cross Ange. Especially the first half of both.",
+      "date": "2024-02-19T07:31:03+00:00",
+      "user": {
+        "url": "https://myanimelist.net/profile/webM-guy",
+        "username": "webM-guy"
+      }
+    }
+  ]
+}

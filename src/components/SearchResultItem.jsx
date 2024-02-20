@@ -44,21 +44,27 @@ const StyledTitle = styled.h5`
   text-overflow: ellipsis;
 `;
 
-const StyledDetails = styled.span``;
+const StyledDetails = styled.span`
+  font-size: smaller;
+`;
 
 const StyledStatus = styled.p`
   height: 20px;
   font-size: smaller;
 `;
 
-const SearchResultItem = ({ webp, name, rating, status, episodes }) => {
+const SearchResultItem = ({ webp, name, rating, status, episodes, url }) => {
+  const handleClick = (url) => {
+    window.open(url, "_blank");
+  };
+
   return (
-    <StyledSearchResultItem>
+    <StyledSearchResultItem onClick={() => handleClick(url)}>
       <StyledImg src={webp} alt="img" />
       <StyledBody>
         <StyledTitle>{name}</StyledTitle>
         <StyledDetails>
-          {rating} • {episodes}
+          {rating} • {episodes} {episodes > 1 ? "episodes" : "episode"}
         </StyledDetails>
         <StyledStatus>{status}</StyledStatus>
       </StyledBody>

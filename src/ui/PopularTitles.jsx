@@ -1,14 +1,5 @@
 import styled from "styled-components";
 
-// const infiniteScroll = keyframes`
-//   from {
-//     transform: "translateX(0)"
-//   },
-//   to {
-//     transform: "translateX(-100%)"
-//   }
-// `;
-
 const CardContainer = styled.div`
   width: 180px;
   height: 100%;
