@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { BiMenu } from "react-icons/bi";
 import { HiOutlineUser } from "react-icons/hi2";
-import { useState } from "react";
-import { useGetAnime } from "../api/useGetAnime";
+import { useEffect, useRef, useState } from "react";
+import { useGetSearchResults } from "../api/useGetSearchResults";
 import SearchResultItem from "../components/SearchResultItem";
 
 const StyledHeader = styled.header`
@@ -71,20 +71,64 @@ const StyledSearchBar = styled.input`
 
 function Header({ toggleSidebar, isSidebarOpen }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [immediateSearchQuery, setImmediateSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
+  const dropDownRef = useRef(null);
+  const isSearchBarFocused = useRef(false);
 
   const {
     isLoading,
     error,
-    // data: { url, mal_id, webp, score, scoredBy, synopsis, defaultTitle },
     data: searchResults,
-  } = useGetAnime(searchQuery);
+  } = useGetSearchResults(debouncedSearchQuery);
 
-  const handleSearchChange = (event) => {
-    const query = event.target.value;
-    setSearchQuery(query);
-    setIsSearchOpen(query.length > 0);
+  const debounce = (func, delay) => {
+    let timerId;
+    return function (...args) {
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+      timerId = setTimeout(() => {
+        func.apply(this, args);
+      }, delay);
+    };
   };
+
+  const handleImmediateSearchQuery = (event) => {
+    const query = event.target.value;
+    setImmediateSearchQuery(query);
+  };
+
+  // Update search query after a delay to debounce the API calls
+  const debouncedSearch = debounce((value) => {
+    setDebouncedSearchQuery(value);
+    setIsSearchOpen(value.length > 0);
+  }, 500);
+
+  const handleClickOutside = (event) => {
+    if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
+      setIsSearchOpen(false);
+    }
+  };
+
+  const handleSearchBarFocus = () => {
+    isSearchBarFocused.current = true;
+  };
+
+  const handleSearchBarBlur = () => {
+    isSearchBarFocused.current = false;
+  };
+
+  useEffect(() => {
+    debouncedSearch(immediateSearchQuery);
+  }, [immediateSearchQuery, debouncedSearch]);
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   return (
     <StyledHeader>
@@ -94,41 +138,36 @@ function Header({ toggleSidebar, isSidebarOpen }) {
           <HiOutlineUser />
         </StyledIconBubble>
         <StyledSearchBar
-          value={searchQuery}
           placeholder="Search..."
-          onChange={handleSearchChange}
+          value={immediateSearchQuery}
+          onBlur={handleSearchBarBlur}
+          onFocus={handleSearchBarFocus}
+          onChange={handleImmediateSearchQuery}
         />
-        {isSearchOpen && searchResults && searchResults.length > 0 && (
-          <StyledDropdown>
-            {searchResults
-              .filter((result) => result.englishTitle)
-              .map((result, index) => (
-                <SearchResultItem
-                  key={index}
-                  url={result.url}
-                  webp={result.webp}
-                  rating={result.score}
-                  status={result.status}
-                  episodes={result.episodes}
-                  name={result.englishTitle}
-                />
-              ))}
-          </StyledDropdown>
-        )}
+        {isSearchOpen &&
+          isSearchBarFocused.current &&
+          searchResults &&
+          searchResults.length > 0 && (
+            <StyledDropdown ref={dropDownRef}>
+              {searchResults
+                .filter((result) => result.englishTitle)
+                .map((result, index) => (
+                  <SearchResultItem
+                    key={index}
+                    url={result.url}
+                    webp={result.webp}
+                    rating={result.score}
+                    status={result.status}
+                    episodes={result.episodes}
+                    name={result.englishTitle}
+                    mediaType={result.mediaType}
+                  />
+                ))}
+            </StyledDropdown>
+          )}
       </StyledIcons>
     </StyledHeader>
   );
 }
 
 export default Header;
-
-// const recommendations = await getRecommendedAnime();
-// recommendations.forEach((recommendation) => {
-//   recommendation.entries.forEach((entry) => {
-//     console.log("Mal ID:", entry.mal_id);
-//     console.log("URL:", entry.url);
-//     console.log("WebP:", entry.webp);
-//     console.log("Title:", entry.title);
-//   });
-//   console.log("Content:", recommendation.content);
-// });

@@ -1,0 +1,139 @@
+{
+  "pagination": {
+    "last_visible_page": 1,
+    "has_next_page": false,
+    "current_page": 1,
+    "items": {
+      "count": 9,
+      "total": 9,
+      "per_page": 25
+    }
+  },
+  "data": [
+    {
+      "mal_id": 160786,
+      "url": "https://myanimelist.net/manga/160786/Boruto__Two_Blue_Vortex",
+      "images": {
+        "jpg": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/2/296325.jpg",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/296325t.jpg",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/296325l.jpg"
+        },
+        "webp": {
+          "image_url": "https://cdn.myanimelist.net/images/manga/2/296325.webp",
+          "small_image_url": "https://cdn.myanimelist.net/images/manga/2/296325t.webp",
+          "large_image_url": "https://cdn.myanimelist.net/images/manga/2/296325l.webp"
+        }
+      },
+      "approved": true,
+      "titles": [
+        {
+          "type": "Default",
+          "title": "Boruto: Two Blue Vortex"
+        },
+        {
+          "type": "Japanese",
+          "title": "BORUTO-ボルト- -TWO BLUE VORTEX-"
+        },
+        {
+          "type": "English",
+          "title": "Boruto: Two Blue Vortex"
+        }
+      ],
+      "title": "Boruto: Two Blue Vortex",
+      "title_english": "Boruto: Two Blue Vortex",
+      "title_japanese": "BORUTO-ボルト- -TWO BLUE VORTEX-",
+      "title_synonyms": [],
+      "type": "Manga",
+      "chapters": null,
+      "volumes": null,
+      "status": "Publishing",
+      "publishing": true,
+      "published": {
+        "from": "2023-08-21T00:00:00+00:00",
+        "to": null,
+        "prop": {
+          "from": {
+            "day": 21,
+            "month": 8,
+            "year": 2023
+          },
+          "to": {
+            "day": null,
+            "month": null,
+            "year": null
+          }
+        },
+        "string": "Aug 21, 2023 to ?"
+      },
+      "score": 8.06,
+      "scored": 8.06,
+      "scored_by": 8066,
+      "rank": 639,
+      "popularity": 902,
+      "members": 19770,
+      "favorites": 793,
+      "synopsis": "With everyone's memories having been altered, Boruto finds himself being hunted by his own village. After escaping with Sasuke, what future awaits Boruto...? (Source: MANGA Plus)",
+      "background": "Boruto: Two Blue Vortex has been published digitally as an English simulpub through MANGA Plus.",
+      "authors": [
+        {
+          "mal_id": 1879,
+          "type": "people",
+          "name": "Kishimoto, Masashi",
+          "url": "https://myanimelist.net/people/1879/Masashi_Kishimoto"
+        },
+        {
+          "mal_id": 4529,
+          "type": "people",
+          "name": "Ikemoto, Mikio",
+          "url": "https://myanimelist.net/people/4529/Mikio_Ikemoto"
+        }
+      ],
+      "serializations": [
+        {
+          "mal_id": 168,
+          "type": "manga",
+          "name": "V-Jump",
+          "url": "https://myanimelist.net/manga/magazine/168/V-Jump"
+        }
+      ],
+      "genres": [
+        {
+          "mal_id": 1,
+          "type": "manga",
+          "name": "Action",
+          "url": "https://myanimelist.net/manga/genre/1/Action"
+        },
+        {
+          "mal_id": 2,
+          "type": "manga",
+          "name": "Adventure",
+          "url": "https://myanimelist.net/manga/genre/2/Adventure"
+        },
+        {
+          "mal_id": 10,
+          "type": "manga",
+          "name": "Fantasy",
+          "url": "https://myanimelist.net/manga/genre/10/Fantasy"
+        }
+      ],
+      "explicit_genres": [],
+      "themes": [
+        {
+          "mal_id": 17,
+          "type": "manga",
+          "name": "Martial Arts",
+          "url": "https://myanimelist.net/manga/genre/17/Martial_Arts"
+        }
+      ],
+      "demographics": [
+        {
+          "mal_id": 27,
+          "type": "manga",
+          "name": "Shounen",
+          "url": "https://myanimelist.net/manga/genre/27/Shounen"
+        }
+      ]
+    }
+  ]
+}

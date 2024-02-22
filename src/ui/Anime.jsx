@@ -1,26 +1,27 @@
 import styled from "styled-components";
 import { StyledSectionHeader } from "./SectionHeader";
 import RecommendedCard from "../components/RecommendedCard";
-import { useGetRecommendedAnime } from "../api/useGetRecommendedAnime";
+import { useGetRecommendedAnime } from "../api/anime/useGetRecommendedAnime";
 import Loading from "../ui/Loading";
 import { useState } from "react";
+import Popular from "./Popular";
+import ShowMoreLessButtons from "../components/ShowMoreLessButtons";
 
 const StyledSection = styled.section`
   width: 100vw;
-  height: 350px;
   display: flex;
-  margin-top: 8rem;
   align-items: start;
   flex-direction: column;
 `;
 
 const StyledMainRecs = styled.div`
-  gap: 14px;
+  gap: 12px;
   width: 100%;
   padding: 8px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  align-items: center;
+  justify-content: center;
 `;
 
 const StyledButtons = styled.div`
@@ -28,17 +29,7 @@ const StyledButtons = styled.div`
   padding: 10px;
   display: flex;
   margin-top: auto;
-  margin-left: 15px;
   justify-content: center;
-`;
-
-const ControlShowButton = styled.button`
-  padding: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 8px;
-  color: var(--color-grey-800);
-  background-color: var(--color-grey-100);
 `;
 
 const Anime = () => {
@@ -47,18 +38,19 @@ const Anime = () => {
     error,
     data: recommendedAnime,
   } = useGetRecommendedAnime();
-  const [visibleRecommendations, setVisibleRecommendations] = useState(12);
+  const [visibleRecommendations, setVisibleRecommendations] = useState(10);
 
   const handleLoadMore = () => {
-    setVisibleRecommendations((prev) => prev + 12);
+    setVisibleRecommendations((prev) => prev + 10);
   };
 
   const handleShowLess = () => {
-    setVisibleRecommendations((prev) => prev - 12);
+    setVisibleRecommendations((prev) => prev - 10);
   };
 
   return (
     <StyledSection>
+      <Popular />
       <StyledSectionHeader>
         Recommended Anime (don&apos;t ask me by whom)
       </StyledSectionHeader>
@@ -82,13 +74,12 @@ const Anime = () => {
       </StyledMainRecs>
       {visibleRecommendations < (recommendedAnime?.length || 0) && (
         <StyledButtons>
-          <ControlShowButton onClick={handleLoadMore}>
-            Show More
-          </ControlShowButton>
-          {visibleRecommendations > 12 && (
-            <ControlShowButton onClick={handleShowLess}>
-              Show Less
-            </ControlShowButton>
+          <ShowMoreLessButtons handleClick={handleLoadMore} text="Show More" />
+          {visibleRecommendations > 10 && (
+            <ShowMoreLessButtons
+              handleClick={handleShowLess}
+              text="Show Less"
+            />
           )}
         </StyledButtons>
       )}

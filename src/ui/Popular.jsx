@@ -1,24 +1,17 @@
 import styled from "styled-components";
-import { useGetPopularAnime } from "../api/useGetPopularAnime";
+import { useGetPopularAnime } from "../api/anime/useGetPopularAnime";
 import Spinner from "../ui/Spinner";
 import PopularTitles from "../ui/PopularTitles";
 import Loading from "./Loading";
+import { StyledSectionHeader } from "./SectionHeader";
 
 const StyledPopular = styled.div`
-  height: 42%;
   width: 100%;
   display: flex;
   overflow: scroll;
-  margin-top: 2rem;
+  min-height: 280px;
+  gap: 12px;
   align-items: center;
-`;
-
-const StyledHeading = styled.h3`
-  display: flex;
-  margin-top: 2rem;
-  font-size: 2.5rem;
-  margin-left: 1.5rem;
-  justify-content: center;
 `;
 
 const Popular = () => {
@@ -30,7 +23,7 @@ const Popular = () => {
 
   return (
     <>
-      <StyledHeading>Popular Titles</StyledHeading>
+      <StyledSectionHeader>Popular Titles</StyledSectionHeader>
 
       {isGettingPopular && <Loading label="Loading Popular Titles..." />}
       {error && <p>Error: {error.message}</p>}

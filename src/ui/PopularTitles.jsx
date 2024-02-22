@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import StyledCardLink from "../components/StyledCardLink";
 
 const CardContainer = styled.div`
   width: 180px;
@@ -6,7 +7,6 @@ const CardContainer = styled.div`
   cursor: pointer;
   overflow: hidden;
   min-width: 180px;
-  margin-left: 10px;
   border-radius: 16px;
   background-size: cover;
   background-position: center;
@@ -35,19 +35,14 @@ const Title = styled.p`
 `;
 
 const PopularTitles = ({ image, link, title }) => {
-  const handleClick = () => {
-    window.open(link, "_blank");
-  };
-
   return (
-    <CardContainer
-      style={{ backgroundImage: `url(${image})` }}
-      onClick={handleClick}
-    >
-      <CardContent>
-        <Title>{title}</Title>
-      </CardContent>
-    </CardContainer>
+    <StyledCardLink to={link}>
+      <CardContainer style={{ backgroundImage: `url(${image})` }}>
+        <CardContent>
+          <Title>{title}</Title>
+        </CardContent>
+      </CardContainer>
+    </StyledCardLink>
   );
 };
 
