@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import StyledCardLink from "./StyledCardLink";
 
 const StyledRecommendedCard = styled.div`
   width: 200px;
@@ -8,7 +9,6 @@ const StyledRecommendedCard = styled.div`
   max-height: 250px;
   border-radius: 8px;
   position: relative;
-  transition: transform 0.2s ease;
 
   &:hover {
     transform: scale(1.05);
@@ -73,24 +73,21 @@ const Wrapper = styled.div`
 `;
 
 const RecommendedCard = ({ id, url, webp, title, content }) => {
-  const handleClick = () => {
-    window.open(url, "_blank");
-  };
-
   return (
-    <StyledRecommendedCard
-      style={{
-        backgroundImage: `url(${webp})`,
-      }}
-      onClick={handleClick}
-    >
-      <Wrapper>
-        <CardContent>
-          <StyledTitle>{title}</StyledTitle>
-          <StyledContent>{content}</StyledContent>
-        </CardContent>
-      </Wrapper>
-    </StyledRecommendedCard>
+    <StyledCardLink to={url}>
+      <StyledRecommendedCard
+        style={{
+          backgroundImage: `url(${webp})`,
+        }}
+      >
+        <Wrapper>
+          <CardContent>
+            <StyledTitle>{title}</StyledTitle>
+            <StyledContent>{content}</StyledContent>
+          </CardContent>
+        </Wrapper>
+      </StyledRecommendedCard>
+    </StyledCardLink>
   );
 };
 

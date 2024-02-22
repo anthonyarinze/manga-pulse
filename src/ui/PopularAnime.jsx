@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { useGetPopularAnime } from "../api/anime/useGetPopularAnime";
-import Spinner from "../ui/Spinner";
-import PopularTitles from "../ui/PopularTitles";
+import PopularTitles from "./PopularTitles";
 import Loading from "./Loading";
 import { StyledSectionHeader } from "./SectionHeader";
 
@@ -14,18 +13,26 @@ const StyledPopular = styled.div`
   align-items: center;
 `;
 
+const StyledLoading = styled.div`
+  display: flex;
+  align-self: center;
+  width: fit-content;
+  height: fit-content;
+  flex-direction: column;
+`;
+
 const Popular = () => {
   const { isLoading: isGettingPopular, error, data } = useGetPopularAnime();
-
-  if (isGettingPopular) return <Spinner />;
-
-  if (error) console.error(error.message);
 
   return (
     <>
       <StyledSectionHeader>Popular Titles</StyledSectionHeader>
 
-      {isGettingPopular && <Loading label="Loading Popular Titles..." />}
+      {isGettingPopular && (
+        <StyledLoading>
+          <Loading label="Loading Popular Titles..." />
+        </StyledLoading>
+      )}
       {error && <p>Error: {error.message}</p>}
       <StyledPopular>
         {data &&

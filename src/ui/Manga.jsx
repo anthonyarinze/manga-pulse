@@ -57,7 +57,13 @@ const Manga = () => {
           recommendedManga
             .slice(0, visibleRecommendations)
             .map((recommendation, index) => (
-              <RecommendedMangaCard key={index} />
+              <RecommendedMangaCard
+                key={index}
+                url={recommendation.url}
+                webp={recommendation.webp}
+                title={recommendation.title}
+                content={recommendation.synopsis}
+              />
             ))}
       </StyledMangaRecommendations>
       {visibleRecommendations < (recommendedManga?.length || 0) && (
