@@ -21,7 +21,7 @@ const App = () => {
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashoard />} />
             <Route path="library" element={<Library />} />
-            <Route path="library:titleId" element={<Title />} />
+            <Route path="library/:type/:titleId" element={<Title />} />{" "}
             <Route path="recent" element={<RecentSearch />} />
             <Route path="account" element={<Account />} />
           </Route>

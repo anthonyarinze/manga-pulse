@@ -18,7 +18,7 @@ const StyledMangaRecommendations = styled.div`
   padding: 8px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: start;
 `;
 
 const StyledButtons = styled.div`
@@ -59,7 +59,8 @@ const Manga = () => {
             .map((recommendation, index) => (
               <RecommendedMangaCard
                 key={index}
-                url={recommendation.url}
+                id={recommendation.id}
+                type={recommendation.type.toLowerCase()}
                 webp={recommendation.webp}
                 title={recommendation.title}
                 content={recommendation.synopsis}

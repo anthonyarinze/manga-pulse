@@ -21,7 +21,7 @@ const StyledMainRecs = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
 `;
 
 const StyledButtons = styled.div`
@@ -64,11 +64,11 @@ const Anime = () => {
             .map((recommendation, index) => (
               <RecommendedCard
                 key={index}
-                id={recommendation.entries[0].mal_id}
-                url={recommendation.entries[0].url}
-                webp={recommendation.entries[0].webp}
-                title={recommendation.entries[0].title}
-                content={recommendation.content}
+                id={recommendation.id}
+                type={recommendation.type}
+                webp={recommendation.webp}
+                title={recommendation.title}
+                synopsis={recommendation.synopsis}
               />
             ))}
       </StyledMainRecs>

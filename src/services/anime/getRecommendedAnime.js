@@ -1,21 +1,22 @@
 export async function getRecommendedAnime() {
-  const res = await fetch("https://api.jikan.moe/v4/recommendations/anime");
+  const res = await fetch("https://api.jikan.moe/v4/top/anime");
 
   const data = await res.json();
 
   const animeData = data.data.map((anime) => {
-    const entryData = anime.entry.map((entry) => {
-      return {
-        mal_id: entry.mal_id,
-        url: entry.url,
-        webp: entry.images.webp.image_url,
-        title: entry.title,
-      };
-    });
-
     return {
-      entries: entryData,
-      content: anime.content,
+      id: anime.mal_id,
+      url: anime.url,
+      webp: anime.images.webp.image_url,
+      title: anime.title,
+      type: anime.type,
+      episodes: anime.episodes,
+      status: anime.status,
+      duration: anime.duration,
+      rating: anime.rating,
+      score: anime.score,
+      favorites: anime.favorites,
+      synopsis: anime.synopsis,
     };
   });
 

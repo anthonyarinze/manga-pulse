@@ -4,7 +4,7 @@ export async function getPopularManga() {
 
   const mangaData = data.data.map((manga) => {
     return {
-      mal_id: manga.mal_id,
+      id: manga.mal_id,
       url: manga.url,
       webp: manga.images.webp.image_url,
       title: manga.title,
@@ -13,6 +13,7 @@ export async function getPopularManga() {
       score: manga.score,
       scored_by: manga.scored_by,
       synopsis: manga.synopsis,
+      type: manga.type,
     };
   });
 
