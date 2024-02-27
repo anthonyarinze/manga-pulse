@@ -1,14 +1,16 @@
 import styled, { css } from "styled-components";
 
 const StyledTitleButton = styled.button`
-  width: 45px;
-  height: 30px;
+  width: 50px;
+  height: 40px;
   display: flex;
+  cursor: pointer;
   font-size: 2rem;
-  border-radius: 4px;
   text-align: center;
+  border-radius: 4px;
   align-items: center;
   justify-content: center;
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
 
   ${(props) =>
     props.as === "edit" &&
@@ -21,6 +23,10 @@ const StyledTitleButton = styled.button`
     css`
       background-color: rgb(79, 79, 79);
     `}
+
+      &:hover {
+    filter: brightness(90%);
+  }
 `;
 
 const TitleButton = ({ children, onClick, as }) => {
