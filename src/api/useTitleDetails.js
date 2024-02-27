@@ -4,7 +4,7 @@ import { getTitleDetails } from "../services/getTitleDetails";
 
 export function useTitleDetails() {
   const { titleId, type } = useParams();
-  const endpoint = type === "anime" ? "anime" : "manga";
+  const endpoint = type === "manga" ? "manga" : "anime";
   const {
     isLoading,
     data: title,

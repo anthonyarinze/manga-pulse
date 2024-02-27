@@ -9,7 +9,13 @@ import GlobalStyles from "./styles/GlobalStyles";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Title from "./pages/Title";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+    },
+  },
+});
 
 const App = () => {
   return (
@@ -21,7 +27,7 @@ const App = () => {
             <Route index element={<Navigate replace to="dashboard" />} />
             <Route path="dashboard" element={<Dashoard />} />
             <Route path="library" element={<Library />} />
-            <Route path="library/:type/:titleId" element={<Title />} />{" "}
+            <Route path="title/:type/:titleId" element={<Title />} />{" "}
             <Route path="recent" element={<RecentSearch />} />
             <Route path="account" element={<Account />} />
           </Route>

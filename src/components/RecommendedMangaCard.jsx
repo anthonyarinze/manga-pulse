@@ -73,7 +73,7 @@ const Wrapper = styled.div`
 
 const RecommendedMangaCard = ({ id, type, webp, title, synopsis }) => {
   return (
-    <StyledCardLink to={`/library/${type}/${id}`}>
+    <StyledCardLink to={`/title/${type}/${id}`}>
       <StyledMangaCard style={{ backgroundImage: `url(${webp})` }}>
         <Wrapper>
           <CardContent>

@@ -74,7 +74,7 @@ const Wrapper = styled.div`
 
 const RecommendedCard = ({ id, type, webp, title, content }) => {
   return (
-    <StyledCardLink to={`/library/${type}/${id}`}>
+    <StyledCardLink to={`/title/${type}/${id}`}>
       <StyledRecommendedCard
         style={{
           backgroundImage: `url(${webp})`,
