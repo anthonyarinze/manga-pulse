@@ -9,6 +9,7 @@ import { formatFavorites } from "../utils/helpers";
 import { IoBookmarksOutline, IoShareOutline } from "react-icons/io5";
 import TitleButton from "../ui/TitleButton";
 import { useState } from "react";
+import Modal from "../ui/Modal";
 
 const StyledSection = styled.section`
   width: 100vw;
@@ -75,31 +76,7 @@ const StyledSynopsis = styled.div`
   line-height: 1.4;
   font-size: 1.5rem;
   margin-right: 20px;
-`;
-
-const StyledModal = styled.div`
-  top: 50%;
-  left: 50%;
-  width: 50%;
-  height: 60%;
-  padding: 20px;
-  z-index: 1000;
-  position: fixed;
-  border-radius: 10px;
-  background-color: var(--color-grey-100);
-  transform: translate(-50%, -50%);
-`;
-
-const StyledBackdrop = styled.div`
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 999;
-  position: fixed;
-  transition: all 0.5s;
-  backdrop-filter: blur(4px);
-  background-color: rgba(0, 0, 0, 0.5);
+  padding-bottom: 10px;
 `;
 
 const Title = () => {
@@ -130,10 +107,33 @@ const Title = () => {
     type === "anime" ? additionalFields : additionalFields;
 
   const handleEditButtonClick = () => {
-    // Toggle the state to open/close the modal
     setIsModalOpen(!isModalOpen);
-    console.log(isModalOpen);
   };
+
+  const handleShareButtonClick = async () => {
+    try {
+      if (navigator.share) {
+        await navigator.share({
+          title: document.title,
+          text: "Check out this awesome title!",
+          url: window.location.href,
+        });
+      } else {
+        throw new Error("Web Share API not supported in this browser");
+      }
+    } catch (error) {
+      console.error("Error sharing:", error.message);
+      // Handle errors or provide a fallback
+    }
+  };
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  document.title = `Manga Tracker | ${capitalizeFirstLetter(
+    type
+  )} - ${titleName}`;
 
   return (
     <StyledSection>
@@ -176,7 +176,7 @@ const Title = () => {
             <TitleButton as="edit" onClick={handleEditButtonClick}>
               <IoBookmarksOutline />
             </TitleButton>
-            <TitleButton as="share">
+            <TitleButton as="share" onClick={handleShareButtonClick}>
               <IoShareOutline />
             </TitleButton>
           </StyledBottomBasicData>
@@ -190,13 +190,10 @@ const Title = () => {
       <StyledSynopsis>{synopsis}</StyledSynopsis>
       {/* Conditionally render the modal based on the state */}
       {isModalOpen && (
-        <>
-          <StyledBackdrop onClick={handleEditButtonClick} />
-          <StyledModal>
-            {/* Your modal content goes here */}
-            <p>Edit modal content goes here.</p>
-          </StyledModal>
-        </>
+        <Modal
+          webp={webpImage}
+          handleBackdropClick={() => setIsModalOpen(false)}
+        />
       )}
     </StyledSection>
   );

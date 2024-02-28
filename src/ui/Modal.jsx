@@ -1,113 +1,151 @@
-import { cloneElement, createContext, useContext, useState } from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
-import { HiXMark } from "react-icons/hi2";
-import styled from "styled-components";
-import { useOutsideClick } from "../hooks/useOutsideClick";
+import styled, { css } from "styled-components";
+import Heading from "./Heading";
+import { IoClose } from "react-icons/io5";
+import { useParams } from "react-router-dom";
 
 const StyledModal = styled.div`
-  position: fixed;
   top: 50%;
   left: 50%;
+  width: 70%;
+  height: 70%;
+  z-index: 1000;
+  padding: 20px;
+  position: fixed;
+  border-radius: 10px;
   transform: translate(-50%, -50%);
-  background-color: var(--color-grey-0);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-lg);
-  padding: 3.2rem 4rem;
-  transition: all 0.5s;
+  background-color: var(--color-grey-100);
 `;
 
-const Overlay = styled.div`
-  position: fixed;
+const StyledBackdrop = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
-  background-color: var(--backdrop-color);
-  backdrop-filter: blur(4px);
-  z-index: 1000;
+  height: 100%;
+  z-index: 999;
+  position: fixed;
   transition: all 0.5s;
+  backdrop-filter: blur(4px);
+  background-color: rgba(0, 0, 0, 0.5);
 `;
 
-const Button = styled.button`
-  background: none;
-  border: none;
-  padding: 0.4rem;
-  border-radius: var(--border-radius-sm);
-  transform: translateX(0.8rem);
-  transition: all 0.2s;
-  position: absolute;
-  top: 1.2rem;
-  right: 1.9rem;
+const StyledHeader = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 
-  &:hover {
-    background-color: var(--color-grey-100);
-  }
+const StyledImage = styled.img`
+  width: 100px;
+  height: 170px;
+  margin-top: 10px;
+  object-fit: cover;
+  border-radius: 4px;
+`;
 
-  & svg {
-    width: 2.4rem;
-    height: 2.4rem;
-    /* Sometimes we need both */
-    /* fill: var(--color-grey-500);
-    stroke: var(--color-grey-500); */
-    color: var(--color-grey-500);
+const StyledDropdown = styled.select`
+  width: 100%;
+  padding: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  color: var(--color-grey-100);
+`;
+
+const StyledOption = styled.option`
+  cursor: pointer;
+`;
+
+const StyledButton = styled.button`
+  width: 100%;
+  height: 40px;
+  display: flex;
+  cursor: pointer;
+  font-size: 2rem;
+  margin-top: 20px;
+  text-align: center;
+  align-items: center;
+  border-radius: 4px;
+  justify-content: center;
+  color: white;
+  box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
+
+  ${(props) =>
+    props.as === "update" &&
+    css`
+      background-color: #ff6740;
+    `}
+
+  ${(props) =>
+    props.as === "cancel" &&
+    css`
+      background-color: rgb(79, 79, 79);
+    `}
+
+      &:hover {
+    filter: brightness(90%);
   }
 `;
 
-const ModalContext = createContext();
+const Modal = ({ handleBackdropClick, webp }) => {
+  const [status, setStatus] = useState("To Watch");
+  const { type } = useParams();
 
-function Modal({ children }) {
-  const [openName, setOpenName] = useState("");
+  const handleStatusChange = (e) => {
+    setStatus(e.target.value);
+  };
 
-  const close = () => setOpenName("");
-  const open = setOpenName;
+  const mangaOptions = [
+    "None",
+    "Reading",
+    "On Hold",
+    "Dropped",
+    "Plan to Read",
+    "Completed",
+  ];
 
-  return (
-    <ModalContext.Provider value={{ openName, close, open }}>
-      {children}
-    </ModalContext.Provider>
-  );
-}
-
-function Open({ children, opens: opensWindowName }) {
-  const { open } = useContext(ModalContext);
-
-  return cloneElement(children, { onClick: () => open(opensWindowName) });
-}
-
-function Window({ children, name }) {
-  const { openName, close } = useContext(ModalContext);
-
-  // const ref = useRef();
-
-  // useEffect(() => {
-  //   function handleClick(e: any) {
-  //     if (ref.current && !ref.current.contains(e.target)) close();
-  //   }
-
-  //   document.addEventListener("click", handleClick, true);
-
-  //   return () => document.removeEventListener("click", handleClick);
-  // }, []);
-
-  const ref = useOutsideClick(close);
-
-  if (name !== openName) return null;
+  const animeOptions = [
+    "None",
+    "Watching",
+    "On Hold",
+    "Dropped",
+    "Plan to Watch",
+    "Completed",
+  ];
 
   return createPortal(
-    <Overlay>
-      {/* @ts-ignore */}
-      <StyledModal ref={ref}>
-        <Button onClick={close}>
-          <HiXMark />
-        </Button>
-        <div>{cloneElement(children, { onCloseModal: close })}</div>
+    <StyledBackdrop>
+      <StyledModal>
+        <StyledHeader>
+          <Heading as="h3">Add to library</Heading>
+          <IoClose
+            style={{ fontSize: "2.4rem", cursor: "pointer" }}
+            onClick={handleBackdropClick}
+          />
+        </StyledHeader>
+        <StyledImage src={webp} alt="img" />
+        <Heading as="h3">Status:</Heading>
+        <StyledDropdown value={status} onChange={handleStatusChange}>
+          {type === "manga"
+            ? mangaOptions.map((option, index) => (
+                <StyledOption value={option} key={index}>
+                  {option}
+                </StyledOption>
+              ))
+            : animeOptions.map((option, index) => (
+                <StyledOption value={option} key={index}>
+                  {option}
+                </StyledOption>
+              ))}
+        </StyledDropdown>
+        <StyledButton as="update">Update</StyledButton>
+        <StyledButton as="cancel">Update</StyledButton>
       </StyledModal>
-    </Overlay>,
+    </StyledBackdrop>,
     document.body
   );
-}
-
-Modal.Open = Open;
-Modal.Window = Window;
+};
 
 export default Modal;

@@ -1,8 +1,27 @@
-# React + Vite
+# Manga Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Manga Tracker is a project I built not too disimilar to myanimelist in terms of functioanality. Its aim is to help the user keep track of their favorite anime/manga, check its status, and get recommendations based off their favorites.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Keep track of anime/manga.
+- Check its airing/publication status.
+- Ensure your data is preserved between sessions by means authentication, synching your data across sessions.
+- Get recommendations based off your favorites.
+
+## Technologies Used
+
+- React
+- Styled Components
+- React Query
+- Supabase
+- React Router
+- React Icons
+
+## Getting Started
+
+[TBD]
+
+## Acknoledgements
+
+- Special thanks to the jikan.moe api and their team for essentially powering this project. Without them it likely wouldn't exist.
