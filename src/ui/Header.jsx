@@ -71,6 +71,12 @@ const StyledSearchBar = styled.input`
   background-color: var(--color-grey-200);
 `;
 
+const StyledDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
 function Header({ toggleSidebar, isSidebarOpen }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [immediateSearchQuery, setImmediateSearchQuery] = useState("");
@@ -140,7 +146,7 @@ function Header({ toggleSidebar, isSidebarOpen }) {
       {!isSidebarOpen && <StyledButton onClick={toggleSidebar} />}
       <StyledIcons>
         <StyledIconBubble>
-          <HiOutlineUser onClick={navigate("/auth")} />
+          <HiOutlineUser onClick={() => navigate("/account")} />
         </StyledIconBubble>
         <StyledSearchBar
           placeholder="Search..."
@@ -150,7 +156,9 @@ function Header({ toggleSidebar, isSidebarOpen }) {
           onChange={handleImmediateSearchQuery}
         />
         {isLoading ? (
-          <SpinnerMini />
+          <StyledDiv>
+            <SpinnerMini />
+          </StyledDiv>
         ) : (
           isSearchOpen &&
           isSearchBarFocused.current &&

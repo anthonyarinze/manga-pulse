@@ -1,56 +1,74 @@
-import styled from "styled-components";
-import Heading from "../ui/Heading";
-import { EmailInput, PasswordInput } from "../ui/AuthInputFields";
+import Form from "../ui/Form";
 import CheckBox from "../ui/CheckBox";
+import SpinnerMini from "../ui/SpinnerMini";
+import FormRow from "../ui/FormRow";
+import Input from "../ui/Input";
+import Button from "../ui/Button";
+import Heading from "../ui/Heading";
+import styled from "styled-components";
+import { useLogin } from "../hooks/useLogin";
+import { useState } from "react";
 
-const StyledBackground = styled.section`
-  width: 100%;
-  height: 100%;
+const StyledDiv = styled.div`
   display: flex;
-  margin-top: 5rem;
-  align-items: center;
-  flex-direction: column;
-  justify-content: start;
-  background-color: var(--auth-color);
-`;
-
-const StyledContainer = styled.div`
-  width: 80%;
-  height: 80%;
-`;
-
-const StyledForm = styled.div`
-  display: flex;
-  align-items: start;
-  justify-content: start;
-  flex-direction: column;
-`;
-
-const StyledButton = styled.button`
-  width: 110px;
-  height: 40px;
-  font-weight: 600;
-  margin-top: 25px;
-  border-radius: 4px;
-  background-color: #ffb17a;
+  margin-top: 50px;
+  justify-self: start;
 `;
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { login, isLoading } = useLogin();
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!email || !password) return;
+    login(
+      { email, password },
+      {
+        onSettled: () => {
+          setEmail();
+          setPassword();
+        },
+      }
+    );
+  }
+
   return (
-    <StyledBackground>
-      <StyledContainer>
-        <Heading as="h1">Login</Heading>
-        <Heading as="h5">
-          Log into Manga Tracker to keep track of your favorites.
-        </Heading>
-        <StyledForm>
-          <EmailInput />
-          <PasswordInput />
-          <CheckBox />
-        </StyledForm>
-        <StyledButton>Login</StyledButton>
-      </StyledContainer>
-    </StyledBackground>
+    <Form onSubmit={handleSubmit}>
+      <Heading as="h2">Pick up where you left off.</Heading>
+      <FormRow label="Email address" orientation="vertical">
+        <Input
+          type="email"
+          id="email"
+          // This makes this form better for password managers
+          autoComplete="username"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          disabled={isLoading}
+        />
+      </FormRow>
+      <FormRow label="Password" orientation="vertical">
+        <Input
+          type="password"
+          id="password"
+          autoComplete="current-password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          disabled={isLoading}
+        />
+      </FormRow>
+
+      <CheckBox>Remember Me</CheckBox>
+
+      <StyledDiv>
+        <FormRow>
+          <Button disabled={isLoading}>
+            {isLoading ? <SpinnerMini /> : "Login"}
+          </Button>
+        </FormRow>
+      </StyledDiv>
+    </Form>
   );
 };
 

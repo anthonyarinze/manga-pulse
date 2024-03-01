@@ -10,6 +10,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import Title from "./pages/Title";
 import Auth from "./pages/Auth";
 import { Toaster } from "react-hot-toast";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,7 +27,13 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           {/* Public Routes */}
-          <Route element={<AppLayout />}>
+          <Route
+            element={
+              <ProtectedRoute>
+                <AppLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<Navigate replace to="/dashboard" />} />
             <Route path="dashboard" element={<Dashoard />} />
             <Route path="library" element={<Library />} />

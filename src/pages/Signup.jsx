@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import FormRow from "../ui/FormRow";
 import Input from "../ui/Input";
 import Button from "../ui/Button";
+import Heading from "../ui/Heading";
 import styled from "styled-components";
 
 const StyledDiv = styled.div`
@@ -36,6 +37,9 @@ function Signup() {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
+      <Heading as="h2">
+        Sign up for Manga Tracker to keep track of your favorites.
+      </Heading>
       <FormRow label="Full name" error={errors?.fullName?.message}>
         <Input
           type="text"

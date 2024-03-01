@@ -1,5 +1,4 @@
-// AppLayout.js
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
@@ -27,7 +26,6 @@ const Main = styled.main`
 const Container = styled.section`
   height: 100%;
   width: 100%;
-  //removed height and width. potential issue
   display: flex;
   flex-direction: column;
 `;
@@ -36,8 +34,13 @@ function AppLayout() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const toggleSidebar = () => {
-    setIsSidebarOpen((isSidebarOpen) => !isSidebarOpen);
+    setIsSidebarOpen((prevIsSidebarOpen) => !prevIsSidebarOpen);
   };
+
+  // Use useEffect to delay the state update until after the render phase
+  useEffect(() => {
+    // Any logic that needs to run after the render goes here
+  }, [isSidebarOpen]);
 
   return (
     <StyledAppLayout isSidebarOpen={isSidebarOpen}>
