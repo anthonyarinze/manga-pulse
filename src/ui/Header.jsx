@@ -4,6 +4,8 @@ import { HiOutlineUser } from "react-icons/hi2";
 import { useEffect, useRef, useState } from "react";
 import { useGetSearchResults } from "../api/useGetSearchResults";
 import SearchResultItem from "../components/SearchResultItem";
+import { useNavigate } from "react-router-dom";
+import SpinnerMini from "./SpinnerMini";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -75,6 +77,7 @@ function Header({ toggleSidebar, isSidebarOpen }) {
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const dropDownRef = useRef(null);
   const isSearchBarFocused = useRef(false);
+  const navigate = useNavigate();
 
   const {
     isLoading,
@@ -130,12 +133,14 @@ function Header({ toggleSidebar, isSidebarOpen }) {
     };
   }, []);
 
+  if (error) return <p>Error parsing search query. Please try again</p>;
+
   return (
     <StyledHeader>
       {!isSidebarOpen && <StyledButton onClick={toggleSidebar} />}
       <StyledIcons>
         <StyledIconBubble>
-          <HiOutlineUser />
+          <HiOutlineUser onClick={navigate("/auth")} />
         </StyledIconBubble>
         <StyledSearchBar
           placeholder="Search..."
@@ -144,7 +149,10 @@ function Header({ toggleSidebar, isSidebarOpen }) {
           onFocus={handleSearchBarFocus}
           onChange={handleImmediateSearchQuery}
         />
-        {isSearchOpen &&
+        {isLoading ? (
+          <SpinnerMini />
+        ) : (
+          isSearchOpen &&
           isSearchBarFocused.current &&
           searchResults &&
           searchResults.length > 0 && (
@@ -164,7 +172,8 @@ function Header({ toggleSidebar, isSidebarOpen }) {
                   />
                 ))}
             </StyledDropdown>
-          )}
+          )
+        )}
       </StyledIcons>
     </StyledHeader>
   );

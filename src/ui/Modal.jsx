@@ -62,14 +62,14 @@ const StyledButton = styled.button`
   width: 100%;
   height: 40px;
   display: flex;
+  color: white;
   cursor: pointer;
   font-size: 2rem;
   margin-top: 20px;
+  border-radius: 4px;
   text-align: center;
   align-items: center;
-  border-radius: 4px;
   justify-content: center;
-  color: white;
   box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.1);
 
   ${(props) =>
@@ -141,7 +141,7 @@ const Modal = ({ handleBackdropClick, webp }) => {
               ))}
         </StyledDropdown>
         <StyledButton as="update">Update</StyledButton>
-        <StyledButton as="cancel">Update</StyledButton>
+        <StyledButton as="cancel">Cancel</StyledButton>
       </StyledModal>
     </StyledBackdrop>,
     document.body
