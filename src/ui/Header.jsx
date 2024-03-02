@@ -47,11 +47,12 @@ const StyledIconBubble = styled.div`
 const StyledDropdown = styled.div`
   top: 70px;
   padding: 8px;
+  z-index: 1000;
   height: 295px;
   max-width: 318px;
   min-width: 316px;
-  max-height: 300px;
   overflow: scroll;
+  max-height: 300px;
   position: absolute;
   border-radius: 0 0 8px 8px;
   background-color: var(--color-grey-100);
@@ -65,6 +66,7 @@ const StyledSearchBar = styled.input`
   padding: 8px;
   border: none;
   outline: none;
+  color: white;
   font-size: 1.6rem;
   border-radius: 8px;
   margin-right: 12px;
@@ -170,7 +172,7 @@ function Header({ toggleSidebar, isSidebarOpen }) {
                 .map((result, index) => (
                   <SearchResultItem
                     key={index}
-                    url={result.url}
+                    id={result.mal_id}
                     webp={result.webp}
                     rating={result.score}
                     status={result.status}

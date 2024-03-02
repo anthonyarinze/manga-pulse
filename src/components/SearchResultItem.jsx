@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { FaStar } from "react-icons/fa";
+import StyledCardLink from "./StyledCardLink";
 
 const StyledSearchResultItem = styled.div`
   padding: 8px;
@@ -17,6 +18,7 @@ const StyledSearchResultItem = styled.div`
   border: 1px solid var(--color-grey-300);
 
   &:hover {
+    transform: scale(1.03);
     border: 2px solid var(--color-grey-300);
     background-color: var(--color-grey-100);
   }
@@ -80,28 +82,26 @@ const SearchResultItem = ({
   rating,
   status,
   episodes,
-  url,
+  id,
   mediaType,
 }) => {
-  const handleClick = (url) => {
-    window.open(url, "_blank");
-  };
-
   return (
-    <StyledSearchResultItem onClick={() => handleClick(url)}>
-      <StyledImg src={webp} alt="img" />
-      <StyledBody>
-        <StyledTitle>{name}</StyledTitle>
-        <StyledDetails>
-          <FaStar style={{ marginRight: "3px", color: "gold" }} /> {rating} •{" "}
-          {episodes} {episodes > 1 ? "episodes" : "episode"}
-        </StyledDetails>
-        <StyledStatus>
-          <StyledMediaType mediatype={mediaType}>{mediaType}</StyledMediaType>
-          {status}
-        </StyledStatus>
-      </StyledBody>
-    </StyledSearchResultItem>
+    <StyledCardLink to={`/title/TV/${id}`}>
+      <StyledSearchResultItem>
+        <StyledImg src={webp} alt="img" />
+        <StyledBody>
+          <StyledTitle>{name}</StyledTitle>
+          <StyledDetails>
+            <FaStar style={{ marginRight: "3px", color: "gold" }} /> {rating} •{" "}
+            {episodes} {episodes > 1 ? "episodes" : "episode"}
+          </StyledDetails>
+          <StyledStatus>
+            <StyledMediaType mediatype={mediaType}>{mediaType}</StyledMediaType>
+            {status}
+          </StyledStatus>
+        </StyledBody>
+      </StyledSearchResultItem>
+    </StyledCardLink>
   );
 };
 

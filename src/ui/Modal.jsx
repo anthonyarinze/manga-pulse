@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import styled, { css } from "styled-components";
 import Heading from "./Heading";
 import { IoClose } from "react-icons/io5";
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useUpdateLibrary } from "../hooks/useUpdateLibrary";
+import { updateStatus } from "../slices/titleSlice";
+import SpinnerMini from "./SpinnerMini";
 
 const StyledModal = styled.div`
   top: 50%;
@@ -89,12 +93,21 @@ const StyledButton = styled.button`
   }
 `;
 
-const Modal = ({ handleBackdropClick, webp }) => {
-  const [status, setStatus] = useState("To Watch");
+const Modal = ({ handleBackdropClick }) => {
+  const [status, setStatus] = useState("None");
   const { type } = useParams();
+  const dispatch = useDispatch();
+  const titleDetails = useSelector((state) => state.title);
+
+  const { webpImage } = titleDetails;
+  const { update, isLoading } = useUpdateLibrary();
 
   const handleStatusChange = (e) => {
     setStatus(e.target.value);
+  };
+
+  const handleUpdate = () => {
+    update(titleDetails);
   };
 
   const mangaOptions = [
@@ -115,6 +128,10 @@ const Modal = ({ handleBackdropClick, webp }) => {
     "Completed",
   ];
 
+  useEffect(() => {
+    dispatch(updateStatus(status));
+  }, [dispatch, status]);
+
   return createPortal(
     <StyledBackdrop>
       <StyledModal>
@@ -125,7 +142,7 @@ const Modal = ({ handleBackdropClick, webp }) => {
             onClick={handleBackdropClick}
           />
         </StyledHeader>
-        <StyledImage src={webp} alt="img" />
+        <StyledImage src={webpImage} alt="img" />
         <Heading as="h3">Status:</Heading>
         <StyledDropdown value={status} onChange={handleStatusChange}>
           {type === "manga"
@@ -140,8 +157,20 @@ const Modal = ({ handleBackdropClick, webp }) => {
                 </StyledOption>
               ))}
         </StyledDropdown>
-        <StyledButton as="update">Update</StyledButton>
-        <StyledButton as="cancel">Cancel</StyledButton>
+        <StyledButton as="update" onClick={handleUpdate} disabled={isLoading}>
+          {isLoading ? <SpinnerMini /> : "Update"}
+        </StyledButton>
+        {isLoading ? (
+          <></>
+        ) : (
+          <StyledButton
+            as="cancel"
+            onClick={handleBackdropClick}
+            disabled={isLoading}
+          >
+            Cancel
+          </StyledButton>
+        )}
       </StyledModal>
     </StyledBackdrop>,
     document.body

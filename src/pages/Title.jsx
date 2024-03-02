@@ -10,6 +10,8 @@ import { IoBookmarksOutline, IoShareOutline } from "react-icons/io5";
 import TitleButton from "../ui/TitleButton";
 import { useState } from "react";
 import Modal from "../ui/Modal";
+import { useDispatch } from "react-redux";
+import { currentTitle } from "../slices/titleSlice";
 
 const StyledSection = styled.section`
   width: 100vw;
@@ -83,6 +85,7 @@ const Title = () => {
   const { titleId, type } = useParams();
   const { isLoading, error, title } = useTitleDetails(type, titleId);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch();
 
   if (isLoading) return <Spinner />;
   if (error) return <p>Error: {error.message}</p>;
@@ -108,6 +111,16 @@ const Title = () => {
 
   const handleEditButtonClick = () => {
     setIsModalOpen(!isModalOpen);
+    dispatch(
+      currentTitle({
+        id,
+        name: titleName,
+        webpImage,
+        rating,
+        episodes,
+        mediaType: titleType,
+      })
+    );
   };
 
   const handleShareButtonClick = async () => {
@@ -190,10 +203,7 @@ const Title = () => {
       <StyledSynopsis>{synopsis}</StyledSynopsis>
       {/* Conditionally render the modal based on the state */}
       {isModalOpen && (
-        <Modal
-          webp={webpImage}
-          handleBackdropClick={() => setIsModalOpen(false)}
-        />
+        <Modal handleBackdropClick={() => setIsModalOpen(false)} />
       )}
     </StyledSection>
   );

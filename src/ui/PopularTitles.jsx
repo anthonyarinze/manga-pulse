@@ -14,6 +14,15 @@ const CardContainer = styled.div`
 
   &:hover {
     transform: scale(1.03);
+    &::before {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      content: "";
+      position: absolute;
+      background: rgba(0, 0, 0, 0.5);
+    }
   }
 `;
 
@@ -34,9 +43,9 @@ const Title = styled.p`
   margin-bottom: 10px;
 `;
 
-const PopularTitles = ({ image, link, title }) => {
+const PopularTitles = ({ id, image, title }) => {
   return (
-    <StyledCardLink to={link}>
+    <StyledCardLink to={`/title/TV/${id}`}>
       <CardContainer style={{ backgroundImage: `url(${image})` }}>
         <CardContent>
           <Title>{title}</Title>

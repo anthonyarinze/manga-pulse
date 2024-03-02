@@ -36,12 +36,13 @@ const Popular = () => {
       {error && <p>Error: {error.message}</p>}
       <StyledPopular>
         {data &&
-          data.map((anime) => (
+          data.map((anime, index) => (
             <PopularTitles
-              image={anime.webp}
+              key={index}
               link={anime.url}
+              id={anime.mal_id}
+              image={anime.webp}
               title={anime.title}
-              key={anime.mal_id}
             />
           ))}
       </StyledPopular>
