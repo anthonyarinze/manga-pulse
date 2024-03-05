@@ -4,6 +4,7 @@ const Heading = styled.h1`
   ${(props) =>
     props.as === "h1" &&
     css`
+      display: flex;
       font-size: 3rem;
       font-weight: 600;
     `}
@@ -18,8 +19,10 @@ const Heading = styled.h1`
   ${(props) =>
     props.as === "h3" &&
     css`
+      max-lines: 1;
       font-size: 1.7rem;
       font-weight: 500;
+      text-overflow: ellipsis;
     `}
 
   ${(props) =>

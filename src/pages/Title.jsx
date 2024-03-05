@@ -7,11 +7,14 @@ import { FaBookmark, FaExternalLinkAlt, FaStar } from "react-icons/fa";
 import StyledCardLink from "../components/StyledCardLink";
 import { formatFavorites } from "../utils/helpers";
 import { IoBookmarksOutline, IoShareOutline } from "react-icons/io5";
+import { MdBookmarkAdded } from "react-icons/md";
 import TitleButton from "../ui/TitleButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../ui/Modal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { currentTitle } from "../slices/titleSlice";
+import { useGetLibrary } from "../hooks/useGetLibrary";
+import { setTitles } from "../slices/librarySlice";
 
 const StyledSection = styled.section`
   width: 100vw;
@@ -56,7 +59,7 @@ const StyledStats = styled.div`
   gap: 10px;
   display: flex;
   font-size: 1.9rem;
-  align-items: center; /* Align items vertically */
+  align-items: center;
   justify-content: start;
 `;
 
@@ -82,21 +85,38 @@ const StyledSynopsis = styled.div`
 `;
 
 const Title = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const dispatch = useDispatch();
   const { titleId, type } = useParams();
   const { isLoading, error, title } = useTitleDetails(type, titleId);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const dispatch = useDispatch();
 
-  if (isLoading) return <Spinner />;
+  const { isLoading: isGettingLibraryTitles, titles: libraryTitles } =
+    useGetLibrary();
+
+  useEffect(() => {
+    if (!isGettingLibraryTitles && libraryTitles) {
+      dispatch(setTitles(libraryTitles));
+    }
+  }, [dispatch, isGettingLibraryTitles, libraryTitles, isLoading]);
+
+  const library = useSelector((state) => state.library);
+  const isInLibrary = title
+    ? library.some((libraryTitle) => libraryTitle.id === title.id)
+    : false;
+
+  useEffect(() => {
+    dispatch(currentTitle({ ...title, isInLibrary }));
+  }, [dispatch, libraryTitles, title, library, isInLibrary]);
+
+  if (isLoading || isGettingLibraryTitles) return <Spinner />;
   if (error) return <p>Error: {error.message}</p>;
 
   const {
-    id,
     url,
     webpImage,
     title: titleName,
     titleJapanese,
-    type: titleType,
     status,
     score,
     favorites,
@@ -106,21 +126,11 @@ const Title = () => {
     ...additionalFields
   } = title;
 
-  const { episodes, airing, duration, rating, chapters, volumes, publishing } =
+  const { episodes, rating, chapters, volumes } =
     type === "anime" ? additionalFields : additionalFields;
 
   const handleEditButtonClick = () => {
     setIsModalOpen(!isModalOpen);
-    dispatch(
-      currentTitle({
-        id,
-        name: titleName,
-        webpImage,
-        rating,
-        episodes,
-        mediaType: titleType,
-      })
-    );
   };
 
   const handleShareButtonClick = async () => {
@@ -157,7 +167,7 @@ const Title = () => {
           {/* TOP PART (RATING, TITLE, FAVORITES) */}
           <StyledTopBasicData>
             <StyledTitleName>
-              <Heading as="h1">
+              <Heading as="hh5">
                 {titleName}{" "}
                 <StyledCardLink to={url}>
                   <FaExternalLinkAlt
@@ -178,7 +188,7 @@ const Title = () => {
                   as="h5"
                   style={{ display: "flex", alignItems: "center" }}
                 >
-                  <FaBookmark style={{ marginRight: "5px" }} />
+                  <FaBookmark />
                   {formatFavorites(favorites)}
                 </Heading>
               </StyledStats>
@@ -187,7 +197,7 @@ const Title = () => {
           {/* BOTTOM PART (ICONS) */}
           <StyledBottomBasicData>
             <TitleButton as="edit" onClick={handleEditButtonClick}>
-              <IoBookmarksOutline />
+              {isInLibrary ? <MdBookmarkAdded /> : <IoBookmarksOutline />}
             </TitleButton>
             <TitleButton as="share" onClick={handleShareButtonClick}>
               <IoShareOutline />

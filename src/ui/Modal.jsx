@@ -6,7 +6,7 @@ import { IoClose } from "react-icons/io5";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useUpdateLibrary } from "../hooks/useUpdateLibrary";
-import { updateStatus } from "../slices/titleSlice";
+import { currentTitle, updateStatus } from "../slices/titleSlice";
 import SpinnerMini from "./SpinnerMini";
 
 const StyledModal = styled.div`
@@ -88,26 +88,44 @@ const StyledButton = styled.button`
       background-color: rgb(79, 79, 79);
     `}
 
-      &:hover {
+    cursor: ${(props) =>
+    props.disabled ? "not-allowed" : "pointer"} !important;
+
+  filter: ${(props) =>
+    props.disabled ? "brightness(50%)" : "brightness(100%)"} !important;
+
+  &:hover {
     filter: brightness(90%);
   }
 `;
 
 const Modal = ({ handleBackdropClick }) => {
-  const [status, setStatus] = useState("None");
-  const { type } = useParams();
+  const { type, titleId } = useParams();
   const dispatch = useDispatch();
   const titleDetails = useSelector((state) => state.title);
+  const library = useSelector((state) => state.library);
+  const titleInLibrary = library.find((title) => title.id === Number(titleId));
+  const [status, setStatus] = useState(titleInLibrary?.status || "None");
+  const [isStatusChanged, setIsStatusChanged] = useState(false);
 
   const { webpImage } = titleDetails;
   const { update, isLoading } = useUpdateLibrary();
 
   const handleStatusChange = (e) => {
-    setStatus(e.target.value);
+    const newStatus = e.target.value;
+    setStatus(newStatus);
+    setIsStatusChanged(newStatus !== titleInLibrary?.status);
   };
 
   const handleUpdate = () => {
-    update(titleDetails);
+    if (isStatusChanged) {
+      update(titleDetails);
+    } else return;
+    if (status !== "None") {
+      dispatch(currentTitle({ ...titleDetails, isInLibrary: true }));
+    } else {
+      dispatch(currentTitle({ ...titleDetails, isInLibrary: false }));
+    }
   };
 
   const mangaOptions = [
@@ -157,20 +175,21 @@ const Modal = ({ handleBackdropClick }) => {
                 </StyledOption>
               ))}
         </StyledDropdown>
-        <StyledButton as="update" onClick={handleUpdate} disabled={isLoading}>
+        <StyledButton
+          as="update"
+          onClick={handleUpdate}
+          disabled={isLoading || !isStatusChanged}
+        >
           {isLoading ? <SpinnerMini /> : "Update"}
         </StyledButton>
-        {isLoading ? (
-          <></>
-        ) : (
-          <StyledButton
-            as="cancel"
-            onClick={handleBackdropClick}
-            disabled={isLoading}
-          >
-            Cancel
-          </StyledButton>
-        )}
+
+        <StyledButton
+          as="cancel"
+          onClick={handleBackdropClick}
+          disabled={isLoading}
+        >
+          Cancel
+        </StyledButton>
       </StyledModal>
     </StyledBackdrop>,
     document.body
