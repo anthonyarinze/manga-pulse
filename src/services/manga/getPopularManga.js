@@ -14,6 +14,8 @@ export async function getPopularManga() {
       scored_by: manga.scored_by,
       synopsis: manga.synopsis,
       type: manga.type,
+      chapters: manga.chapters,
+      volumes: manga.volumes,
     };
   });
 

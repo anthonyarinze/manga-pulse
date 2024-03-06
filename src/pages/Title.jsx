@@ -5,16 +5,17 @@ import { useParams } from "react-router-dom";
 import Heading from "../ui/Heading";
 import { FaBookmark, FaExternalLinkAlt, FaStar } from "react-icons/fa";
 import StyledCardLink from "../components/StyledCardLink";
-import { formatFavorites } from "../utils/helpers";
+import { capitalizeFirstLetter, formatFavorites } from "../utils/helpers";
 import { IoBookmarksOutline, IoShareOutline } from "react-icons/io5";
 import { MdBookmarkAdded } from "react-icons/md";
 import TitleButton from "../ui/TitleButton";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Modal from "../ui/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { currentTitle } from "../slices/titleSlice";
 import { useGetLibrary } from "../hooks/useGetLibrary";
 import { setTitles } from "../slices/librarySlice";
+import { openModal } from "../slices/modalSlice";
 
 const StyledSection = styled.section`
   width: 100vw;
@@ -85,11 +86,11 @@ const StyledSynopsis = styled.div`
 `;
 
 const Title = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const dispatch = useDispatch();
   const { titleId, type } = useParams();
   const { isLoading, error, title } = useTitleDetails(type, titleId);
+  const isModalOpen = useSelector((state) => state.modal);
+  const titleDetails = useSelector((state) => state.title);
 
   const { isLoading: isGettingLibraryTitles, titles: libraryTitles } =
     useGetLibrary();
@@ -105,9 +106,10 @@ const Title = () => {
     ? library.some((libraryTitle) => libraryTitle.id === title.id)
     : false;
 
+  // to sync the current title state if the title is added to library from the modal
   useEffect(() => {
     dispatch(currentTitle({ ...title, isInLibrary }));
-  }, [dispatch, libraryTitles, title, library, isInLibrary]);
+  }, [dispatch, library, title, isInLibrary]);
 
   if (isLoading || isGettingLibraryTitles) return <Spinner />;
   if (error) return <p>Error: {error.message}</p>;
@@ -129,10 +131,6 @@ const Title = () => {
   const { episodes, rating, chapters, volumes } =
     type === "anime" ? additionalFields : additionalFields;
 
-  const handleEditButtonClick = () => {
-    setIsModalOpen(!isModalOpen);
-  };
-
   const handleShareButtonClick = async () => {
     try {
       if (navigator.share) {
@@ -150,13 +148,11 @@ const Title = () => {
     }
   };
 
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
   document.title = `Manga Tracker | ${capitalizeFirstLetter(
     type
   )} - ${titleName}`;
+
+  // console.log("title details in title page:", titleDetails);
 
   return (
     <StyledSection>
@@ -196,8 +192,12 @@ const Title = () => {
           </StyledTopBasicData>
           {/* BOTTOM PART (ICONS) */}
           <StyledBottomBasicData>
-            <TitleButton as="edit" onClick={handleEditButtonClick}>
-              {isInLibrary ? <MdBookmarkAdded /> : <IoBookmarksOutline />}
+            <TitleButton as="edit" onClick={() => dispatch(openModal())}>
+              {titleDetails.isInLibrary ? (
+                <MdBookmarkAdded />
+              ) : (
+                <IoBookmarksOutline />
+              )}
             </TitleButton>
             <TitleButton as="share" onClick={handleShareButtonClick}>
               <IoShareOutline />
@@ -212,9 +212,7 @@ const Title = () => {
       </StyledBasicData>
       <StyledSynopsis>{synopsis}</StyledSynopsis>
       {/* Conditionally render the modal based on the state */}
-      {isModalOpen && (
-        <Modal handleBackdropClick={() => setIsModalOpen(false)} />
-      )}
+      {isModalOpen && <Modal />}
     </StyledSection>
   );
 };

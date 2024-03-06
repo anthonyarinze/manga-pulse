@@ -1,5 +1,4 @@
 import Form from "../ui/Form";
-import CheckBox from "../ui/CheckBox";
 import SpinnerMini from "../ui/SpinnerMini";
 import FormRow from "../ui/FormRow";
 import Input from "../ui/Input";
@@ -58,8 +57,6 @@ const Login = () => {
           disabled={isLoading}
         />
       </FormRow>
-
-      <CheckBox>Remember Me</CheckBox>
 
       <StyledDiv>
         <FormRow>

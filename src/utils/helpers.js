@@ -7,3 +7,7 @@ export const formatFavorites = (favorites) => {
     return favorites.toString();
   }
 };
+
+export function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

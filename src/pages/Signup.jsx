@@ -1,5 +1,4 @@
 import Form from "../ui/Form";
-import CheckBox from "../ui/CheckBox";
 import SpinnerMini from "../ui/SpinnerMini";
 import { useSignup } from "../hooks/useSignup";
 import { useForm } from "react-hook-form";
@@ -94,8 +93,6 @@ function Signup() {
           })}
         />
       </FormRow>
-
-      <CheckBox>Remember Me</CheckBox>
 
       <StyledDiv>
         <FormRow>

@@ -3,6 +3,7 @@ import { useGetLibrary } from "../hooks/useGetLibrary";
 import Spinner from "../ui/Spinner";
 import Empty from "../ui/Empty";
 import Heading from "../ui/Heading";
+import { FaStar } from "react-icons/fa";
 
 const StyledLibrary = styled.section`
   gap: 15px;
@@ -21,7 +22,6 @@ const StyledLibrary = styled.section`
 `;
 
 const StyledTitle = styled.div`
-  //width: 100%; /* Full width on larger screens */
   display: flex;
   padding: 10px;
   cursor: pointer;
@@ -47,16 +47,39 @@ const StyledImage = styled.img`
 `;
 
 const StyledData = styled.div`
+  gap: 4px;
   width: 100%;
   height: 100%;
+  display: flex;
   margin-left: 1rem;
+  flex-direction: column;
 `;
 
 const StyledSpan = styled.span`
-  gap: 8px;
+  gap: 4px;
   max-lines: 1;
   display: flex;
+  align-items: center;
   text-overflow: ellipsis;
+`;
+
+const StyledStatus = styled.div`
+  padding: 2px 5px;
+  display: flex;
+  font-weight: 600;
+  font-size: smaller;
+  align-items: center;
+  border-radius: 2.5px;
+  background-color: var(--color-grey-300);
+`;
+
+const StyledSynopsis = styled.p`
+  width: 100%;
+  height: 100%;
+  max-lines: 5;
+  overflow: hidden;
+  position: relative;
+  padding-right: 1rem;
 `;
 
 const Library = () => {
@@ -64,7 +87,6 @@ const Library = () => {
 
   if (isLoading) return <Spinner />;
   if (!titles?.length) return <Empty resource="titles" />;
-  const { episodes, id, media_type, rating, status, title_name, webp } = titles;
 
   return (
     <StyledLibrary>
@@ -74,9 +96,17 @@ const Library = () => {
           <StyledData>
             <Heading as="h3">{title.title_name}</Heading>
             <StyledSpan>
-              <p>{title.episodes}</p>
+              <p>{title.media_type === "Manga" ? "Manga" : "Anime"} | </p>
               <p>{title.rating}</p>
             </StyledSpan>
+            <StyledSpan>
+              <FaStar style={{ color: "gold" }} />
+              <p>{title.score} ●</p>
+              {title.episodes && `${title.episodes} episodes`}
+              {title.chapters && `${title.chapters} chapters`}
+              <StyledStatus>{title.status}</StyledStatus>
+            </StyledSpan>
+            <StyledSynopsis>{title.synopsis}</StyledSynopsis>
           </StyledData>
         </StyledTitle>
       ))}

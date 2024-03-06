@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useUpdateLibrary } from "../hooks/useUpdateLibrary";
 import { currentTitle, updateStatus } from "../slices/titleSlice";
 import SpinnerMini from "./SpinnerMini";
+import { closeModal } from "../slices/modalSlice";
 
 const StyledModal = styled.div`
   top: 50%;
@@ -99,7 +100,7 @@ const StyledButton = styled.button`
   }
 `;
 
-const Modal = ({ handleBackdropClick }) => {
+const Modal = () => {
   const { type, titleId } = useParams();
   const dispatch = useDispatch();
   const titleDetails = useSelector((state) => state.title);
@@ -120,6 +121,8 @@ const Modal = ({ handleBackdropClick }) => {
   const handleUpdate = () => {
     if (isStatusChanged) {
       update(titleDetails);
+      console.log("current status:", titleDetails.status);
+      dispatch(currentTitle({ ...titleDetails, isInLibrary: true }));
     } else return;
     if (status !== "None") {
       dispatch(currentTitle({ ...titleDetails, isInLibrary: true }));
@@ -157,7 +160,7 @@ const Modal = ({ handleBackdropClick }) => {
           <Heading as="h3">Add to library</Heading>
           <IoClose
             style={{ fontSize: "2.4rem", cursor: "pointer" }}
-            onClick={handleBackdropClick}
+            onClick={() => dispatch(closeModal())}
           />
         </StyledHeader>
         <StyledImage src={webpImage} alt="img" />
@@ -185,7 +188,7 @@ const Modal = ({ handleBackdropClick }) => {
 
         <StyledButton
           as="cancel"
-          onClick={handleBackdropClick}
+          onClick={() => dispatch(closeModal())}
           disabled={isLoading}
         >
           Cancel

@@ -28,6 +28,7 @@ export const updateLibrary = async (titleDetails) => {
           status: titleDetails.status,
           synopsis: titleDetails.synopsis,
           score: titleDetails.score,
+          chapters: titleDetails.chapters,
         },
       ]);
 
