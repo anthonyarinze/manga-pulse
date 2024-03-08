@@ -66,7 +66,7 @@ const MainNav = () => {
           </StyledNavLink>
         </li>
         <li>
-          <StyledNavLink to="/recent">
+          <StyledNavLink to="/history">
             <LuHistory /> <span>History</span>
           </StyledNavLink>
         </li>

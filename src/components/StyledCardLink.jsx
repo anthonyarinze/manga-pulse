@@ -8,7 +8,7 @@ const StyledLink = styled(Link)`
 
 const StyledCardLink = ({ children, to }) => {
   return (
-    <StyledLink to={to} target="_blank" rel="noopener noreferrer">
+    <StyledLink to={to} rel="noopener noreferrer">
       {children}
     </StyledLink>
   );

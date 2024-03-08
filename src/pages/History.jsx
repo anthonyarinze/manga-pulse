@@ -1,10 +1,9 @@
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useGetLibrary } from "../hooks/useGetLibrary";
-import Spinner from "../ui/Spinner";
-import Empty from "../ui/Empty";
 import Heading from "../ui/Heading";
 import { FaStar, FaTags } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import Empty from "../ui/Empty";
 
 const StyledLibrary = styled.section`
   gap: 15px;
@@ -85,24 +84,23 @@ const StyledSynopsis = styled.p`
   padding-right: 1rem;
 `;
 
-const Library = () => {
+const History = () => {
   const navigate = useNavigate();
-  const { isLoading, titles } = useGetLibrary();
+  const historyList = useSelector((state) => state.history);
 
-  if (isLoading) return <Spinner />;
-  if (!titles?.length) return <Empty resource="titles" />;
+  if (!historyList?.length) return <Empty resource="history" />;
 
   return (
     <StyledLibrary>
-      <Heading as="h4">Library</Heading>
-      {titles.map((title, index) => (
+      <Heading as="h4">History</Heading>
+      {historyList.map((title, index) => (
         <StyledTitle
           key={index}
           onClick={() =>
             navigate(`/title/${title.media_type.toLowerCase()}/${title.id}`)
           }
         >
-          <StyledImage src={title.webp} alt="image" />
+          <StyledImage src={title.webpImage} alt="image" />
           <StyledData>
             <Heading as="h3">{title.title_name}</Heading>
             <StyledSpan>
@@ -126,4 +124,4 @@ const Library = () => {
   );
 };
 
-export default Library;
+export default History;

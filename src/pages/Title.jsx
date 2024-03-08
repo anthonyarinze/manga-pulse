@@ -16,6 +16,7 @@ import { currentTitle } from "../slices/titleSlice";
 import { useGetLibrary } from "../hooks/useGetLibrary";
 import { setTitles } from "../slices/librarySlice";
 import { openModal } from "../slices/modalSlice";
+import { addToHistory } from "../slices/historySlice";
 
 const StyledSection = styled.section`
   width: 100vw;
@@ -27,62 +28,39 @@ const StyledSection = styled.section`
   justify-content: start;
 `;
 
-const StyledBasicData = styled.div`
-  width: 60%;
-  height: 280px;
-  display: flex;
-  justify-content: start;
-`;
-
-const StyledTitleBio = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  margin-left: 2rem;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
 const StyledImage = styled.img`
-  height: 100%;
+  height: 260px;
   border-radius: 8px;
   width: fit-content;
   object-fit: contain;
 `;
 
-const StyledTitleName = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+const StyledSynopsis = styled.p`
+  margin-top: 15px;
 `;
-const StyledStats = styled.div`
-  gap: 10px;
+
+const StyledImageAndDataRow = styled.div`
+  width: 100%;
+  height: 260px;
   display: flex;
-  font-size: 1.9rem;
-  align-items: center;
+  align-items: start;
   justify-content: start;
 `;
 
-const StyledTopBasicData = styled.div`
+const StyledData = styled.div`
+  width: 40%;
+  height: 100%;
   display: flex;
-  height: fit-content;
+  margin-left: 10px;
   flex-direction: column;
+  justify-content: space-between;
 `;
-const StyledBottomBasicData = styled.div`
+
+const StyledButtons = styled.div`
   gap: 10px;
   width: 100%;
   display: flex;
-  align-items: center;
-`;
-
-const StyledSynopsis = styled.div`
-  width: 80%;
-  margin-top: 30px;
-  line-height: 1.4;
-  font-size: 1.5rem;
-  margin-right: 20px;
-  padding-bottom: 10px;
+  height: fit-content;
 `;
 
 const Title = () => {
@@ -91,6 +69,12 @@ const Title = () => {
   const { isLoading, error, title } = useTitleDetails(type, titleId);
   const isModalOpen = useSelector((state) => state.modal);
   const titleDetails = useSelector((state) => state.title);
+
+  useEffect(() => {
+    if (title) {
+      dispatch(addToHistory(title));
+    }
+  }, [dispatch, title]);
 
   const { isLoading: isGettingLibraryTitles, titles: libraryTitles } =
     useGetLibrary();
@@ -152,46 +136,34 @@ const Title = () => {
     type
   )} - ${titleName}`;
 
-  // console.log("title details in title page:", titleDetails);
-
   return (
     <StyledSection>
-      <StyledBasicData>
-        {/* IMAGE */}
+      <StyledImageAndDataRow>
         <StyledImage src={webpImage} alt="img" />
-        <StyledTitleBio>
-          {/* TOP PART (RATING, TITLE, FAVORITES) */}
-          <StyledTopBasicData>
-            <StyledTitleName>
-              <Heading as="hh5">
-                {titleName}{" "}
-                <StyledCardLink to={url}>
-                  <FaExternalLinkAlt
-                    style={{ fontSize: "2rem", marginLeft: "4px" }}
-                  />
-                </StyledCardLink>
+        <StyledData>
+          {/* div to enforce space bwtween text adn buttons */}
+          <div>
+            <Heading as="h2">
+              {titleName}
+              <FaExternalLinkAlt
+                style={{ marginLeft: "6px", fontSize: "1.7rem" }}
+              />
+            </Heading>
+            <p>{titleJapanese}</p>
+            {/* Stats */}
+            <span>
+              <Heading as="h5">
+                <FaStar style={{ color: "gold" }} /> {score} <FaBookmark />{" "}
+                {formatFavorites(favorites)}
               </Heading>
-              <Heading as="h3">{titleJapanese}</Heading>
-              <StyledStats>
-                <Heading
-                  as="h5"
-                  style={{ display: "flex", alignItems: "center" }}
-                >
-                  <FaStar style={{ color: "gold", marginRight: "5px" }} />
-                  {score}
-                </Heading>
-                <Heading
-                  as="h5"
-                  style={{ display: "flex", alignItems: "center" }}
-                >
-                  <FaBookmark />
-                  {formatFavorites(favorites)}
-                </Heading>
-              </StyledStats>
-            </StyledTitleName>
-          </StyledTopBasicData>
-          {/* BOTTOM PART (ICONS) */}
-          <StyledBottomBasicData>
+            </span>
+            <Heading as="h5">
+              {episodes && `${episodes} episodes ● ${status}, ${rating}`}
+              {chapters && `${chapters} chapters | Status: ${status}`}
+            </Heading>
+          </div>
+          {/* bookmark & share */}
+          <StyledButtons>
             <TitleButton as="edit" onClick={() => dispatch(openModal())}>
               {titleDetails.isInLibrary ? (
                 <MdBookmarkAdded />
@@ -199,18 +171,15 @@ const Title = () => {
                 <IoBookmarksOutline />
               )}
             </TitleButton>
+
             <TitleButton as="share" onClick={handleShareButtonClick}>
               <IoShareOutline />
             </TitleButton>
-          </StyledBottomBasicData>
-        </StyledTitleBio>
-        <Heading as="h5">
-          {episodes && `${episodes} episodes ● ${status}, ${rating}`}
-          {chapters &&
-            `${chapters} chapters (${volumes} volumes)  ●  ${status}`}
-        </Heading>
-      </StyledBasicData>
+          </StyledButtons>
+        </StyledData>
+      </StyledImageAndDataRow>
       <StyledSynopsis>{synopsis}</StyledSynopsis>
+
       {/* Conditionally render the modal based on the state */}
       {isModalOpen && <Modal />}
     </StyledSection>
