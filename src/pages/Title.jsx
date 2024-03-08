@@ -132,7 +132,7 @@ const Title = () => {
     }
   };
 
-  document.title = `Manga Tracker | ${capitalizeFirstLetter(
+  document.title = `Manga Pulse | ${capitalizeFirstLetter(
     type
   )} - ${titleName}`;
 
