@@ -58,7 +58,7 @@ const StyledData = styled.div`
 
 const StyledSpan = styled.span`
   gap: 4px;
-  max-lines: 1;
+  font-size: 15px;
   display: flex;
   align-items: center;
   text-overflow: ellipsis;
@@ -79,7 +79,6 @@ const StyledStatus = styled.div`
 const StyledSynopsis = styled.p`
   width: 100%;
   height: 100%;
-  max-lines: 5;
   overflow: hidden;
   position: relative;
   padding-right: 1rem;
@@ -107,11 +106,10 @@ const Library = () => {
             <Heading as="h3">{title.title_name}</Heading>
             <StyledSpan>
               <p>{title.media_type === "Manga" ? "Manga" : "Anime"} | </p>
-              <p>{title.rating}</p>
+              <FaStar style={{ color: "gold" }} />
+              <p>{title.score}</p>
             </StyledSpan>
             <StyledSpan>
-              <FaStar style={{ color: "gold" }} />
-              <p>{title.score} ●</p>
               {title.episodes && `${title.episodes} episodes`}
               {title.chapters && `${title.chapters} chapters`}
               <StyledStatus>

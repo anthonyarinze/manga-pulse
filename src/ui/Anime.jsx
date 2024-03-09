@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import { StyledSectionHeader } from "./SectionHeader";
 import RecommendedCard from "../components/RecommendedAnimeCard";
 import { useGetRecommendedAnime } from "../api/anime/useGetRecommendedAnime";
 import Loading from "../ui/Loading";
 import { useState } from "react";
 import Popular from "./PopularAnime";
 import ShowMoreLessButtons from "../components/ShowMoreLessButtons";
+import { StyledSectionHeader } from "./SectionHeader";
 
 const StyledSection = styled.section`
   width: 100vw;
@@ -18,7 +18,8 @@ const StyledMainRecs = styled.div`
   gap: 12px;
   width: 100%;
   padding: 8px;
-  display: grid;
+  display: flex;
+  overflow: scroll;
   align-items: center;
   justify-content: start;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -51,9 +52,7 @@ const Anime = () => {
   return (
     <StyledSection>
       <Popular />
-      <StyledSectionHeader>
-        Recommended Anime (don&apos;t ask me by whom)
-      </StyledSectionHeader>
+      <StyledSectionHeader>Recommended Anime</StyledSectionHeader>
       <StyledMainRecs>
         {isGettingAnimeRecs && <Loading label="Loading Recommended Anime..." />}
         {error && <p>Error: {error.message}</p>}

@@ -4,12 +4,12 @@ import PopularTitles from "./PopularTitles";
 import Loading from "./Loading";
 import { StyledSectionHeader } from "./SectionHeader";
 
-const StyledPopular = styled.div`
+const StyledPopular = styled.section`
+  gap: 12px;
   width: 100%;
   display: flex;
   overflow: scroll;
   min-height: 280px;
-  gap: 12px;
   align-items: center;
 `;
 

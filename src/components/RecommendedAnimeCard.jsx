@@ -10,6 +10,11 @@ const StyledRecommendedCard = styled.div`
   border-radius: 8px;
   position: relative;
 
+  @media (max-width: 429px) {
+    width: 180px;
+    height: 220px;
+  }
+
   &:hover {
     transform: scale(1.05);
 

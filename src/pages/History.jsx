@@ -59,6 +59,7 @@ const StyledSpan = styled.span`
   gap: 4px;
   max-lines: 1;
   display: flex;
+  font-size: 15px;
   align-items: center;
   text-overflow: ellipsis;
 `;
@@ -78,10 +79,10 @@ const StyledStatus = styled.div`
 const StyledSynopsis = styled.p`
   width: 100%;
   height: 100%;
-  max-lines: 5;
   overflow: hidden;
   position: relative;
   padding-right: 1rem;
+  text-overflow: ellipsis;
 `;
 
 const History = () => {
@@ -97,7 +98,7 @@ const History = () => {
         <StyledTitle
           key={index}
           onClick={() =>
-            navigate(`/title/${title.media_type.toLowerCase()}/${title.id}`)
+            navigate(`/title/${title.type.toLowerCase()}/${title.id}`)
           }
         >
           <StyledImage src={title.webpImage} alt="image" />
@@ -105,11 +106,10 @@ const History = () => {
             <Heading as="h3">{title.title_name}</Heading>
             <StyledSpan>
               <p>{title.media_type === "Manga" ? "Manga" : "Anime"} | </p>
-              <p>{title.rating}</p>
+              <FaStar style={{ color: "gold" }} />
+              <p>{title.score}</p>
             </StyledSpan>
             <StyledSpan>
-              <FaStar style={{ color: "gold" }} />
-              <p>{title.score} ●</p>
               {title.episodes && `${title.episodes} episodes`}
               {title.chapters && `${title.chapters} chapters`}
               <StyledStatus>

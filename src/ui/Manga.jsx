@@ -17,7 +17,8 @@ const StyledMangaRecommendations = styled.div`
   gap: 12px;
   width: 100%;
   padding: 8px;
-  display: grid;
+  display: flex;
+  overflow: scroll;
   align-items: center;
   justify-content: start;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -72,7 +73,7 @@ const Manga = () => {
       {visibleRecommendations < (recommendedManga?.length || 0) && (
         <StyledButtons>
           <ShowMoreLessButtons handleClick={handleLoadMore} text="Show More" />
-          {visibleRecommendations > 10 && (
+          {visibleRecommendations >= 10 && (
             <ShowMoreLessButtons
               handleClick={handleShowLess}
               text="Show Less"
