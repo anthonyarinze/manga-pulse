@@ -9,6 +9,7 @@ import ShowMoreLessButtons from "../components/ShowMoreLessButtons";
 const StyledSection = styled.section`
   width: 100vw;
   display: flex;
+  align-items: start;
   flex-direction: column;
 `;
 
@@ -16,16 +17,17 @@ const StyledMangaRecommendations = styled.div`
   gap: 12px;
   width: 100%;
   padding: 8px;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  align-items: center;
   justify-content: start;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 `;
 
 const StyledButtons = styled.div`
   gap: 10px;
   padding: 10px;
   display: flex;
-  margin-top: auto;
+  align-items: center;
   justify-content: center;
 `;
 

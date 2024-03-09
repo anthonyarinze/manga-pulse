@@ -18,10 +18,10 @@ const StyledMainRecs = styled.div`
   gap: 12px;
   width: 100%;
   padding: 8px;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
   align-items: center;
   justify-content: start;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 `;
 
 const StyledButtons = styled.div`

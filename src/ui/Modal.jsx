@@ -121,7 +121,6 @@ const Modal = () => {
   const handleUpdate = () => {
     if (isStatusChanged) {
       update(titleDetails);
-      console.log("current status:", titleDetails.status);
       dispatch(currentTitle({ ...titleDetails, isInLibrary: true }));
     } else return;
     if (status !== "None") {

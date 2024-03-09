@@ -168,11 +168,11 @@ function Header({ toggleSidebar, isSidebarOpen }) {
           searchResults.length > 0 && (
             <StyledDropdown ref={dropDownRef}>
               {searchResults
-                .filter((result) => result.englishTitle)
+                .filter((result) => result.englishTitle && result.id)
                 .map((result, index) => (
                   <SearchResultItem
                     key={index}
-                    id={result.mal_id}
+                    id={result.id}
                     webp={result.webp}
                     rating={result.score}
                     status={result.status}

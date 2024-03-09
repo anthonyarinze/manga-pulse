@@ -86,7 +86,11 @@ const SearchResultItem = ({
   mediaType,
 }) => {
   return (
-    <StyledCardLink to={`/title/TV/${id}`}>
+    <StyledCardLink
+      to={`/title/${
+        mediaType.toLowerCase() === "manga" ? "manga" : "anime"
+      }/${id}`}
+    >
       <StyledSearchResultItem>
         <StyledImg src={webp} alt="img" />
         <StyledBody>

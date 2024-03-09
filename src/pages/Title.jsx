@@ -96,7 +96,7 @@ const Title = () => {
   }, [dispatch, library, title, isInLibrary]);
 
   if (isLoading || isGettingLibraryTitles) return <Spinner />;
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) return <p>An error occurred. Please try again later.</p>;
 
   const {
     url,
