@@ -73,7 +73,7 @@ const Manga = () => {
       {visibleRecommendations < (recommendedManga?.length || 0) && (
         <StyledButtons>
           <ShowMoreLessButtons handleClick={handleLoadMore} text="Show More" />
-          {visibleRecommendations >= 10 && (
+          {visibleRecommendations > 10 && (
             <ShowMoreLessButtons
               handleClick={handleShowLess}
               text="Show Less"

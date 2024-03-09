@@ -8,8 +8,10 @@ const StyledMangaCard = styled.div`
   max-height: 250px;
   border-radius: 8px;
   position: relative;
+  transition: transform 0.2s ease;
 
   &:hover {
+    transform: scale(1.05);
     box-shadow: var(--shadow-lg);
 
     &::before {
@@ -71,14 +73,14 @@ const Wrapper = styled.div`
   }
 `;
 
-const RecommendedMangaCard = ({ id, type, webp, title, synopsis }) => {
+const RecommendedMangaCard = ({ id, type, webp, title, content }) => {
   return (
     <StyledCardLink to={`/title/${type}/${id}`}>
       <StyledMangaCard style={{ backgroundImage: `url(${webp})` }}>
         <Wrapper>
           <CardContent>
             <StyledTitle>{title}</StyledTitle>
-            <StyledContent>{synopsis}</StyledContent>
+            <StyledContent>{content}</StyledContent>
           </CardContent>
         </Wrapper>
       </StyledMangaCard>

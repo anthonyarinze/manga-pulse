@@ -9,6 +9,7 @@ const StyledRecommendedCard = styled.div`
   max-height: 250px;
   border-radius: 8px;
   position: relative;
+  transition: transform 0.2s ease;
 
   @media (max-width: 429px) {
     width: 180px;
