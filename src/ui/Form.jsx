@@ -5,7 +5,6 @@ const Form = styled.form`
     props.type === "regular" &&
     css`
       padding: 2rem;
-
       /* Box */
       background-color: var(--auth-color);
       border: 1px solid var(--color-grey-100);
@@ -17,7 +16,6 @@ const Form = styled.form`
     css`
       width: 80rem;
     `}
-    
   overflow: auto;
   font-size: 1.4rem;
 `;

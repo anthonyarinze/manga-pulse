@@ -8,7 +8,7 @@ import styled from "styled-components";
 import { useLogin } from "../hooks/useLogin";
 import { useState } from "react";
 
-const StyledDiv = styled.div`
+const StyledDiv = styled.section`
   display: flex;
   margin-top: 50px;
   justify-self: start;
