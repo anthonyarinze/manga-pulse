@@ -49,8 +49,6 @@ const Anime = () => {
     setVisibleRecommendations((prev) => prev - 10);
   };
 
-  console.log(recommendedAnime);
-
   return (
     <StyledSection>
       <Popular />

@@ -14,10 +14,9 @@ const StyledLibrary = styled.section`
   flex-direction: column;
 
   @media (min-width: 768px) {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: repeat(2, 1fr);
   }
 `;
 
@@ -35,7 +34,6 @@ const StyledTitle = styled.div`
   }
 
   @media (min-width: 768px) {
-    width: calc(50% - 7.5px); /* 50% width with 15px gap in between */
   }
 `;
 
@@ -92,35 +90,37 @@ const History = () => {
   if (!historyList?.length) return <Empty resource="history" />;
 
   return (
-    <StyledLibrary>
+    <>
       <Heading as="h4">History</Heading>
-      {historyList.map((title, index) => (
-        <StyledTitle
-          key={index}
-          onClick={() =>
-            navigate(`/title/${title.type.toLowerCase()}/${title.id}`)
-          }
-        >
-          <StyledImage src={title.webpImage} alt="image" />
-          <StyledData>
-            <Heading as="h3">{title.title_name}</Heading>
-            <StyledSpan>
-              <p>{title.media_type === "Manga" ? "Manga" : "Anime"} | </p>
-              <FaStar style={{ color: "gold" }} />
-              <p>{title.score}</p>
-            </StyledSpan>
-            <StyledSpan>
-              {title.episodes && `${title.episodes} episodes`}
-              {title.chapters && `${title.chapters} chapters`}
-              <StyledStatus>
-                <FaTags /> {title.status}
-              </StyledStatus>
-            </StyledSpan>
-            <StyledSynopsis>{title.synopsis}</StyledSynopsis>
-          </StyledData>
-        </StyledTitle>
-      ))}
-    </StyledLibrary>
+      <StyledLibrary>
+        {historyList.map((title, index) => (
+          <StyledTitle
+            key={index}
+            onClick={() =>
+              navigate(`/title/${title.type.toLowerCase()}/${title.id}`)
+            }
+          >
+            <StyledImage src={title.webpImage} alt="image" />
+            <StyledData>
+              <Heading as="h3">{title.title}</Heading>
+              <StyledSpan>
+                <p>{title.media_type === "Manga" ? "Manga" : "Anime"} | </p>
+                <FaStar style={{ color: "gold" }} />
+                <p>{title.score}</p>
+              </StyledSpan>
+              <StyledSpan>
+                {title.episodes && `${title.episodes} episodes`}
+                {title.chapters && `${title.chapters} chapters`}
+                <StyledStatus>
+                  <FaTags /> {title.status}
+                </StyledStatus>
+              </StyledSpan>
+              <StyledSynopsis>{title.synopsis}</StyledSynopsis>
+            </StyledData>
+          </StyledTitle>
+        ))}
+      </StyledLibrary>
+    </>
   );
 };
 
