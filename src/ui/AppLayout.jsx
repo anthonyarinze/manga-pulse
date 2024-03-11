@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Sidebar from "./Sidebar";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { clearHistory } from "../slices/historySlice";
 
 const StyledAppLayout = styled.div`
   width: 100vw;
@@ -37,10 +39,7 @@ function AppLayout() {
     setIsSidebarOpen((prevIsSidebarOpen) => !prevIsSidebarOpen);
   };
 
-  // Use useEffect to delay the state update until after the render phase
-  useEffect(() => {
-    // Any logic that needs to run after the render goes here
-  }, [isSidebarOpen]);
+  localStorage.removeItem("history");
 
   return (
     <StyledAppLayout isSidebarOpen={isSidebarOpen}>

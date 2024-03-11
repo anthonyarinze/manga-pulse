@@ -28,7 +28,6 @@ const StyledBackdrop = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 999;
   position: fixed;
   transition: all 0.5s;
   backdrop-filter: blur(4px);
@@ -153,7 +152,7 @@ const Modal = () => {
   }, [dispatch, status]);
 
   return createPortal(
-    <StyledBackdrop>
+    <StyledBackdrop onClick={() => console.log("test")}>
       <StyledModal>
         <StyledHeader>
           <Heading as="h3">Add to library</Heading>

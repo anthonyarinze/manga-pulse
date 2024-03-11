@@ -11,12 +11,11 @@ const StyledLibrary = styled.section`
   width: 100vw;
   height: 100vh;
   display: flex;
-  padding: 16px;
+  padding: 1rem 2rem;
   flex-direction: column;
 
   @media (min-width: 768px) {
     display: grid;
-    grid-gap: 15px;
     grid-template-columns: repeat(2, 1fr);
   }
 `;
@@ -25,7 +24,7 @@ const StyledTitle = styled.div`
   display: flex;
   padding: 10px;
   cursor: pointer;
-  min-height: 260px;
+  min-height: 240px;
   border-radius: 4px;
   align-items: center;
   background-color: var(--color-grey-100);
@@ -35,7 +34,6 @@ const StyledTitle = styled.div`
   }
 
   @media (min-width: 768px) {
-    /* width: calc(50% - 7.5px); 50% width with 15px gap in between */
   }
 `;
 
@@ -52,7 +50,9 @@ const StyledData = styled.div`
   height: 100%;
   display: flex;
   margin-left: 1rem;
+  align-items: start;
   flex-direction: column;
+  justify-content: space-evenly;
 `;
 
 const StyledSpan = styled.span`
@@ -76,11 +76,25 @@ const StyledStatus = styled.div`
 `;
 
 const StyledSynopsis = styled.p`
-  width: 100%;
-  height: 100%;
+  max-width: 95%;
   overflow: hidden;
-  position: relative;
-  padding-right: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+`;
+
+const StyledSpace = styled.div`
+  height: 1rem;
+`;
+
+const StyledTitleName = styled.p`
+  max-width: 95%;
+  overflow: hidden;
+  font-weight: 500;
+  font-size: 1.7rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
 `;
 
 const Library = () => {
@@ -92,7 +106,9 @@ const Library = () => {
 
   return (
     <>
-      <Heading as="h4">Library</Heading>
+      <Heading as="h4" style={{ margin: "1rem 0rem" }}>
+        Library
+      </Heading>
       <StyledLibrary>
         {titles.map((title, index) => (
           <StyledTitle
@@ -103,7 +119,7 @@ const Library = () => {
           >
             <StyledImage src={title.webp} alt="image" />
             <StyledData>
-              <Heading as="h3">{title.title_name}</Heading>
+              <StyledTitleName>{title.title_name}</StyledTitleName>
               <StyledSpan>
                 <p>{title.media_type === "Manga" ? "Manga" : "Anime"} | </p>
                 <FaStar style={{ color: "gold" }} />
@@ -120,6 +136,7 @@ const Library = () => {
             </StyledData>
           </StyledTitle>
         ))}
+        <StyledSpace />
       </StyledLibrary>
     </>
   );

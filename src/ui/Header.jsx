@@ -147,9 +147,6 @@ function Header({ toggleSidebar, isSidebarOpen }) {
     <StyledHeader>
       {!isSidebarOpen && <StyledButton onClick={toggleSidebar} />}
       <StyledIcons>
-        <StyledIconBubble>
-          <HiOutlineUser onClick={() => navigate("/account")} />
-        </StyledIconBubble>
         <StyledSearchBar
           placeholder="Search..."
           value={immediateSearchQuery}

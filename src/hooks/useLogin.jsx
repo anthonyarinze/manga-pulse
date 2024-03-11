@@ -12,8 +12,8 @@ export function useLogin() {
       navigate("/dashboard", { replace: true });
       queryClient.setQueryData(["user"], user.user);
     },
-    onError: () => {
-      toast.error("Provided email/password is incorrect.");
+    onError: (error) => {
+      toast.error(error.message || "Provided email/password is incorrect.");
     },
   });
 

@@ -7,17 +7,10 @@ const historySlice = createSlice({
   initialState: storedHistory,
   reducers: {
     addToHistory: (state, action) => {
-      // // Check if the title with the same id already exists
-      // const existingTitle = state.find((title) => title.id === id);
-
-      // // If not, add it to the history
-      // if (!existingTitle) {
-      //   state.unshift({ id, titleName });
-      //   localStorage.setItem("history", JSON.stringify(state));
-
-      if (!state.some((title) => title.id === action.payload)) {
+      // ensure title not in history
+      if (!state.some((title) => title.id === action.payload.id)) {
+        // add title to the beginning of history page
         state.unshift(action.payload);
-        localStorage.setItem("history", JSON.stringify(state));
       }
     },
   },

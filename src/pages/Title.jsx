@@ -115,12 +115,16 @@ const Title = () => {
   const { episodes, rating, chapters, volumes } =
     type === "anime" ? additionalFields : additionalFields;
 
+  document.title = `Manga Pulse | ${capitalizeFirstLetter(
+    type
+  )} - ${titleName}`;
+
   const handleShareButtonClick = async () => {
     try {
       if (navigator.share) {
         await navigator.share({
           title: document.title,
-          text: "Check out this awesome title!",
+          text: "Check out this awesome title.",
           url: window.location.href,
         });
       } else {
@@ -128,20 +132,15 @@ const Title = () => {
       }
     } catch (error) {
       console.error("Error sharing:", error.message);
-      // Handle errors or provide a fallback
     }
   };
-
-  document.title = `Manga Pulse | ${capitalizeFirstLetter(
-    type
-  )} - ${titleName}`;
 
   return (
     <StyledSection>
       <StyledImageAndDataRow>
         <StyledImage src={webpImage} alt="img" />
         <StyledData>
-          {/* div to enforce space bwtween text adn buttons */}
+          {/* div to enforce space bwtween text and buttons */}
           <div>
             <Heading as="h2">
               {titleName}
