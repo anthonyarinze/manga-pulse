@@ -2,8 +2,9 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Heading from "../ui/Heading";
-import { FaStar } from "react-icons/fa";
+import { FaReadme, FaStar } from "react-icons/fa";
 import Empty from "../ui/Empty";
+import { IoTvSharp } from "react-icons/io5";
 
 const StyledLibrary = styled.section`
   gap: 15px;
@@ -123,10 +124,13 @@ const History = () => {
                 <p>{title.score}</p>
               </StyledSpan>
               <StyledSpan>
-                {title.episodes && `${title.episodes} episodes`}
-                {title.chapters && `${title.chapters} chapters`}
+                {title.episodes && <IoTvSharp />}
+                {title.episodes && ` ${title.episodes}`}
+                {title.chapters && <FaReadme />}
+                {title.chapters && ` ${title.chapters} `}
                 <StyledStatus>{title.status}</StyledStatus>
               </StyledSpan>
+
               <StyledSynopsis>{title.synopsis}</StyledSynopsis>
             </StyledData>
           </StyledTitle>

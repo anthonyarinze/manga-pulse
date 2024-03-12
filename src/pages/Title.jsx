@@ -4,7 +4,6 @@ import Spinner from "../ui/Spinner";
 import { useParams } from "react-router-dom";
 import Heading from "../ui/Heading";
 import { FaBookmark, FaExternalLinkAlt, FaStar } from "react-icons/fa";
-import StyledCardLink from "../components/StyledCardLink";
 import { capitalizeFirstLetter, formatFavorites } from "../utils/helpers";
 import { IoBookmarksOutline, IoShareOutline } from "react-icons/io5";
 import { MdBookmarkAdded } from "react-icons/md";
@@ -17,6 +16,8 @@ import { useGetLibrary } from "../hooks/useGetLibrary";
 import { setTitles } from "../slices/librarySlice";
 import { openModal } from "../slices/modalSlice";
 import { addToHistory } from "../slices/historySlice";
+import RecommendationsById from "../components/RecommendationsById";
+import MangaRecommendationsById from "../components/MangaRecommendationsById";
 
 const StyledSection = styled.section`
   width: 100vw;
@@ -135,6 +136,10 @@ const Title = () => {
     }
   };
 
+  const handleClickTitle = (url) => {
+    window.open(url);
+  };
+
   return (
     <StyledSection>
       <StyledImageAndDataRow>
@@ -145,7 +150,12 @@ const Title = () => {
             <Heading as="h2">
               {titleName}
               <FaExternalLinkAlt
-                style={{ marginLeft: "6px", fontSize: "1.7rem" }}
+                style={{
+                  marginLeft: "6px",
+                  fontSize: "1.7rem",
+                  cursor: "pointer",
+                }}
+                onClick={() => handleClickTitle(url)}
               />
             </Heading>
             <p>{titleJapanese}</p>
@@ -178,6 +188,10 @@ const Title = () => {
         </StyledData>
       </StyledImageAndDataRow>
       <StyledSynopsis>{synopsis}</StyledSynopsis>
+
+      {type !== "manga" && <RecommendationsById id={titleId} />}
+
+      {type === "manga" && <MangaRecommendationsById id={titleId} />}
 
       {/* Conditionally render the modal based on the state */}
       {isModalOpen && <Modal />}
