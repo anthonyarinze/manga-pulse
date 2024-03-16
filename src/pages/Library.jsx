@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { useGetLibrary } from "../hooks/useGetLibrary";
 import Spinner from "../ui/Spinner";
 import Empty from "../ui/Empty";
 import Heading from "../ui/Heading";
 import { FaStar, FaTags } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { useGetLibrary } from "../api/useGetLibrary";
 
 const StyledLibrary = styled.section`
   gap: 15px;

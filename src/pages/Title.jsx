@@ -17,12 +17,12 @@ import { useEffect } from "react";
 import Modal from "../ui/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { currentTitle } from "../slices/titleSlice";
-import { useGetLibrary } from "../hooks/useGetLibrary";
 import { setTitles } from "../slices/librarySlice";
 import { openModal } from "../slices/modalSlice";
 import { addToHistory } from "../slices/historySlice";
 import RecommendationsById from "../components/RecommendationsById";
 import MangaRecommendationsById from "../components/MangaRecommendationsById";
+import { useGetLibrary } from "../api/useGetLibrary";
 
 const StyledSection = styled.section`
   width: 100vw;

@@ -5,10 +5,10 @@ import Heading from "./Heading";
 import { IoClose } from "react-icons/io5";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useUpdateLibrary } from "../hooks/useUpdateLibrary";
 import { currentTitle, updateStatus } from "../slices/titleSlice";
 import SpinnerMini from "./SpinnerMini";
 import { closeModal } from "../slices/modalSlice";
+import { useUpdateLibrary } from "../api/useUpdateLibrary";
 
 const StyledModal = styled.div`
   top: 50%;
