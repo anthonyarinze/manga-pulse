@@ -3,9 +3,14 @@ import { useTitleDetails } from "../api/useTitleDetails";
 import Spinner from "../ui/Spinner";
 import { useParams } from "react-router-dom";
 import Heading from "../ui/Heading";
-import { FaBookmark, FaExternalLinkAlt, FaStar } from "react-icons/fa";
+import {
+  FaBookmark,
+  FaExternalLinkAlt,
+  FaReadme,
+  FaStar,
+} from "react-icons/fa";
 import { capitalizeFirstLetter, formatFavorites } from "../utils/helpers";
-import { IoBookmarksOutline, IoShareOutline } from "react-icons/io5";
+import { IoBookmarksOutline, IoShareOutline, IoTvSharp } from "react-icons/io5";
 import { MdBookmarkAdded } from "react-icons/md";
 import TitleButton from "../ui/TitleButton";
 import { useEffect } from "react";
@@ -167,8 +172,10 @@ const Title = () => {
               </Heading>
             </span>
             <Heading as="h5">
-              {episodes && `${episodes} episodes ● ${status}, ${rating}`}
-              {chapters && `${chapters} chapters | Status: ${status}`}
+              {episodes && <IoTvSharp />}
+              {episodes && `${episodes} ● ${status}, ${rating}`}
+              {chapters && <FaReadme />}
+              {chapters && `${chapters} | Status: ${status}`}
             </Heading>
           </div>
           {/* bookmark & share */}
