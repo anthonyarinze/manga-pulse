@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import { BiMenu } from "react-icons/bi";
-import { HiOutlineUser } from "react-icons/hi2";
 import { useEffect, useRef, useState } from "react";
 import { useGetSearchResults } from "../api/useGetSearchResults";
 import SearchResultItem from "../components/SearchResultItem";
-import { useNavigate } from "react-router-dom";
 import SpinnerMini from "./SpinnerMini";
 
 const StyledHeader = styled.header`
@@ -32,20 +30,9 @@ const StyledIcons = styled.div`
   cursor: pointer;
 `;
 
-const StyledIconBubble = styled.div`
-  padding: 8px;
-  display: flex;
-  font-size: 3rem;
-  width: fit-content;
-  height: fit-content;
-  align-items: center;
-  border-radius: 100%;
-  justify-content: center;
-  background-color: var(--color-grey-200);
-`;
-
 const StyledDropdown = styled.div`
-  top: 70px;
+  top: 60px;
+  right: 10px;
   padding: 8px;
   z-index: 1000;
   height: 295px;
@@ -85,7 +72,6 @@ function Header({ toggleSidebar, isSidebarOpen }) {
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const dropDownRef = useRef(null);
   const isSearchBarFocused = useRef(false);
-  const navigate = useNavigate();
 
   const {
     isLoading,
@@ -128,6 +114,10 @@ function Header({ toggleSidebar, isSidebarOpen }) {
 
   const handleSearchBarBlur = () => {
     isSearchBarFocused.current = false;
+  };
+
+  const handleTitleClick = () => {
+    setIsSearchOpen(false);
   };
 
   useEffect(() => {
@@ -175,6 +165,7 @@ function Header({ toggleSidebar, isSidebarOpen }) {
                     status={result.status}
                     episodes={result.episodes}
                     name={result.englishTitle}
+                    onClick={handleTitleClick}
                     mediaType={result.mediaType}
                   />
                 ))}

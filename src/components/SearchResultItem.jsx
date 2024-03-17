@@ -84,6 +84,7 @@ const SearchResultItem = ({
   episodes,
   id,
   mediaType,
+  onClick,
 }) => {
   return (
     <StyledCardLink
@@ -91,7 +92,7 @@ const SearchResultItem = ({
         mediaType.toLowerCase() === "manga" ? "manga" : "anime"
       }/${id}`}
     >
-      <StyledSearchResultItem>
+      <StyledSearchResultItem onClick={onClick}>
         <StyledImg src={webp} alt="img" />
         <StyledBody>
           <StyledTitle>{name}</StyledTitle>

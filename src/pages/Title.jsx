@@ -54,7 +54,7 @@ const StyledImageAndDataRow = styled.div`
 `;
 
 const StyledData = styled.div`
-  width: 40%;
+  width: 80%;
   height: 100%;
   display: flex;
   margin-left: 10px;
@@ -163,7 +163,7 @@ const Title = () => {
                 onClick={() => handleClickTitle(url)}
               />
             </Heading>
-            <p>{titleJapanese}</p>
+            <Heading as="h5">{titleJapanese}</Heading>
             {/* Stats */}
             <span>
               <Heading as="h5">
@@ -172,10 +172,14 @@ const Title = () => {
               </Heading>
             </span>
             <Heading as="h5">
-              {episodes && <IoTvSharp />}
-              {episodes && `${episodes} ● ${status}, ${rating}`}
-              {chapters && <FaReadme />}
-              {chapters && `${chapters} | Status: ${status}`}
+              {episodes &&
+                `${episodes} ${
+                  episodes > 1 ? "episodes" : "episode"
+                } ● ${status}, ${rating}`}
+              {chapters &&
+                `${chapters} ${
+                  chapters > 1 ? "chapters" : "chapter"
+                } | Status: ${status}`}
             </Heading>
           </div>
           {/* bookmark & share */}

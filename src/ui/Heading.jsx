@@ -12,7 +12,7 @@ const Heading = styled.h1`
   ${(props) =>
     props.as === "h2" &&
     css`
-      font-size: 2rem;
+      font-size: 1.8rem;
       font-weight: 600;
     `}
 
@@ -38,9 +38,9 @@ const Heading = styled.h1`
     css`
       gap: 4px;
       display: flex;
-      font-size: 1.5rem;
       font-weight: 400;
       margin-top: 10px;
+      font-size: 1.4rem;
       align-items: center;
     `}
   line-height:1.4;
