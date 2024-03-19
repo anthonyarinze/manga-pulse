@@ -15,6 +15,19 @@ export async function getTitleDetails(type, id) {
     score: titleDetailsData.data.score,
     favorites: titleDetailsData.data.favorites,
     synopsis: titleDetailsData.data.synopsis,
+
+    genres: titleDetailsData.data.genres.map((genre) => ({
+      id: genre.mal_id,
+      name: genre.name,
+      url: genre.url,
+    })),
+
+    themes: titleDetailsData.data.themes.map((theme) => ({
+      id: theme.mal_id,
+      type: theme.type,
+      name: theme.name,
+      url: theme.url,
+    })),
   };
 
   //   Extract additional fields based on type
