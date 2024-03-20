@@ -66,7 +66,7 @@ const StyledDiv = styled.div`
   justify-content: center;
 `;
 
-function Header({ toggleSidebar, isSidebarOpen }) {
+function Header({ toggleSidebar, issidebaropen }) {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [immediateSearchQuery, setImmediateSearchQuery] = useState("");
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
@@ -135,7 +135,7 @@ function Header({ toggleSidebar, isSidebarOpen }) {
 
   return (
     <StyledHeader>
-      {!isSidebarOpen && <StyledButton onClick={toggleSidebar} />}
+      {!issidebaropen && <StyledButton onClick={toggleSidebar} />}
       <StyledIcons>
         <StyledSearchBar
           placeholder="Search..."

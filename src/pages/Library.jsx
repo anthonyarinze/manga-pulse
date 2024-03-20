@@ -5,12 +5,15 @@ import Heading from "../ui/Heading";
 import { FaStar, FaTags } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useGetLibrary } from "../api/useGetLibrary";
+import { useState } from "react";
+import Pagination from "../ui/Pagination";
 
 const StyledLibrary = styled.section`
   gap: 15px;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   display: flex;
+  margin-bottom: 10px;
   padding: 1rem 2rem;
   flex-direction: column;
 
@@ -97,12 +100,25 @@ const StyledTitleName = styled.p`
   -webkit-box-orient: vertical;
 `;
 
+const ITEMS_PER_PAGE = 10;
+
 const Library = () => {
   const navigate = useNavigate();
   const { isLoading, titles } = useGetLibrary();
+  const [currentPage, setCurrentPage] = useState(1);
 
   if (isLoading) return <Spinner />;
   if (!titles?.length) return <Empty resource="titles" />;
+
+  const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
+  const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
+  const currentTitles = titles.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(titles.length / ITEMS_PER_PAGE);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
 
   return (
     <>
@@ -110,7 +126,7 @@ const Library = () => {
         Library
       </Heading>
       <StyledLibrary>
-        {titles.map((title, index) => (
+        {currentTitles.map((title, index) => (
           <StyledTitle
             key={index}
             onClick={() =>
@@ -136,6 +152,13 @@ const Library = () => {
             </StyledData>
           </StyledTitle>
         ))}
+        {totalPages > 1 && (
+          <Pagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+          />
+        )}
         <StyledSpace />
       </StyledLibrary>
     </>

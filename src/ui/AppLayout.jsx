@@ -10,8 +10,8 @@ const StyledAppLayout = styled.div`
   display: grid;
   grid-template-rows: auto 1fr;
   transition: grid-template-columns 0.3s ease;
-  grid-template-columns: ${({ isSidebarOpen }) =>
-    isSidebarOpen ? "22rem 1fr" : ""};
+  grid-template-columns: ${({ issidebaropen }) =>
+    issidebaropen ? "22rem 1fr" : ""};
 `;
 
 const Main = styled.main`
@@ -31,18 +31,18 @@ const Container = styled.section`
 `;
 
 function AppLayout() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [issidebaropen, setissidebaropen] = useState(false);
 
   const toggleSidebar = () => {
-    setIsSidebarOpen((prevIsSidebarOpen) => !prevIsSidebarOpen);
+    setissidebaropen((previssidebaropen) => !previssidebaropen);
   };
 
   localStorage.removeItem("history");
 
   return (
-    <StyledAppLayout isSidebarOpen={isSidebarOpen}>
-      <Header toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
-      {isSidebarOpen && <Sidebar closeSidebar={toggleSidebar} />}
+    <StyledAppLayout issidebaropen={issidebaropen}>
+      <Header toggleSidebar={toggleSidebar} issidebaropen={issidebaropen} />
+      {issidebaropen && <Sidebar closeSidebar={toggleSidebar} />}
       <Main>
         <Container>
           <Outlet />
