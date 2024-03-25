@@ -23,6 +23,7 @@ const StyledLoading = styled.div`
 
 const Popular = () => {
   const { isLoading: isGettingPopular, error, data } = useGetPopularAnime();
+  const type = "TV";
 
   return (
     <>
@@ -33,18 +34,18 @@ const Popular = () => {
           <Loading label="Loading Popular Titles..." />
         </StyledLoading>
       )}
-      {error && <p>Error: {error.message}</p>}
+      {error && <p>Error: {error}</p>}
       <StyledPopular>
-        {data &&
-          data.map((anime, index) => (
-            <PopularTitles
-              key={index}
-              link={anime.url}
-              id={anime.mal_id}
-              image={anime.webp}
-              title={anime.title}
-            />
-          ))}
+        {data.map((anime, index) => (
+          <PopularTitles
+            key={index}
+            link={anime.url}
+            id={anime.mal_id}
+            image={anime.webp}
+            type={type}
+            title={anime.title}
+          />
+        ))}
       </StyledPopular>
     </>
   );

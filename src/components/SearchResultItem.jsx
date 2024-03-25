@@ -86,19 +86,27 @@ const SearchResultItem = ({
   mediaType,
   onClick,
 }) => {
+  const type = mediaType.toLowerCase() === "manga" ? "manga" : "anime";
+
   return (
-    <StyledCardLink
-      to={`/title/${
-        mediaType.toLowerCase() === "manga" ? "manga" : "anime"
-      }/${id}`}
-    >
+    <StyledCardLink to={`/title/${type}/${id}`}>
       <StyledSearchResultItem onClick={onClick}>
         <StyledImg src={webp} alt="img" />
         <StyledBody>
           <StyledTitle>{name}</StyledTitle>
           <StyledDetails>
             <FaStar style={{ marginRight: "3px", color: "gold" }} /> {rating} •{" "}
-            {episodes} {episodes > 1 ? "episodes" : "episode"}
+            {type === "manga" ? (
+              <>
+                {episodes}
+                {episodes > 1 ? " chapters" : " chapter"}
+              </>
+            ) : (
+              <>
+                {episodes}
+                {episodes > 1 ? " episodes" : " episode"}
+              </>
+            )}
           </StyledDetails>
           <StyledStatus>
             <StyledMediaType mediatype={mediaType}>{mediaType}</StyledMediaType>

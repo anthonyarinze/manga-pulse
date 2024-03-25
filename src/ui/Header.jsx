@@ -163,7 +163,7 @@ function Header({ toggleSidebar, issidebaropen }) {
                     webp={result.webp}
                     rating={result.score}
                     status={result.status}
-                    episodes={result.episodes}
+                    episodes={result.episodes || result.chapters}
                     name={result.englishTitle}
                     onClick={handleTitleClick}
                     mediaType={result.mediaType}

@@ -21,11 +21,11 @@ const PageButton = styled.button`
 `;
 
 const EllipsisButton = styled.button`
-  margin: 0 5px;
   border: none;
+  margin: 0 5px;
+  color: white;
   cursor: default;
   padding: 5px 10px;
-  color: white;
   background-color: transparent;
 `;
 

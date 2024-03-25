@@ -43,9 +43,9 @@ const Title = styled.p`
   margin-bottom: 10px;
 `;
 
-const PopularTitles = ({ id, image, title }) => {
+const PopularTitles = ({ id, image, type, title }) => {
   return (
-    <StyledCardLink to={`/title/TV/${id}`}>
+    <StyledCardLink to={`/title/${type}/${id}`}>
       <CardContainer style={{ backgroundImage: `url(${image})` }}>
         <CardContent>
           <Title>{title}</Title>

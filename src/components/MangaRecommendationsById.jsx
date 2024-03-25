@@ -4,6 +4,7 @@ import PopularTitles from "../ui/PopularTitles";
 import { useState } from "react";
 import ShowMoreLessButtons from "./ShowMoreLessButtons";
 import useRecommendedManga from "../api/manga/useGetRecommendationsById";
+import { useParams } from "react-router-dom";
 
 const StyledRecommendations = styled.div`
   gap: 10px;
@@ -42,6 +43,8 @@ const StyledButtons = styled.div`
 const MangaRecommendationsById = ({ id }) => {
   const { isLoading, error, data } = useRecommendedManga(id);
 
+  const { type } = useParams();
+
   const [visibleRecommendations, setVisibleRecommendations] = useState(10);
 
   const handleLoadMore = () => {
@@ -70,6 +73,7 @@ const MangaRecommendationsById = ({ id }) => {
                 key={index}
                 id={manga.id}
                 image={manga.image_url}
+                type={type}
                 title={manga.title}
               />
             ))}

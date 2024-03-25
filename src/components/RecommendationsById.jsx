@@ -4,6 +4,7 @@ import PopularTitles from "../ui/PopularTitles";
 import useRecommendedAnime from "../api/anime/useGetRecommendationsById";
 import { useState } from "react";
 import ShowMoreLessButtons from "./ShowMoreLessButtons";
+import { useParams } from "react-router-dom";
 
 const StyledRecommendations = styled.div`
   gap: 10px;
@@ -41,6 +42,9 @@ const StyledButtons = styled.div`
 
 const RecommendationsById = ({ id }) => {
   const { isLoading, error, data } = useRecommendedAnime(id);
+
+  const { type } = useParams();
+
   const [visibleRecommendations, setVisibleRecommendations] = useState(10);
 
   const handleLoadMore = () => {
@@ -69,6 +73,7 @@ const RecommendationsById = ({ id }) => {
                 key={index}
                 id={anime.id}
                 image={anime.image_url}
+                type={type}
                 title={anime.title}
               />
             ))}
