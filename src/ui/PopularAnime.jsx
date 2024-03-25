@@ -25,16 +25,24 @@ const Popular = () => {
   const { isLoading: isGettingPopular, error, data } = useGetPopularAnime();
   const type = "TV";
 
-  return (
-    <>
-      <StyledSectionHeader>Popular Titles</StyledSectionHeader>
-
-      {isGettingPopular && (
+  if (isGettingPopular) {
+    return (
+      <>
+        <StyledSectionHeader>Popular Titles</StyledSectionHeader>
         <StyledLoading>
           <Loading label="Loading Popular Titles..." />
         </StyledLoading>
-      )}
-      {error && <p>Error: {error}</p>}
+      </>
+    );
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
+  return (
+    <>
+      <StyledSectionHeader>Popular Titles</StyledSectionHeader>
       <StyledPopular>
         {data &&
           data.map((anime, index) => (

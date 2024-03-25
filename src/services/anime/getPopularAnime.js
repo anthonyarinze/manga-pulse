@@ -10,6 +10,5 @@ export async function getPopular() {
       mal_id: anime.entry.mal_id,
     };
   });
-  console.log(typeof animeData);
   return animeData;
 }
