@@ -20,7 +20,7 @@ Manga Tracker is a project I built not too disimilar to myanimelist in terms of 
 
 ## Getting Started
 
-[TBD]
+- [Manga Pulse](https://mangapulse.netlify.app/)
 
 ## Acknoledgements
 
