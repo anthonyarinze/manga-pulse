@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useGetLibrary } from "../api/useGetLibrary";
 import { useState } from "react";
 import Pagination from "../ui/Pagination";
+import StatusFilter from "../ui/StatusFilter";
 
 const StyledLibrary = styled.section`
   gap: 15px;
@@ -100,31 +101,55 @@ const StyledTitleName = styled.p`
   -webkit-box-orient: vertical;
 `;
 
+const StyledHeaderSpan = styled.span`
+  display: flex;
+  padding: 0px 2rem;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const ITEMS_PER_PAGE = 10;
 
 const Library = () => {
   const navigate = useNavigate();
   const { isLoading, titles } = useGetLibrary();
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedStatus, setSelectedSatus] = useState("All");
 
   if (isLoading) return <Spinner />;
   if (!titles?.length) return <Empty resource="titles" />;
 
+  let filteredTitles = titles;
+  if (selectedStatus !== "All") {
+    filteredTitles = titles.filter((title) => title.status === selectedStatus);
+  }
+
   const indexOfLastItem = currentPage * ITEMS_PER_PAGE;
   const indexOfFirstItem = indexOfLastItem - ITEMS_PER_PAGE;
-  const currentTitles = titles.slice(indexOfFirstItem, indexOfLastItem);
+  const currentTitles = filteredTitles.slice(indexOfFirstItem, indexOfLastItem);
 
-  const totalPages = Math.ceil(titles.length / ITEMS_PER_PAGE);
+  const totalPages = Math.ceil(filteredTitles.length / ITEMS_PER_PAGE);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
 
+  const handleStatusChange = (status) => {
+    setSelectedSatus(status);
+    setCurrentPage(1); //Reset current page when status changes;
+  };
+
   return (
     <>
-      <Heading as="h4" style={{ margin: "1rem 0rem" }}>
-        Library
-      </Heading>
+      <StyledHeaderSpan>
+        <Heading as="h4" style={{ margin: "1rem 0rem" }}>
+          Library
+        </Heading>
+        <StatusFilter
+          selectedStatus={selectedStatus}
+          onSelectStatus={handleStatusChange}
+        />
+      </StyledHeaderSpan>
       <StyledLibrary>
         {currentTitles.map((title, index) => (
           <StyledTitle
@@ -152,6 +177,7 @@ const Library = () => {
             </StyledData>
           </StyledTitle>
         ))}
+
         {totalPages > 1 && (
           <Pagination
             totalPages={totalPages}
