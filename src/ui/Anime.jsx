@@ -14,7 +14,7 @@ const StyledSection = styled.section`
   flex-direction: column;
 `;
 
-const StyledMainRecs = styled.div`
+const StyledAnimeRecommendations = styled.div`
   gap: 12px;
   width: 100%;
   padding: 8px;
@@ -33,6 +33,14 @@ const StyledButtons = styled.div`
   justify-content: center;
 `;
 
+const StyledLoading = styled.div`
+  display: flex;
+  align-self: center;
+  width: fit-content;
+  height: fit-content;
+  flex-direction: column;
+`;
+
 const Anime = () => {
   const {
     isLoading: isGettingAnimeRecs,
@@ -49,13 +57,26 @@ const Anime = () => {
     setVisibleRecommendations((prev) => prev - 10);
   };
 
+  if (isGettingAnimeRecs) {
+    return (
+      <>
+        <StyledSectionHeader>Recommended Anime</StyledSectionHeader>
+        <StyledLoading>
+          <Loading label="" />
+        </StyledLoading>
+      </>
+    );
+  }
+
+  if (error) {
+    return <p>Error:{error}</p>;
+  }
+
   return (
     <StyledSection>
       <Popular />
       <StyledSectionHeader>Recommended Anime</StyledSectionHeader>
-      <StyledMainRecs>
-        {isGettingAnimeRecs && <Loading label="Loading Recommended Anime..." />}
-        {error && <p>Error: {error.message}</p>}
+      <StyledAnimeRecommendations>
         {recommendedAnime &&
           recommendedAnime.length > 0 &&
           recommendedAnime
@@ -70,18 +91,21 @@ const Anime = () => {
                 content={recommendation.synopsis}
               />
             ))}
-      </StyledMainRecs>
-      {visibleRecommendations < (recommendedAnime?.length || 0) && (
-        <StyledButtons>
-          <ShowMoreLessButtons handleClick={handleLoadMore} text="Show More" />
-          {visibleRecommendations > 10 && (
+        {visibleRecommendations < (recommendedAnime?.length || 0) && (
+          <StyledButtons>
             <ShowMoreLessButtons
-              handleClick={handleShowLess}
-              text="Show Less"
+              handleClick={handleLoadMore}
+              text="Show More"
             />
-          )}
-        </StyledButtons>
-      )}
+            {visibleRecommendations > 10 && (
+              <ShowMoreLessButtons
+                handleClick={handleShowLess}
+                text="Show Less"
+              />
+            )}
+          </StyledButtons>
+        )}
+      </StyledAnimeRecommendations>
     </StyledSection>
   );
 };

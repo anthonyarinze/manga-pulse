@@ -28,8 +28,16 @@ const StyledButtons = styled.div`
   gap: 10px;
   padding: 10px;
   display: flex;
-  align-items: center;
+  margin-top: auto;
   justify-content: center;
+`;
+
+const StyledLoading = styled.div`
+  display: flex;
+  align-self: center;
+  width: fit-content;
+  height: fit-content;
+  flex-direction: column;
 `;
 
 const Manga = () => {
@@ -49,12 +57,25 @@ const Manga = () => {
     setVisibleRecommendations((prev) => prev - 10);
   };
 
+  if (isGettingManga) {
+    return (
+      <>
+        <StyledSectionHeader>Recommended Manga</StyledSectionHeader>
+        <StyledLoading>
+          <Loading label="" />
+        </StyledLoading>
+      </>
+    );
+  }
+
+  if (error) {
+    return <p>Error:{error}</p>;
+  }
+
   return (
     <StyledSection>
       <StyledSectionHeader>Recommended Manga</StyledSectionHeader>
       <StyledMangaRecommendations>
-        {isGettingManga && <Loading label="Loading Recommended Manga..." />}
-        {error && <p>Error: {error.message}</p>}
         {recommendedManga &&
           recommendedManga.length > 0 &&
           recommendedManga
@@ -69,18 +90,21 @@ const Manga = () => {
                 content={recommendation.synopsis}
               />
             ))}
-      </StyledMangaRecommendations>
-      {visibleRecommendations < (recommendedManga?.length || 0) && (
-        <StyledButtons>
-          <ShowMoreLessButtons handleClick={handleLoadMore} text="Show More" />
-          {visibleRecommendations > 10 && (
+        {visibleRecommendations < (recommendedManga?.length || 0) && (
+          <StyledButtons>
             <ShowMoreLessButtons
-              handleClick={handleShowLess}
-              text="Show Less"
+              handleClick={handleLoadMore}
+              text="Show More"
             />
-          )}
-        </StyledButtons>
-      )}
+            {visibleRecommendations > 10 && (
+              <ShowMoreLessButtons
+                handleClick={handleShowLess}
+                text="Show Less"
+              />
+            )}
+          </StyledButtons>
+        )}
+      </StyledMangaRecommendations>
     </StyledSection>
   );
 };

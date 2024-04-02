@@ -7,6 +7,7 @@ import Input from "../ui/Input";
 import Button from "../ui/Button";
 import Heading from "../ui/Heading";
 import styled from "styled-components";
+import toast from "react-hot-toast";
 
 const StyledDiv = styled.div`
   display: flex;
