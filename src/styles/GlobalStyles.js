@@ -48,6 +48,7 @@ const GlobalStyles = createGlobalStyle`
 --color-red-100: #fee2e2;
 --color-red-700: #b91c1c;
 --color-red-800: #991b1b;
+--color-red-900: #fc3838;
 
 --auth-color: #2e3150;
 --backdrop-color: rgba(0, 0, 0, 0.3);

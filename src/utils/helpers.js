@@ -31,3 +31,7 @@ export const handleShareButtonClick = async () => {
 export const handleClickTitle = (url) => {
   window.open(url);
 };
+
+export const openInMangadex = (query) => {
+  window.open(`https://mangadex.org/search?q=${query}`);
+};

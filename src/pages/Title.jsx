@@ -9,6 +9,7 @@ import {
   formatFavorites,
   handleClickTitle,
   handleShareButtonClick,
+  openInMangadex,
 } from "../utils/helpers";
 import { IoBookmarksOutline, IoShareOutline } from "react-icons/io5";
 import { MdBookmarkAdded } from "react-icons/md";
@@ -89,7 +90,29 @@ const StyledGenres = styled.div`
   border-radius: 3px;
   align-items: center;
   justify-content: center;
-  background-color: var(--color-grey-200);
+  background-color: ${({ isexplicit }) =>
+    isexplicit === "Ecchi" ||
+    isexplicit === "Erotica" ||
+    isexplicit === "Hentai"
+      ? "var(--color-red-900)"
+      : "var(--color-grey-200)"};
+`;
+
+const MangadexButton = styled.button`
+  gap: 6px;
+  padding: 8px;
+  display: flex;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  align-items: center;
+  justify-content: center;
+  background-color: #ff6740;
+
+  &:hover {
+    filter: brightness(90%);
+  }
 `;
 
 const Title = () => {
@@ -204,17 +227,27 @@ const Title = () => {
         </StyledData>
       </StyledImageAndDataRow>
 
+      {/* open in mangadex */}
+      <MangadexButton onClick={() => openInMangadex(titleName)}>
+        Open In Mangadex <FaExternalLinkAlt />
+      </MangadexButton>
+
+      {/* grenres */}
       <Heading>Genres</Heading>
       <StyledTagsContainer>
         {genres.map((genre, index) => (
-          <StyledGenres key={index}>{genre.name}</StyledGenres>
+          <StyledGenres isexplicit={genre.name} key={index}>
+            {genre.name}
+          </StyledGenres>
         ))}
       </StyledTagsContainer>
 
       <Heading>Themes</Heading>
       <StyledTagsContainer>
         {themes.map((theme, index) => (
-          <StyledGenres key={index}>{theme.name}</StyledGenres>
+          <StyledGenres isexplicit={theme.name} key={index}>
+            {theme.name}
+          </StyledGenres>
         ))}
       </StyledTagsContainer>
 

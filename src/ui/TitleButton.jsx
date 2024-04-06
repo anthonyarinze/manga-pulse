@@ -15,7 +15,7 @@ const StyledTitleButton = styled.button`
   ${(props) =>
     props.as === "edit" &&
     css`
-      background-color: #ffb17a;
+      background-color: #ff6740;
     `}
 
   ${(props) =>
