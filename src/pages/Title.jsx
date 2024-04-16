@@ -12,7 +12,7 @@ import {
   openInMangadex,
 } from "../utils/helpers";
 import { IoBookmarksOutline, IoShareOutline } from "react-icons/io5";
-import { MdBookmarkAdded } from "react-icons/md";
+import { MdBookmarkAdded, MdInfo } from "react-icons/md";
 import TitleButton from "../ui/TitleButton";
 import { useEffect } from "react";
 import Modal from "../ui/Modal";
@@ -24,6 +24,9 @@ import { addToHistory } from "../slices/historySlice";
 import RecommendationsById from "../components/RecommendationsById";
 import MangaRecommendationsById from "../components/MangaRecommendationsById";
 import { useGetLibrary } from "../api/useGetLibrary";
+import { useUser } from "../hooks/useUser";
+import toast from "react-hot-toast";
+import useNavigate from "react-router-dom";
 
 const StyledSection = styled.section`
   width: 100vw;
@@ -116,7 +119,9 @@ const MangadexButton = styled.button`
 `;
 
 const Title = () => {
+  const { isAuthenticated } = useUser();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { titleId, type } = useParams();
   const { isLoading, error, title } = useTitleDetails(type, titleId);
   const isModalOpen = useSelector((state) => state.modal);
@@ -136,6 +141,20 @@ const Title = () => {
       dispatch(setTitles(libraryTitles));
     }
   }, [dispatch, isGettingLibraryTitles, libraryTitles, isLoading]);
+
+  const handleAddToLibrary = () => {
+    if (isAuthenticated) {
+      dispatch(openModal());
+    } else {
+      toast.custom(
+        <button onClick={() => navigate("/auth")}>
+          {" "}
+          Please create an account to add titles to your library. Click here to
+          create your account.
+        </button>
+      );
+    }
+  };
 
   const library = useSelector((state) => state.library);
   const isInLibrary = title
@@ -212,7 +231,7 @@ const Title = () => {
           </div>
           {/* bookmark & share */}
           <StyledButtons>
-            <TitleButton as="edit" onClick={() => dispatch(openModal())}>
+            <TitleButton as="edit" onClick={handleAddToLibrary}>
               {titleDetails.isInLibrary ? (
                 <MdBookmarkAdded />
               ) : (

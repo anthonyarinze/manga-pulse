@@ -42,7 +42,7 @@ const StyledTitle = styled.div`
 `;
 
 const StyledImage = styled.img`
-  width: 40%;
+  width: 35%;
   height: 100%;
   object-fit: fill;
   border-radius: 4px;
@@ -150,6 +150,7 @@ const Library = () => {
           onSelectStatus={handleStatusChange}
         />
       </StyledHeaderSpan>
+
       <StyledLibrary>
         {currentTitles.map((title, index) => (
           <StyledTitle
