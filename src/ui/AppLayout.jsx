@@ -5,8 +5,8 @@ import Sidebar from "./Sidebar";
 import styled from "styled-components";
 
 const StyledAppLayout = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
   display: grid;
   grid-template-rows: auto 1fr;
   transition: grid-template-columns 0.3s ease;
