@@ -12,7 +12,7 @@ import {
   openInMangadex,
 } from "../utils/helpers";
 import { IoBookmarksOutline, IoShareOutline } from "react-icons/io5";
-import { MdBookmarkAdded, MdInfo } from "react-icons/md";
+import { MdBookmarkAdded } from "react-icons/md";
 import TitleButton from "../ui/TitleButton";
 import { useEffect } from "react";
 import Modal from "../ui/Modal";
@@ -26,7 +26,7 @@ import MangaRecommendationsById from "../components/MangaRecommendationsById";
 import { useGetLibrary } from "../api/useGetLibrary";
 import { useUser } from "../hooks/useUser";
 import toast from "react-hot-toast";
-import useNavigate from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const StyledSection = styled.section`
   width: 100vw;
@@ -118,6 +118,13 @@ const MangadexButton = styled.button`
   }
 `;
 
+const StyledPopupButton = styled.button`
+  padding: 8px;
+  color: white;
+  border-radius: 4px;
+  background-color: var(--color-grey-200);
+`;
+
 const Title = () => {
   const { isAuthenticated } = useUser();
   const dispatch = useDispatch();
@@ -147,11 +154,11 @@ const Title = () => {
       dispatch(openModal());
     } else {
       toast.custom(
-        <button onClick={() => navigate("/auth")}>
+        <StyledPopupButton onClick={() => navigate("/auth")}>
           {" "}
           Please create an account to add titles to your library. Click here to
           create your account.
-        </button>
+        </StyledPopupButton>
       );
     }
   };
