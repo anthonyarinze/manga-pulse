@@ -8,6 +8,7 @@ import { useGetLibrary } from "../api/useGetLibrary";
 import { useState } from "react";
 import Pagination from "../ui/Pagination";
 import StatusFilter from "../ui/StatusFilter";
+import StyledTitleCard from "../components/StyledTitleCard";
 
 const StyledLibrary = styled.section`
   gap: 15px;
@@ -24,26 +25,9 @@ const StyledLibrary = styled.section`
   }
 `;
 
-const StyledTitle = styled.div`
-  display: flex;
-  padding: 10px;
-  cursor: pointer;
-  min-height: 240px;
-  border-radius: 4px;
-  align-items: center;
-  background-color: var(--color-grey-100);
-
-  &:hover {
-    background-color: #293238;
-  }
-
-  @media (min-width: 768px) {
-  }
-`;
-
 const StyledImage = styled.img`
   width: 35%;
-  height: 100%;
+  max-height: 220px;
   object-fit: fill;
   border-radius: 4px;
 `;
@@ -111,7 +95,6 @@ const StyledHeaderSpan = styled.span`
 const ITEMS_PER_PAGE = 10;
 
 const Library = () => {
-  const navigate = useNavigate();
   const { isLoading, titles } = useGetLibrary();
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedStatus, setSelectedSatus] = useState("All");
@@ -153,11 +136,9 @@ const Library = () => {
 
       <StyledLibrary>
         {currentTitles.map((title, index) => (
-          <StyledTitle
+          <StyledTitleCard
             key={index}
-            onClick={() =>
-              navigate(`/title/${title.media_type.toLowerCase()}/${title.id}`)
-            }
+            to={`/title/${title.media_type.toLowerCase()}/${title.id}`}
           >
             <StyledImage src={title.webp} alt="image" />
             <StyledData>
@@ -176,7 +157,7 @@ const Library = () => {
               </StyledSpan>
               <StyledSynopsis>{title.synopsis}</StyledSynopsis>
             </StyledData>
-          </StyledTitle>
+          </StyledTitleCard>
         ))}
 
         {totalPages > 1 && (

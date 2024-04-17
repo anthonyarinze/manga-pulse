@@ -5,6 +5,7 @@ import Heading from "../ui/Heading";
 import { FaReadme, FaStar } from "react-icons/fa";
 import Empty from "../ui/Empty";
 import { IoTvSharp } from "react-icons/io5";
+import StyledTitleCard from "../components/StyledTitleCard";
 
 const StyledLibrary = styled.section`
   gap: 15px;
@@ -20,27 +21,9 @@ const StyledLibrary = styled.section`
   }
 `;
 
-const StyledTitle = styled.div`
-  display: flex;
-  padding: 10px;
-  cursor: pointer;
-  min-height: 240px;
-  max-height: 241px;
-  border-radius: 4px;
-  align-items: center;
-  background-color: var(--color-grey-100);
-
-  &:hover {
-    background-color: #293238;
-  }
-
-  @media (min-width: 768px) {
-  }
-`;
-
 const StyledImage = styled.img`
-  width: 40%;
-  height: 100%;
+  width: 35%;
+  max-height: 220px;
   object-fit: fill;
   border-radius: 4px;
 `;
@@ -97,7 +80,6 @@ const StyledTitleName = styled.p`
 `;
 
 const History = () => {
-  const navigate = useNavigate();
   const historyList = useSelector((state) => state.history);
 
   if (!historyList?.length) return <Empty resource="history" />;
@@ -109,11 +91,9 @@ const History = () => {
       </Heading>
       <StyledLibrary>
         {historyList.map((title, index) => (
-          <StyledTitle
+          <StyledTitleCard
             key={index}
-            onClick={() =>
-              navigate(`/title/${title.type.toLowerCase()}/${title.id}`)
-            }
+            to={`/title/${title.type.toLowerCase()}/${title.id}`}
           >
             <StyledImage src={title.webpImage} alt="image" />
             <StyledData>
@@ -125,15 +105,15 @@ const History = () => {
               </StyledSpan>
               <StyledSpan>
                 {title.episodes && <IoTvSharp />}
-                {title.episodes && ` ${title.episodes}`}
+                {title.episodes && ` ${title.episodes} episodes`}
                 {title.chapters && <FaReadme />}
-                {title.chapters && ` ${title.chapters} `}
+                {title.chapters && ` ${title.chapters} chapters`}
                 <StyledStatus>{title.status}</StyledStatus>
               </StyledSpan>
 
               <StyledSynopsis>{title.synopsis}</StyledSynopsis>
             </StyledData>
-          </StyledTitle>
+          </StyledTitleCard>
         ))}
         <StyledSpace />
       </StyledLibrary>
