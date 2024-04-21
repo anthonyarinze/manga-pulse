@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Heading from "../ui/Heading";
 import { FaReadme, FaStar } from "react-icons/fa";
@@ -104,10 +103,18 @@ const History = () => {
                 <p>{title.score}</p>
               </StyledSpan>
               <StyledSpan>
+                {/* render tv and episode count */}
                 {title.episodes && <IoTvSharp />}
-                {title.episodes && ` ${title.episodes} episodes`}
+                {title.episodes &&
+                  ` ${title.episodes} ${
+                    title.episodes > 1 ? "episodes" : "episode"
+                  } `}
+                {/* render tv and chapter count */}
                 {title.chapters && <FaReadme />}
-                {title.chapters && ` ${title.chapters} chapters`}
+                {title.chapters &&
+                  ` ${title.chapters} ${
+                    title.chapters > 1 ? "chapters" : "chapter"
+                  }`}
                 <StyledStatus>{title.status}</StyledStatus>
               </StyledSpan>
 

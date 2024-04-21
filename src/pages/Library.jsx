@@ -3,7 +3,6 @@ import Spinner from "../ui/Spinner";
 import Empty from "../ui/Empty";
 import Heading from "../ui/Heading";
 import { FaStar, FaTags } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import { useGetLibrary } from "../api/useGetLibrary";
 import { useState } from "react";
 import Pagination from "../ui/Pagination";
@@ -149,8 +148,14 @@ const Library = () => {
                 <p>{title.score}</p>
               </StyledSpan>
               <StyledSpan>
-                {title.episodes && `${title.episodes} episodes`}
-                {title.chapters && `${title.chapters} chapters`}
+                {title.episodes &&
+                  `${title.episodes} ${
+                    title.episodes > 1 ? "episodes" : "episode"
+                  }`}
+                {title.chapters &&
+                  `${title.chapters} ${
+                    title.episodes > 1 ? "chapters" : "chapter"
+                  }`}
                 <StyledStatus>
                   <FaTags /> {title.status}
                 </StyledStatus>

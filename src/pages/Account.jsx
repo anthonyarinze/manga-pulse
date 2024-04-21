@@ -4,6 +4,8 @@ import { useUser } from "../hooks/useUser";
 import Spinner from "../ui/Spinner";
 import { useLogout } from "../hooks/useLogout";
 import SpinnerMini from "../ui/SpinnerMini";
+import { useNavigate } from "react-router-dom";
+import Button from "../ui/Button";
 
 const StyledAccount = styled.section`
   width: 100%;
@@ -50,8 +52,19 @@ const StyledIcon = styled.div`
 const Account = () => {
   const { logout, isLoading: isLoggingOut } = useLogout();
   const { isLoading, user } = useUser();
+  const navigate = useNavigate();
 
   if (isLoading) return <Spinner />;
+
+  if (!user)
+    return (
+      <Button
+        style={{ width: "fit-content", margin: "10px" }}
+        onClick={() => navigate("/auth", { replace: true })}
+      >
+        Log In/Sign up
+      </Button>
+    );
 
   return (
     <StyledAccount>
