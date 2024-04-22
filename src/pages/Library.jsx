@@ -2,7 +2,7 @@ import styled from "styled-components";
 import Spinner from "../ui/Spinner";
 import Empty from "../ui/Empty";
 import Heading from "../ui/Heading";
-import { FaStar, FaTags } from "react-icons/fa";
+import { FaStar } from "react-icons/fa";
 import { useGetLibrary } from "../api/useGetLibrary";
 import { useState } from "react";
 import Pagination from "../ui/Pagination";
@@ -156,9 +156,7 @@ const Library = () => {
                   `${title.chapters} ${
                     title.episodes > 1 ? "chapters" : "chapter"
                   }`}
-                <StyledStatus>
-                  <FaTags /> {title.status}
-                </StyledStatus>
+                <StyledStatus>{title.status}</StyledStatus>
               </StyledSpan>
               <StyledSynopsis>{title.synopsis}</StyledSynopsis>
             </StyledData>

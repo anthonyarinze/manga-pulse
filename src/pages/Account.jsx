@@ -49,6 +49,13 @@ const StyledIcon = styled.div`
   }
 `;
 
+const StyledChartBox = styled.div`
+  width: 80%;
+  height: 300px;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+`;
+
 const Account = () => {
   const { logout, isLoading: isLoggingOut } = useLogout();
   const { isLoading, user } = useUser();
@@ -68,6 +75,7 @@ const Account = () => {
 
   return (
     <StyledAccount>
+      {/* USER NAME & LOG OUT BUTTON */}
       <StyledAuthDiv>
         <StyledUserCard>
           <MdAccountCircle />
@@ -77,6 +85,8 @@ const Account = () => {
           {isLoggingOut ? <SpinnerMini /> : <MdLogout />}
         </StyledIcon>
       </StyledAuthDiv>
+      {/* LIBRARY TYPE SPREAD CHART */}
+      <StyledChartBox>{/* charts go here */}</StyledChartBox>
     </StyledAccount>
   );
 };
