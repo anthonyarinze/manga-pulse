@@ -154,7 +154,7 @@ const Library = () => {
                   }`}
                 {title.chapters &&
                   `${title.chapters} ${
-                    title.episodes > 1 ? "chapters" : "chapter"
+                    title.chapters > 1 ? "chapters" : "chapter"
                   }`}
                 <StyledStatus>{title.status}</StyledStatus>
               </StyledSpan>
