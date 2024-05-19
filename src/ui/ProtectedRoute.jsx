@@ -1,6 +1,6 @@
 import styled from "styled-components";
+import Spinner from "./Spinner";
 import { useUser } from "../hooks/useUser";
-import Spinner from "../ui/Spinner";
 
 const FullPage = styled.div`
   display: flex;
@@ -12,7 +12,6 @@ const FullPage = styled.div`
 
 const ProtectedRoute = ({ children }) => {
   const { isLoading } = useUser();
-
   if (isLoading)
     return (
       <FullPage>
