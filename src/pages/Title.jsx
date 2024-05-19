@@ -47,6 +47,7 @@ const StyledImage = styled.img`
 
 const StyledSynopsis = styled.span`
   gap: 20px;
+  width: 80%;
   display: flex;
   margin-top: 15px;
   flex-direction: column;
