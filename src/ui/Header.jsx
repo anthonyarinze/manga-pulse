@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { useGetSearchResults } from "../api/useGetSearchResults";
 import SearchResultItem from "../components/SearchResultItem";
 import SpinnerMini from "./SpinnerMini";
+import { debounce } from "lodash";
+import SearchBar from "./SearchBar";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -49,17 +51,6 @@ const StyledDropdown = styled.div`
   }
 `;
 
-const StyledSearchBar = styled.input`
-  padding: 8px;
-  border: none;
-  outline: none;
-  color: white;
-  font-size: 1.6rem;
-  border-radius: 8px;
-  margin-right: 12px;
-  background-color: var(--color-grey-200);
-`;
-
 const StyledDiv = styled.div`
   display: flex;
   align-items: center;
@@ -79,28 +70,22 @@ function Header({ toggleSidebar, issidebaropen }) {
     data: searchResults,
   } = useGetSearchResults(debouncedSearchQuery);
 
-  const debounce = (func, delay) => {
-    let timerId;
-    return function (...args) {
-      if (timerId) {
-        clearTimeout(timerId);
-      }
-      timerId = setTimeout(() => {
-        func.apply(this, args);
-      }, delay);
-    };
-  };
-
   const handleImmediateSearchQuery = (event) => {
     const query = event.target.value;
     setImmediateSearchQuery(query);
   };
 
-  // Update search query after a delay to debounce the API calls
   const debouncedSearch = debounce((value) => {
-    setDebouncedSearchQuery(value);
-    setIsSearchOpen(value.length > 0);
+    // Call api only when search bar is  focused;
+    if (isSearchBarFocused.current) {
+      setDebouncedSearchQuery(value);
+      setIsSearchOpen(value.length > 0);
+    }
   }, 500);
+
+  useEffect(() => {
+    debouncedSearch(immediateSearchQuery);
+  }, [immediateSearchQuery, debouncedSearch]);
 
   const handleClickOutside = (event) => {
     if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
@@ -121,10 +106,6 @@ function Header({ toggleSidebar, issidebaropen }) {
   };
 
   useEffect(() => {
-    debouncedSearch(immediateSearchQuery);
-  }, [immediateSearchQuery, debouncedSearch]);
-
-  useEffect(() => {
     document.addEventListener("click", handleClickOutside);
     return () => {
       document.removeEventListener("click", handleClickOutside);
@@ -137,8 +118,7 @@ function Header({ toggleSidebar, issidebaropen }) {
     <StyledHeader>
       {!issidebaropen && <StyledButton onClick={toggleSidebar} />}
       <StyledIcons>
-        <StyledSearchBar
-          placeholder="Search..."
+        <SearchBar
           value={immediateSearchQuery}
           onBlur={handleSearchBarBlur}
           onFocus={handleSearchBarFocus}
