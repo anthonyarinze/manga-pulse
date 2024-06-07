@@ -1,3 +1,6 @@
+[Settings]
+ID = "d56a9a4d-421a-40fe-b01a-5538e48b3b17"
+
 [[redirects]]
 from = "/*"
 to = "/index.html"
