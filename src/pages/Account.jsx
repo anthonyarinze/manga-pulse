@@ -6,6 +6,7 @@ import { useLogout } from "../hooks/useLogout";
 import SpinnerMini from "../ui/SpinnerMini";
 import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
+import RatioChart from "../ui/account/RatioChart";
 
 const StyledAccount = styled.section`
   width: 100%;
@@ -86,7 +87,10 @@ const Account = () => {
         </StyledIcon>
       </StyledAuthDiv>
       {/* LIBRARY TYPE SPREAD CHART */}
-      <StyledChartBox>{/* charts go here */}</StyledChartBox>
+      <StyledChartBox>
+        {/* charts go here */}
+        <RatioChart />
+      </StyledChartBox>
     </StyledAccount>
   );
 };
