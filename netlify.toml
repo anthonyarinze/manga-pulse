@@ -5,3 +5,5 @@ ID = "d56a9a4d-421a-40fe-b01a-5538e48b3b17"
 from = "/*"
 to = "/index.html"
 status = 200
+
+targetPort = 8000

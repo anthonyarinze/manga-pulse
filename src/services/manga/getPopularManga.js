@@ -1,5 +1,6 @@
 export async function getPopularManga() {
   const res = await fetch("https://api.jikan.moe/v4/top/manga");
+
   const data = await res.json();
 
   const mangaData = data.data.map((manga) => {

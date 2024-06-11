@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { FaStar } from "react-icons/fa";
-import StyledCardLink from "./StyledCardLink";
+import StyledCardLink from "../../components/StyledCardLink";
 
 const StyledSearchResultItem = styled.div`
   padding: 8px;
@@ -76,41 +76,37 @@ const StyledMediaType = styled.div`
       : "var(--color-brand-800)"};
 `;
 
-const SearchResultItem = ({
-  webp,
-  name,
-  rating,
-  status,
-  episodes,
-  id,
-  mediaType,
-  onClick,
-}) => {
-  const type = mediaType.toLowerCase() === "manga" ? "manga" : "anime";
+const SearchResultItem = ({ result }) => {
+  const type = result.mediaType.toLowerCase() === "manga" ? "manga" : "anime";
 
   return (
-    <StyledCardLink to={`/title/${type}/${id}`}>
-      <StyledSearchResultItem onClick={onClick}>
-        <StyledImg src={webp} alt="img" />
+    <StyledCardLink to={`/title/${type}/${result.id}`}>
+      <StyledSearchResultItem>
+        <StyledImg src={result.webp} alt="img" />
         <StyledBody>
-          <StyledTitle>{name}</StyledTitle>
+          <StyledTitle>
+            {result.englishTitle || result.defaultTitle}
+          </StyledTitle>
           <StyledDetails>
-            <FaStar style={{ marginRight: "3px", color: "gold" }} /> {rating} •{" "}
+            <FaStar style={{ marginRight: "3px", color: "gold" }} />{" "}
+            {result.score || result.rating} •{" "}
             {type === "manga" ? (
               <>
-                {episodes}
-                {episodes > 1 ? " chapters" : " chapter"}
+                {result.chapters}
+                {result.chapters > 1 ? " chapters" : " chapter"}
               </>
             ) : (
               <>
-                {episodes}
-                {episodes > 1 ? " episodes" : " episode"}
+                {result.episodes}
+                {result.episodes > 1 ? " episodes" : " episode"}
               </>
             )}
           </StyledDetails>
           <StyledStatus>
-            <StyledMediaType mediatype={mediaType}>{mediaType}</StyledMediaType>
-            {status}
+            <StyledMediaType mediatype={result.mediaType}>
+              {result.mediaType}
+            </StyledMediaType>
+            {result.status}
           </StyledStatus>
         </StyledBody>
       </StyledSearchResultItem>

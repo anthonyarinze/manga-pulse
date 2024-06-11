@@ -1,11 +1,6 @@
 import styled from "styled-components";
 import { BiMenu } from "react-icons/bi";
-import { useEffect, useRef, useState } from "react";
-import { useGetSearchResults } from "../api/useGetSearchResults";
-import SearchResultItem from "../components/SearchResultItem";
-import SpinnerMini from "./SpinnerMini";
-import { debounce } from "lodash";
-import SearchBar from "./SearchBar";
+import SearchBar from "./header/SearchBar";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -26,133 +21,11 @@ const StyledButton = styled(BiMenu)`
   }
 `;
 
-const StyledIcons = styled.div`
-  gap: 12px;
-  display: flex;
-  cursor: pointer;
-`;
-
-const StyledDropdown = styled.div`
-  top: 60px;
-  right: 10px;
-  padding: 8px;
-  z-index: 1000;
-  height: 295px;
-  max-width: 318px;
-  min-width: 316px;
-  overflow: scroll;
-  max-height: 300px;
-  position: absolute;
-  border-radius: 0 0 8px 8px;
-  background-color: var(--color-grey-100);
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-const StyledDiv = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 function Header({ toggleSidebar, issidebaropen }) {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [immediateSearchQuery, setImmediateSearchQuery] = useState("");
-  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
-  const dropDownRef = useRef(null);
-  const isSearchBarFocused = useRef(false);
-
-  const {
-    isLoading,
-    error,
-    data: searchResults,
-  } = useGetSearchResults(debouncedSearchQuery);
-
-  const handleImmediateSearchQuery = (event) => {
-    const query = event.target.value;
-    setImmediateSearchQuery(query);
-  };
-
-  const debouncedSearch = debounce((value) => {
-    // Call api only when search bar is  focused;
-    if (isSearchBarFocused.current) {
-      setDebouncedSearchQuery(value);
-      setIsSearchOpen(value.length > 0);
-    }
-  }, 500);
-
-  useEffect(() => {
-    debouncedSearch(immediateSearchQuery);
-  }, [immediateSearchQuery, debouncedSearch]);
-
-  const handleClickOutside = (event) => {
-    if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
-      setIsSearchOpen(false);
-    }
-  };
-
-  const handleSearchBarFocus = () => {
-    isSearchBarFocused.current = true;
-  };
-
-  const handleSearchBarBlur = () => {
-    isSearchBarFocused.current = false;
-  };
-
-  const handleTitleClick = () => {
-    setIsSearchOpen(false);
-  };
-
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, []);
-
-  if (error) return <p>Error parsing search query. Please try again</p>;
-
   return (
     <StyledHeader>
       {!issidebaropen && <StyledButton onClick={toggleSidebar} />}
-      <StyledIcons>
-        <SearchBar
-          value={immediateSearchQuery}
-          onBlur={handleSearchBarBlur}
-          onFocus={handleSearchBarFocus}
-          onChange={handleImmediateSearchQuery}
-        />
-        {isLoading ? (
-          <StyledDiv>
-            <SpinnerMini />
-          </StyledDiv>
-        ) : (
-          isSearchOpen &&
-          isSearchBarFocused.current &&
-          searchResults &&
-          searchResults.length > 0 && (
-            <StyledDropdown ref={dropDownRef}>
-              {searchResults
-                .filter((result) => result.englishTitle && result.id)
-                .map((result, index) => (
-                  <SearchResultItem
-                    key={index}
-                    id={result.id}
-                    webp={result.webp}
-                    rating={result.score}
-                    status={result.status}
-                    episodes={result.episodes || result.chapters}
-                    name={result.englishTitle}
-                    onClick={handleTitleClick}
-                    mediaType={result.mediaType}
-                  />
-                ))}
-            </StyledDropdown>
-          )
-        )}
-      </StyledIcons>
+      <SearchBar />
     </StyledHeader>
   );
 }
