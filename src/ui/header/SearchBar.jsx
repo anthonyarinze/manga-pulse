@@ -43,7 +43,7 @@ const SearchBar = () => {
     if (isFocused) {
       setQuery(q);
     } else return;
-  }, 300);
+  }, 200);
 
   const handleFocus = () => {
     setIsFocused(true);
