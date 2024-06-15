@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import { openModal } from "../../slices/modalSlice";
 import { useUser } from "../../hooks/useUser";
+import { handleShareButtonClick } from "../../utils/helpers";
 
 const StyledButtons = styled.div`
   gap: 10px;
@@ -22,7 +23,7 @@ const StyledPopupButton = styled.button`
   background-color: var(--color-grey-200);
 `;
 
-const TitleButtons = ({ isInLibrary, handleShareButtonClick }) => {
+const TitleButtons = ({ isInLibrary }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isAuthenticated } = useUser();
@@ -46,7 +47,7 @@ const TitleButtons = ({ isInLibrary, handleShareButtonClick }) => {
       <TitleButton as="edit" onClick={() => handleAddToLibrary()}>
         {isInLibrary ? <MdBookmarkAdded /> : <IoBookmarksOutline />}
       </TitleButton>
-      <TitleButton as="share" onClick={handleShareButtonClick}>
+      <TitleButton as="share" onClick={() => handleShareButtonClick()}>
         <IoShareOutline />
       </TitleButton>
     </StyledButtons>

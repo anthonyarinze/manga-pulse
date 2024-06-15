@@ -31,18 +31,18 @@ const Container = styled.section`
 `;
 
 function AppLayout() {
-  const [issidebaropen, setissidebaropen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
-    setissidebaropen((previssidebaropen) => !previssidebaropen);
+    setIsSidebarOpen((previssidebaropen) => !previssidebaropen);
   };
 
   localStorage.removeItem("history");
 
   return (
-    <StyledAppLayout issidebaropen={issidebaropen}>
-      <Header toggleSidebar={toggleSidebar} issidebaropen={issidebaropen} />
-      {issidebaropen && <Sidebar closeSidebar={toggleSidebar} />}
+    <StyledAppLayout issidebaropen={isSidebarOpen ? "true" : undefined}>
+      <Header toggleSidebar={toggleSidebar} issidebaropen={isSidebarOpen} />
+      {isSidebarOpen && <Sidebar closeSidebar={toggleSidebar} />}
       <Main>
         <Container>
           <Outlet />

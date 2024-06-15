@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import {
   capitalizeFirstLetter,
   handleClickTitle,
-  handleShareButtonClick,
   openInMangadex,
 } from "../utils/helpers";
 import { useEffect } from "react";
@@ -134,10 +133,7 @@ const Title = () => {
             />
           </div>
           {/* bookmark & share */}
-          <TitleButtons
-            isInLibrary={isInLibrary}
-            handleShareButtonClick={() => handleShareButtonClick()}
-          />
+          <TitleButtons isInLibrary={isInLibrary} />
         </StyledData>
       </StyledImageAndDataRow>
 
