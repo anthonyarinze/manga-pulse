@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../ui/Button";
 import RatioChart from "../ui/account/RatioChart";
 import AccountDetails from "../ui/account/AccountDetails";
+import FilterChart from "../ui/account/FilterChart";
 
 const StyledAccount = styled.section`
   width: 100%;
@@ -16,10 +17,24 @@ const StyledAccount = styled.section`
   justify-content: start;
 `;
 
+const Charts = styled.div`
+  gap: 20px;
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+  justify-content: center;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+`;
+
 const Account = () => {
-  const { logout, isLoading: isLoggingOut } = useLogout();
-  const { isLoading, user } = useUser();
   const navigate = useNavigate();
+  const { isLoading, user } = useUser();
+  const { logout, isLoading: isLoggingOut } = useLogout();
 
   if (isLoading) return <Spinner />;
 
@@ -38,7 +53,10 @@ const Account = () => {
       {/* USER NAME & LOG OUT BUTTON */}
       <AccountDetails user={user} logout={logout} isLoggingOut={isLoggingOut} />
       {/* charts go here */}
-      <RatioChart />
+      <Charts>
+        <RatioChart />
+        <FilterChart />
+      </Charts>
     </StyledAccount>
   );
 };

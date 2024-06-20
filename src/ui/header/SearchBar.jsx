@@ -5,7 +5,7 @@ import { useGetSearchResults } from "../../api/useGetSearchResults";
 import { debounce } from "lodash";
 
 const StyledInput = styled.input`
-  width: 300px;
+  width: 200px;
   border: none;
   padding: 12px;
   outline: none;
@@ -14,6 +14,10 @@ const StyledInput = styled.input`
   border-radius: 8px;
   margin-right: 12px;
   background-color: var(--color-grey-200);
+
+  @media (min-width: 768px) {
+    width: 300px;
+  }
 `;
 
 const StyledSearchInput = styled.div`

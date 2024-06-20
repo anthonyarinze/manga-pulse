@@ -3,17 +3,23 @@ import styled from "styled-components";
 import SpinnerMini from "../SpinnerMini";
 
 const StyledUserCard = styled.div`
-  width: 40%;
+  width: 65%;
   height: 68px;
   cursor: auto;
   display: flex;
   font-size: 2rem;
+  min-height: 50px;
   padding-left: 10px;
+  margin-bottom: 20px;
   border-radius: 5px;
   align-items: center;
   box-shadow: var(--shadow-md);
   justify-content: space-between;
   background-color: var(--color-grey-100);
+
+  @media (min-width: 768px) {
+    width: 40%;
+  }
 `;
 
 const StyledName = styled.p`

@@ -11,13 +11,16 @@ import {
 } from "recharts";
 
 const StyledChartBox = styled.div`
-  width: 40%;
+  width: 80%;
   height: 270px;
-  cursor: pointer;
-  margin-top: 10px;
+  padding: 10px;
   border-radius: 5px;
   box-shadow: var(--shadow-md);
   background-color: var(--color-grey-100);
+
+  @media (min-width: 758px) {
+    width: 70%;
+  }
 `;
 
 const RatioChart = () => {
