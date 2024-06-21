@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import Spinner from "../ui/Spinner";
 import Empty from "../ui/Empty";
-import Heading from "../ui/Heading";
-import { FaStar } from "react-icons/fa";
 import { useGetLibrary } from "../api/useGetLibrary";
 import { useState } from "react";
 import Pagination from "../ui/Pagination";
-import StatusFilter from "../ui/StatusFilter";
 import StyledTitleCard from "../components/StyledTitleCard";
+import LibrarySynopsis from "../ui/library/LibrarySynopsis";
+import LibraryStats from "../ui/library/LibraryStats";
+import LibraryName from "../ui/library/LibraryName";
+import LibraryImage from "../ui/library/LibraryImage";
+import LibraryHeader from "../ui/library/LibraryHeader";
 
 const StyledLibrary = styled.section`
   gap: 15px;
@@ -24,13 +26,6 @@ const StyledLibrary = styled.section`
   }
 `;
 
-const StyledImage = styled.img`
-  width: 35%;
-  max-height: 220px;
-  object-fit: fill;
-  border-radius: 4px;
-`;
-
 const StyledData = styled.div`
   gap: 4px;
   width: 100%;
@@ -40,55 +35,6 @@ const StyledData = styled.div`
   align-items: start;
   flex-direction: column;
   justify-content: space-evenly;
-`;
-
-const StyledSpan = styled.span`
-  gap: 4px;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  text-overflow: ellipsis;
-`;
-
-const StyledStatus = styled.div`
-  gap: 7px;
-  display: flex;
-  padding: 2px 5px;
-  font-weight: 600;
-  font-size: smaller;
-  align-items: center;
-  border-radius: 2.5px;
-  justify-content: center;
-  background-color: var(--color-grey-300);
-`;
-
-const StyledSynopsis = styled.p`
-  max-width: 95%;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 5;
-  -webkit-box-orient: vertical;
-`;
-
-const StyledSpace = styled.div`
-  height: 1rem;
-`;
-
-const StyledTitleName = styled.p`
-  max-width: 95%;
-  overflow: hidden;
-  font-weight: 500;
-  font-size: 1.7rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-`;
-
-const StyledHeaderSpan = styled.span`
-  display: flex;
-  padding: 0px 2rem;
-  align-items: center;
-  justify-content: space-between;
 `;
 
 const ITEMS_PER_PAGE = 10;
@@ -123,42 +69,33 @@ const Library = () => {
 
   return (
     <>
-      <StyledHeaderSpan>
-        <Heading as="h4" style={{ margin: "1rem 0rem" }}>
-          Library
-        </Heading>
-        <StatusFilter
-          selectedStatus={selectedStatus}
-          onSelectStatus={handleStatusChange}
-        />
-      </StyledHeaderSpan>
+      <LibraryHeader
+        heading="Library"
+        selectedStatus={selectedStatus}
+        handleStatusChange={handleStatusChange}
+      />
 
       <StyledLibrary>
-        {currentTitles.map((title, index) => (
+        {currentTitles.map((title) => (
           <StyledTitleCard
-            key={index}
+            key={title.id}
             to={`/title/${title.media_type.toLowerCase()}/${title.id}`}
           >
-            <StyledImage src={title.webp} alt="image" />
+            <LibraryImage webp={title.webp} />
             <StyledData>
-              <StyledTitleName>{title.title_name}</StyledTitleName>
-              <StyledSpan>
-                <p>{title.media_type === "Manga" ? "Manga" : "Anime"} | </p>
-                <FaStar style={{ color: "gold" }} />
-                <p>{title.score}</p>
-              </StyledSpan>
-              <StyledSpan>
-                {title.episodes &&
-                  `${title.episodes} ${
-                    title.episodes > 1 ? "episodes" : "episode"
-                  }`}
-                {title.chapters &&
-                  `${title.chapters} ${
-                    title.chapters > 1 ? "chapters" : "chapter"
-                  }`}
-                <StyledStatus>{title.status}</StyledStatus>
-              </StyledSpan>
-              <StyledSynopsis>{title.synopsis}</StyledSynopsis>
+              {/* name */}
+              <LibraryName name={title.title_name} />
+
+              {/* stats */}
+              <LibraryStats
+                episodes={title.episodes}
+                chapters={title.chapters}
+                status={title.status}
+                score={title.score}
+              />
+
+              {/* synopsis */}
+              <LibrarySynopsis synopsis={title.synopsis} />
             </StyledData>
           </StyledTitleCard>
         ))}
@@ -170,7 +107,6 @@ const Library = () => {
             onPageChange={handlePageChange}
           />
         )}
-        <StyledSpace />
       </StyledLibrary>
     </>
   );

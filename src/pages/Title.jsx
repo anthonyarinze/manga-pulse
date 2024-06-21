@@ -137,10 +137,11 @@ const Title = () => {
         </StyledData>
       </StyledImageAndDataRow>
 
-      {/* open in mangadex */}
-      <Mangadex openInMangadex={() => openInMangadex(titleName)} />
+      {/* conditionally render mangadex button only if current title is manga */}
+      {type === "manga" && (
+        <Mangadex openInMangadex={() => openInMangadex(titleName)} />
+      )}
 
-      {/* grenres */}
       <Genres genres={genres} />
 
       <Themes themes={themes} />
