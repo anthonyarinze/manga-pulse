@@ -1,15 +1,20 @@
 import styled from "styled-components";
-import { IoCloseOutline } from "react-icons/io5";
 import MainNav from "./MainNav";
+import { IoCloseOutline } from "react-icons/io5";
 
 const StyledSidebar = styled.aside`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 22rem; // Adjust width as necessary
+  height: 100%;
   gap: 3.2rem;
   display: flex;
-  grid-row: 1 / -1;
   flex-direction: column;
   padding: 3.2rem 2.4rem;
   background-color: var(--color-grey-50);
   border-right: 1px solid var(--color-grey-100);
+  z-index: 1000; // Ensure it's on top of other elements
 `;
 
 const StyledButton = styled(IoCloseOutline)`
@@ -18,7 +23,7 @@ const StyledButton = styled(IoCloseOutline)`
   border-radius: 100%;
 
   &:hover {
-    background-color: var(--colors-grey-700);
+    background-color: var(--color-grey-700);
   }
 `;
 

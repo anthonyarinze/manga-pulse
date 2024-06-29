@@ -8,9 +8,9 @@ const StyledDropdown = styled.ul`
   margin: 0;
   width: 100%;
   padding: 0 8px;
-  z-index: 999;
+  z-index: 600;
   list-style: none;
-  overflow: scroll;
+  overflow-y: auto; /* Corrected from 'scroll' */
   max-height: 500px;
   position: absolute;
   border-radius: 8px;
