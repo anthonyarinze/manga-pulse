@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { FaStar } from "react-icons/fa";
 import StyledCardLink from "../components/StyledCardLink";
+import { useOverlay } from "../../contexts/OverlayContext";
 
 const StyledSearchResultItem = styled.div`
   padding: 8px;
@@ -78,9 +79,10 @@ const StyledMediaType = styled.div`
 
 const SearchResultItem = ({ result }) => {
   const type = result.mediaType.toLowerCase() === "manga" ? "manga" : "anime";
+  const { closeOverlay } = useOverlay();
 
   return (
-    <StyledCardLink to={`/title/${type}/${result.id}`}>
+    <StyledCardLink to={`/title/${type}/${result.id}`} onClick={closeOverlay}>
       <StyledSearchResultItem>
         <StyledImg src={result.webp} alt="img" />
         <StyledBody>

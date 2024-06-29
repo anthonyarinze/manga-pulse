@@ -1,6 +1,6 @@
-import { useState } from "react";
 import styled from "styled-components";
 import OverlaySearchBar from "./OverlaySearchBar";
+import { useOverlay } from "../../contexts/OverlayContext";
 
 const StyledInput = styled.input`
   width: 100%;
@@ -23,20 +23,12 @@ const StyledSearchInput = styled.div`
 `;
 
 const SearchBar = () => {
-  const [isFocused, setIsFocused] = useState(false);
-
-  const handleFocus = () => {
-    setIsFocused(true);
-  };
-
-  const closeOverlay = () => {
-    setIsFocused(false);
-  };
+  const { openOverlay, isOverlayOpen } = useOverlay();
 
   return (
     <StyledSearchInput className="search-input">
-      <StyledInput type="text" onFocus={handleFocus} placeholder="Search..." />
-      {isFocused && <OverlaySearchBar closeOverlay={closeOverlay} />}
+      <StyledInput type="text" placeholder="Search..." onFocus={openOverlay} />
+      {isOverlayOpen && <OverlaySearchBar />}
     </StyledSearchInput>
   );
 };

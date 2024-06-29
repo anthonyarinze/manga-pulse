@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import Dropdown from "./Dropdown";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGetSearchResults } from "../../api/useGetSearchResults";
 import { debounce } from "lodash";
 import { IoClose } from "react-icons/io5";
+import { useOverlay } from "../../contexts/OverlayContext";
 
 const Overlay = styled.div`
   top: 0;
@@ -68,7 +69,8 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
-const OverlaySearchBar = ({ closeOverlay }) => {
+const OverlaySearchBar = () => {
+  const { closeOverlay } = useOverlay();
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const searchBarRef = useRef(null);
@@ -85,6 +87,12 @@ const OverlaySearchBar = ({ closeOverlay }) => {
 
     setIsOpen(newQuery.length > 1); // Open dropdown on minimum 1 character
   };
+
+  useEffect(() => {
+    if (searchBarRef.current) {
+      searchBarRef.current.focus(); //set focus the the search bar when overlay mounts.
+    }
+  }, []);
 
   return (
     <Overlay>

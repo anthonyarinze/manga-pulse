@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Sidebar from "./Sidebar";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
+import { OverlayProvider } from "../contexts/OverlayContext";
 
 const StyledAppLayout = styled.div`
   width: 100dvw;
@@ -47,17 +48,19 @@ function AppLayout() {
   localStorage.removeItem("history");
 
   return (
-    <StyledAppLayout>
-      <Header toggleSidebar={toggleSidebar} issidebaropen={isSidebarOpen} />
-      {isSidebarOpen && <Sidebar closeSidebar={toggleSidebar} />}
-      {isSidebarOpen && <Overlay onClick={toggleSidebar} />}{" "}
-      {/* Overlay to close sidebar on click */}
-      <Main>
-        <Container>
-          <Outlet />
-        </Container>
-      </Main>
-    </StyledAppLayout>
+    <OverlayProvider>
+      <StyledAppLayout>
+        <Header toggleSidebar={toggleSidebar} issidebaropen={isSidebarOpen} />
+        {isSidebarOpen && <Sidebar closeSidebar={toggleSidebar} />}
+        {isSidebarOpen && <Overlay onClick={toggleSidebar} />}{" "}
+        {/* Overlay to close sidebar on click */}
+        <Main>
+          <Container>
+            <Outlet />
+          </Container>
+        </Main>
+      </StyledAppLayout>
+    </OverlayProvider>
   );
 }
 

@@ -6,9 +6,9 @@ const StyledLink = styled(Link)`
   height: 240px;
 `;
 
-const StyledCardLink = ({ children, to }) => {
+const StyledCardLink = ({ children, to, onClick }) => {
   return (
-    <StyledLink to={to} rel="noopener noreferrer">
+    <StyledLink to={to} rel="noopener noreferrer" onClick={onClick}>
       {children}
     </StyledLink>
   );
