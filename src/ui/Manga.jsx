@@ -3,8 +3,8 @@ import { StyledSectionHeader } from "./SectionHeader";
 import { useGetPopularManga } from "../api/manga/useGetPopularManga";
 import { useState } from "react";
 import Loading from "./Loading";
-import RecommendedMangaCard from "../components/RecommendedMangaCard";
-import ShowMoreLessButtons from "../components/ShowMoreLessButtons";
+import ShowMoreLessButtons from "./components/ShowMoreLessButtons";
+import RecommendedMangaCard from "./components/RecommendedMangaCard";
 
 const StyledSection = styled.section`
   width: 100vw;

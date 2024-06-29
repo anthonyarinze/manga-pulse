@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import RecommendedCard from "../components/RecommendedAnimeCard";
+import RecommendedCard from "./components/RecommendedAnimeCard";
 import { useGetRecommendedAnime } from "../api/anime/useGetRecommendedAnime";
 import Loading from "../ui/Loading";
 import { useState } from "react";
 import Popular from "./PopularAnime";
-import ShowMoreLessButtons from "../components/ShowMoreLessButtons";
+import ShowMoreLessButtons from "./components/ShowMoreLessButtons";
 import { StyledSectionHeader } from "./SectionHeader";
 
 const StyledSection = styled.section`

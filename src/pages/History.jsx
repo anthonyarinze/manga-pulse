@@ -1,18 +1,18 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Empty from "../ui/Empty";
-import StyledTitleCard from "../components/StyledTitleCard";
 import LibrarySynopsis from "../ui/library/LibrarySynopsis";
 import LibraryStats from "../ui/library/LibraryStats";
 import LibraryName from "../ui/library/LibraryName";
 import LibraryImage from "../ui/library/LibraryImage";
 import LibraryHeader from "../ui/library/LibraryHeader";
+import StyledTitleCard from "../ui/components/StyledTitleCard";
 
 const StyledHistory = styled.section`
   gap: 15px;
-  width: 100vw;
   height: 100vh;
   display: flex;
+  max-width: 100%;
   padding: 1rem 2rem;
   flex-direction: column;
 

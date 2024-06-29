@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { FaStar } from "react-icons/fa";
-import StyledCardLink from "../../components/StyledCardLink";
+import StyledCardLink from "../components/StyledCardLink";
 
 const StyledSearchResultItem = styled.div`
   padding: 8px;

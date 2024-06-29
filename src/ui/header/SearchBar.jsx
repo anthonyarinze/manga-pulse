@@ -5,9 +5,9 @@ import { useGetSearchResults } from "../../api/useGetSearchResults";
 import { debounce } from "lodash";
 
 const StyledInput = styled.input`
-  width: 200px;
+  width: 100%;
   border: none;
-  padding: 12px;
+  padding: 9px;
   outline: none;
   color: white;
   font-size: 1.6rem;

@@ -152,7 +152,7 @@ const Modal = () => {
   }, [dispatch, status]);
 
   return createPortal(
-    <StyledBackdrop onClick={() => console.log("test")}>
+    <StyledBackdrop>
       <StyledModal>
         <StyledHeader>
           <Heading as="h3">Add to library</Heading>

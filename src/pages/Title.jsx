@@ -13,8 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { currentTitle } from "../slices/titleSlice";
 import { setTitles } from "../slices/librarySlice";
 import { addToHistory } from "../slices/historySlice";
-import RecommendationsById from "../components/RecommendationsById";
-import MangaRecommendationsById from "../components/MangaRecommendationsById";
 import { useGetLibrary } from "../api/useGetLibrary";
 import TitleInfo from "../ui/title/TitleInfo";
 import Stats from "../ui/title/Stats";
@@ -24,6 +22,8 @@ import TitleButtons from "../ui/title/TitleButtons";
 import Genres from "../ui/title/Genres";
 import Themes from "../ui/title/Themes";
 import useIsInLibrary from "../hooks/title/useIsInLibrary";
+import RecommendationsById from "../ui/components/RecommendationsById";
+import MangaRecommendationsById from "../ui/components/MangaRecommendationsById";
 
 const StyledSection = styled.section`
   width: 100vw;

@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import StyledCardLink from "../components/StyledCardLink";
 
@@ -20,7 +19,6 @@ const StyledTitle = styled.div`
 `;
 
 const LibraryTitleCard = ({ children, type, id }) => {
-  const navigate = useNavigate();
   return (
     <StyledCardLink to={`/title/${type.toLowerCase()}/${id}`}>
       <StyledTitle>{children}</StyledTitle>

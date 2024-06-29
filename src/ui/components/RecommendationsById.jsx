@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import Loading from "../ui/Loading";
-import PopularTitles from "../ui/PopularTitles";
 import { useState } from "react";
 import ShowMoreLessButtons from "./ShowMoreLessButtons";
-import useRecommendedManga from "../api/manga/useGetRecommendationsById";
 import { useParams } from "react-router-dom";
+import Loading from "../Loading";
+import PopularTitles from "../PopularTitles";
+import useRecommendedAnime from "../../api/anime/useGetRecommendationsById";
 
 const StyledRecommendations = styled.div`
   gap: 10px;
@@ -40,8 +40,8 @@ const StyledButtons = styled.div`
   justify-content: center;
 `;
 
-const MangaRecommendationsById = ({ id }) => {
-  const { isLoading, error, data } = useRecommendedManga(id);
+const RecommendationsById = ({ id }) => {
+  const { isLoading, error, data } = useRecommendedAnime(id);
 
   const { type } = useParams();
 
@@ -68,13 +68,13 @@ const MangaRecommendationsById = ({ id }) => {
         {data &&
           data
             .slice(0, visibleRecommendations)
-            .map((manga, index) => (
+            .map((anime, index) => (
               <PopularTitles
                 key={index}
-                id={manga.id}
-                image={manga.image_url}
+                id={anime.id}
+                image={anime.image_url}
                 type={type}
-                title={manga.title}
+                title={anime.title}
               />
             ))}
         {visibleRecommendations < (data?.length || 0) && (
@@ -96,4 +96,4 @@ const MangaRecommendationsById = ({ id }) => {
   );
 };
 
-export default MangaRecommendationsById;
+export default RecommendationsById;

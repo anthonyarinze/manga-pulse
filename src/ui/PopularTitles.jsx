@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import StyledCardLink from "../components/StyledCardLink";
+import StyledCardLink from "./components/StyledCardLink";
 
 const CardContainer = styled.div`
   width: 180px;

@@ -4,12 +4,12 @@ import Empty from "../ui/Empty";
 import { useGetLibrary } from "../api/useGetLibrary";
 import { useState } from "react";
 import Pagination from "../ui/Pagination";
-import StyledTitleCard from "../components/StyledTitleCard";
 import LibrarySynopsis from "../ui/library/LibrarySynopsis";
 import LibraryStats from "../ui/library/LibraryStats";
 import LibraryName from "../ui/library/LibraryName";
 import LibraryImage from "../ui/library/LibraryImage";
 import LibraryHeader from "../ui/library/LibraryHeader";
+import StyledTitleCard from "../ui/components/StyledTitleCard";
 
 const StyledLibrary = styled.section`
   gap: 15px;
