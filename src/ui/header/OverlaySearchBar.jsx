@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Dropdown from "./Dropdown";
 import { useEffect, useRef, useState } from "react";
 import { useGetSearchResults } from "../../api/useGetSearchResults";
-import { debounce } from "lodash";
 import { IoClose } from "react-icons/io5";
 import { useOverlay } from "../../contexts/OverlayContext";
 
@@ -74,23 +73,22 @@ const OverlaySearchBar = () => {
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const searchBarRef = useRef(null);
+
   const { isLoading, error, data } = useGetSearchResults(query);
 
-  const debouncedSearch = debounce((q) => {
-    setQuery(q);
-  }, 200);
-
   const handleSearchChange = (event) => {
-    const newQuery = event.target.value;
+    setQuery(event.target.value);
+  };
 
-    debouncedSearch(newQuery);
-
-    setIsOpen(newQuery.length > 1); // Open dropdown on minimum 1 character
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      setIsOpen(query.length > 1);
+    }
   };
 
   useEffect(() => {
     if (searchBarRef.current) {
-      searchBarRef.current.focus(); //set focus the the search bar when overlay mounts.
+      searchBarRef.current.focus(); // Set focus to the search bar when overlay mounts.
     }
   }, []);
 
@@ -104,6 +102,7 @@ const OverlaySearchBar = () => {
             value={query}
             ref={searchBarRef}
             onChange={handleSearchChange}
+            onKeyPress={handleKeyPress}
             placeholder={error ? error.message : "Search..."}
           />
           {isOpen && data && <Dropdown results={data} isLoading={isLoading} />}

@@ -19,8 +19,6 @@ const StyledSearchResultItem = styled.div`
   border: 1px solid var(--color-grey-300);
 
   &:hover {
-    transform: scale(1.03);
-    border: 2px solid var(--color-grey-300);
     background-color: var(--color-grey-100);
   }
 `;
