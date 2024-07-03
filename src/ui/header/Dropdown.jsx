@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import SearchResultItem from "./SearchResultItem";
-import SkeletonItem from "./SkeletonItem";
 
 const StyledDropdown = styled.ul`
   left: 0;
@@ -18,16 +17,12 @@ const StyledDropdown = styled.ul`
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 `;
 
-const Dropdown = ({ results, isLoading }) => {
+const Dropdown = ({ results }) => {
   return (
     <StyledDropdown>
-      {isLoading ? (
-        <SkeletonItem />
-      ) : (
-        results.map((result, index) => (
-          <SearchResultItem key={index} result={result} />
-        ))
-      )}
+      {results.map((result) => (
+        <SearchResultItem key={result.id} result={result} />
+      ))}
     </StyledDropdown>
   );
 };

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { useGetSearchResults } from "../../api/useGetSearchResults";
 import { IoClose } from "react-icons/io5";
 import { useOverlay } from "../../contexts/OverlayContext";
+import DropdownLoader from "./DropdownLoading";
 
 const Overlay = styled.div`
   top: 0;
@@ -28,6 +29,10 @@ const StyledInputContainer = styled.div`
   width: 100%;
   max-width: 700px; /* Max width on larger screens */
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 
   @media (min-width: 768px) {
     margin-top: 1rem;
@@ -47,8 +52,10 @@ const StyledInput = styled.input`
 
 const StyledButton = styled(IoClose)`
   cursor: pointer;
+  margin-bottom: 8px;
   font-size: 3.4rem;
   align-self: center;
+  justify-self: center;
   border-radius: 100%;
 
   &:hover {
@@ -70,6 +77,7 @@ const Container = styled.div`
 
 const OverlaySearchBar = () => {
   const { closeOverlay } = useOverlay();
+  const [tempQuery, setTempQuery] = useState("");
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const searchBarRef = useRef(null);
@@ -77,12 +85,13 @@ const OverlaySearchBar = () => {
   const { isLoading, error, data } = useGetSearchResults(query);
 
   const handleSearchChange = (event) => {
-    setQuery(event.target.value);
+    setTempQuery(event.target.value);
   };
 
-  const handleKeyPress = (event) => {
+  const handleKeyDown = (event) => {
     if (event.key === "Enter") {
-      setIsOpen(query.length > 1);
+      setQuery(tempQuery);
+      setIsOpen(tempQuery.length > 1);
     }
   };
 
@@ -95,16 +104,17 @@ const OverlaySearchBar = () => {
   return (
     <Overlay>
       <Container>
-        <StyledButton onClick={closeOverlay} />
         <StyledInputContainer>
+          <StyledButton onClick={closeOverlay} />
           <StyledInput
             type="text"
-            value={query}
+            value={tempQuery}
             ref={searchBarRef}
             onChange={handleSearchChange}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyDown}
             placeholder={error ? error.message : "Search..."}
           />
+          {isLoading && <DropdownLoader />} {/* Show loader when loading */}
           {isOpen && data && <Dropdown results={data} isLoading={isLoading} />}
         </StyledInputContainer>
       </Container>
