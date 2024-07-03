@@ -75,6 +75,17 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 
+const LoadingContainer = styled.div`
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  max-width: 700px;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+`;
+
 const OverlaySearchBar = () => {
   const { closeOverlay } = useOverlay();
   const [tempQuery, setTempQuery] = useState("");
@@ -114,10 +125,10 @@ const OverlaySearchBar = () => {
             onKeyDown={handleKeyDown}
             placeholder={error ? error.message : "Search..."}
           />
-          {isLoading && <DropdownLoader />} {/* Show loader when loading */}
-          {isOpen && data && <Dropdown results={data} isLoading={isLoading} />}
+          {isOpen && data && <Dropdown results={data} />}
         </StyledInputContainer>
       </Container>
+      <LoadingContainer>{isLoading && <DropdownLoader />}</LoadingContainer>
     </Overlay>
   );
 };

@@ -20,8 +20,8 @@ const StyledDropdownLoader = styled.div`
 
 const LoaderContainer = styled.div`
   width: 100%;
-  height: 100px;
   display: flex;
+  height: 100px;
   align-items: center;
   justify-content: center;
 `;
