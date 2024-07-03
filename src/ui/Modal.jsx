@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
 import styled, { css } from "styled-components";
 import Heading from "./Heading";
@@ -115,6 +115,7 @@ const Modal = () => {
     const newStatus = e.target.value;
     setStatus(newStatus);
     setIsStatusChanged(newStatus !== titleInLibrary?.status);
+    dispatch(updateStatus(newStatus));
   };
 
   const handleUpdate = () => {
@@ -146,10 +147,6 @@ const Modal = () => {
     "Plan to Watch",
     "Completed",
   ];
-
-  useEffect(() => {
-    dispatch(updateStatus(status));
-  }, [dispatch, status]);
 
   return createPortal(
     <StyledBackdrop>

@@ -68,11 +68,11 @@ const Title = () => {
   const isInLibrary = useIsInLibrary(title);
 
   // to add the recently viewed title to history state
-  useEffect(() => {
-    if (title) {
-      dispatch(addToHistory(title));
-    }
-  }, [dispatch, title]);
+  // useEffect(() => {
+  //   if (title) {
+  //     dispatch(addToHistory(title));
+  //   }
+  // }, [dispatch, title]);
 
   const { isLoading: isGettingLibraryTitles, titles: libraryTitles } =
     useGetLibrary();
@@ -82,10 +82,11 @@ const Title = () => {
       dispatch(setTitles(libraryTitles));
       dispatch(currentTitle({ ...title, isInLibrary }));
     }
+    if (title) dispatch(addToHistory(title));
   }, [dispatch, isGettingLibraryTitles, libraryTitles, isInLibrary, title]);
 
   if (isLoading || isGettingLibraryTitles) return <Spinner />;
-  if (error) return <p>An error occurred. Please try again later.</p>;
+  if (error) return <p>An error occurred: {error.message}.</p>;
 
   const {
     url,
