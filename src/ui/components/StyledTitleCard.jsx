@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 
 const StyledTitle = styled.div`
   display: flex;
-  padding: 10px;
+  padding: 8px;
   cursor: pointer;
-  min-height: 240px;
+  min-height: 220px;
   max-height: 241px;
   border-radius: 4px;
   align-items: center;

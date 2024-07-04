@@ -1,6 +1,11 @@
 import { FaStar } from "react-icons/fa";
 import styled from "styled-components";
 
+const StyledStatSection = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+
 const StyledSpan = styled.span`
   gap: 4px;
   font-size: 15px;
@@ -14,7 +19,7 @@ const StyledStatus = styled.div`
   display: flex;
   padding: 2px 5px;
   font-weight: 600;
-  font-size: smaller;
+  font-size: x-small;
   align-items: center;
   border-radius: 2.5px;
   justify-content: center;
@@ -23,13 +28,14 @@ const StyledStatus = styled.div`
 
 const LibraryStats = ({ episodes, chapters, status, score }) => {
   return (
-    <StyledSpan>
+    <StyledStatSection>
       {episodes && `${episodes} ${episodes > 1 ? "episodes" : "episode"}`}
-      {chapters &&
-        `${chapters} ${chapters > 1 ? "chapters" : "chapter"}`} |{" "}
-      <FaStar style={{ color: "gold" }} /> {score}
-      <StyledStatus>{status}</StyledStatus>
-    </StyledSpan>
+      {chapters && `${chapters} ${chapters > 1 ? "chapters" : "chapter"}`}
+      <StyledSpan>
+        <FaStar style={{ color: "gold" }} /> {score} |
+        <StyledStatus>{status}</StyledStatus>
+      </StyledSpan>
+    </StyledStatSection>
   );
 };
 
