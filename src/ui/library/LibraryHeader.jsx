@@ -18,7 +18,7 @@ const LibraryHeader = ({ selectedStatus, handleStatusChange, heading }) => {
       {selectedStatus && (
         <StatusFilter
           selectedStatus={selectedStatus}
-          onSelectStatus={() => handleStatusChange()}
+          onSelectStatus={handleStatusChange}
         />
       )}
     </StyledHeaderSpan>

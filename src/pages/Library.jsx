@@ -67,6 +67,9 @@ const Library = () => {
     setCurrentPage(1); //Reset current page when status changes;
   };
 
+  // console.log(titles.filter((title) => title.status === "Watching"));
+  console.log(selectedStatus);
+
   return (
     <>
       <LibraryHeader
