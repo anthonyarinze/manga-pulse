@@ -28,4 +28,4 @@ Manga Tracker is a project I built not too disimilar to myanimelist in terms of 
 
 ## Enquiries
 
-- For any enquiries, please feel free to [email me](mailto:anthonyarinze28@gmail.com?subject=[MangaPulse] MangaPulse)
+- For any enquiries, please feel free to [email me](mailto:anthonyarinze28@gmail.com)
