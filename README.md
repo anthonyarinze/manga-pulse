@@ -25,3 +25,7 @@ Manga Tracker is a project I built not too disimilar to myanimelist in terms of 
 ## Acknoledgements
 
 - Special thanks to the jikan.moe api and their team for essentially powering this project. Without them it likely wouldn't exist.
+
+## Enquiries
+
+- For any enquiries, please feel free to [email me](mailto:anthonyarinze28@gmail.com?subject=[MangaPulse] MangaPulse)
