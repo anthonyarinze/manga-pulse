@@ -77,10 +77,11 @@ const StyledMediaType = styled.div`
 
 const SearchResultItem = ({ result }) => {
   const type = result.mediaType.toLowerCase() === "manga" ? "manga" : "anime";
+  const id = result.id;
   const { closeOverlay } = useOverlay();
 
   return (
-    <StyledCardLink to={`/title/${type}/${result.id}`} onClick={closeOverlay}>
+    <StyledCardLink to={`/title/${type}/${id}`} onClick={closeOverlay}>
       <StyledSearchResultItem>
         <StyledImg src={result.webp} alt="img" />
         <StyledBody>

@@ -15,12 +15,12 @@ const LibraryHeader = ({ selectedStatus, handleStatusChange, heading }) => {
       <Heading as="h4" style={{ margin: "1rem 0rem" }}>
         {heading}
       </Heading>
-      {selectedStatus && (
-        <StatusFilter
-          selectedStatus={selectedStatus}
-          onSelectStatus={handleStatusChange}
-        />
-      )}
+
+      {/* status filter dropdown with options */}
+      <StatusFilter
+        selectedStatus={selectedStatus}
+        onSelectStatus={handleStatusChange}
+      />
     </StyledHeaderSpan>
   );
 };

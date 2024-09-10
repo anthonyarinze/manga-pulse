@@ -13,6 +13,7 @@ export function useTitleDetails() {
     queryKey: [type, titleId],
     queryFn: () => getTitleDetails(endpoint, titleId),
     retry: false,
+    refetchOnWindowFocus: false,
   });
 
   return { isLoading, error, title };

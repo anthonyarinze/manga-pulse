@@ -22,6 +22,7 @@ const StyledSearchInput = styled.div`
   position: relative;
 `;
 
+// default search bar on the header. on focus, renders the overlay search bar.
 const SearchBar = () => {
   const { openOverlay, isOverlayOpen } = useOverlay();
 

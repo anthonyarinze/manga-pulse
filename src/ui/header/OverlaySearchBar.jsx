@@ -86,6 +86,7 @@ const LoadingContainer = styled.div`
   justify-content: center;
 `;
 
+// overlay search bar. triggered when user focuses on the defualt header search.
 const OverlaySearchBar = () => {
   const { closeOverlay } = useOverlay();
   const [tempQuery, setTempQuery] = useState("");
@@ -95,10 +96,13 @@ const OverlaySearchBar = () => {
 
   const { isLoading, error, data } = useGetSearchResults(query);
 
+  // sets the temporary query as the user types. avoided setting query directly because it fires the api.
   const handleSearchChange = (event) => {
     setTempQuery(event.target.value);
   };
 
+  // sets the query as the val of temp. query and searches when user hits enter.
+  // also triggers the dropdown if the query is more than one char.
   const handleKeyDown = (event) => {
     if (event.key === "Enter") {
       setQuery(tempQuery);
@@ -106,6 +110,7 @@ const OverlaySearchBar = () => {
     }
   };
 
+  // auto focuses the search bar when the overlay is rendered.
   useEffect(() => {
     if (searchBarRef.current) {
       searchBarRef.current.focus(); // Set focus to the search bar when overlay mounts.

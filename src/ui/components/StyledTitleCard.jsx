@@ -23,7 +23,7 @@ const StyledLink = styled(Link)`
   min-height: 240px;
   max-height: 241px;
 `;
-
+// reusable title card component
 const StyledTitleCard = ({ children, to }) => {
   return (
     <StyledLink to={to} rel="noopener noreferrer">

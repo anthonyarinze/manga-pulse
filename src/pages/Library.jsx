@@ -72,6 +72,7 @@ const Library = () => {
 
   return (
     <>
+      {/* header component with filter */}
       <LibraryHeader
         heading="Library"
         selectedStatus={selectedStatus}
@@ -79,6 +80,7 @@ const Library = () => {
       />
 
       <StyledLibrary>
+        {/* titles shown with filter applied. shows all as default. */}
         {currentTitles.map((title) => (
           <StyledTitleCard
             key={title.id}
@@ -103,6 +105,7 @@ const Library = () => {
           </StyledTitleCard>
         ))}
 
+        {/* pagination */}
         {totalPages > 1 && (
           <Pagination
             totalPages={totalPages}

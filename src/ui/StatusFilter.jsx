@@ -7,6 +7,7 @@ const StyledSelect = styled.select`
   border-radius: 4px;
 `;
 
+// filter component
 const StatusFilter = ({ selectedStatus, onSelectStatus }) => {
   const statusOptions = [
     "All",

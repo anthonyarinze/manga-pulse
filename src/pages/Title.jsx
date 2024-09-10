@@ -77,7 +77,7 @@ const Title = () => {
     }
     // to add the recently viewed title to history state
     if (title) dispatch(addToHistory(title));
-  }, [dispatch, isGettingLibraryTitles, libraryTitles, isInLibrary, title]);
+  }, [isGettingLibraryTitles, libraryTitles, isInLibrary, title, dispatch]);
 
   if (isLoading || isGettingLibraryTitles) return <Spinner />;
   if (error) return <p>An error occurred: {error.message}.</p>;
